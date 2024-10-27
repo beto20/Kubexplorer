@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/beto20/kubessitant/pod"
+	"fmt"
+
+	"github.com/beto20/kubessitant/objects"
 )
 
 func main() {
@@ -28,8 +30,26 @@ func main() {
 
 	/////////
 
-	pod.GetPods("assi")
+	x := objects.GetPods("")
 
+	for _, pod := range x {
+
+		fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitCPU: %s requestMemory: %s limitMemory: %s status: %s startTime: %s\n",
+			pod.Name,
+			pod.Namespace,
+			pod.Container.Request.Cpu,
+			pod.Container.Limit.Cpu,
+			pod.Container.Request.Memory,
+			pod.Container.Limit.Memory,
+			pod.Status,
+			pod.Age,
+		)
+	}
+
+	// for i := 0; i < 30; i++ {
+	// 	go config.GetKubeInstance()
+	// }
+	// fmt.Scanln()
 }
 
 // func podMetrics(config *rest.Config) {
@@ -212,8 +232,7 @@ func main() {
 // 	podsClient := client.CoreV1().Pods(namespace)
 
 // 	fmt.Println("Updating pod...")
-// 	retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() error {
-
+// 	retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() objects
 // 		// retrive the latest pod
 // 		currentPod, updateErr := podsClient.Get(context.TODO(), "mock-56b64bc885-5wx6b", metav1.GetOptions{})
 // 		if updateErr != nil {
