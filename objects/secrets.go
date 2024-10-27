@@ -1,0 +1,5 @@
+package resource
+
+func getSecrets() {
+
+}
