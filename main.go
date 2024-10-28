@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/beto20/kubessitant/objects"
 )
 
@@ -30,21 +28,22 @@ func main() {
 
 	/////////
 
-	x := objects.GetPods("")
+	// x := objects.GetPods("")
+	objects.GetDeployments("")
 
-	for _, pod := range x {
+	// for _, pod := range x {
 
-		fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitCPU: %s requestMemory: %s limitMemory: %s status: %s startTime: %s\n",
-			pod.Name,
-			pod.Namespace,
-			pod.Container.Request.Cpu,
-			pod.Container.Limit.Cpu,
-			pod.Container.Request.Memory,
-			pod.Container.Limit.Memory,
-			pod.Status,
-			pod.Age,
-		)
-	}
+	// 	fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitCPU: %s requestMemory: %s limitMemory: %s status: %s startTime: %s\n",
+	// 		pod.Name,
+	// 		pod.Namespace,
+	// 		pod.Container.Request.Cpu,
+	// 		pod.Container.Limit.Cpu,
+	// 		pod.Container.Request.Memory,
+	// 		pod.Container.Limit.Memory,
+	// 		pod.Status,
+	// 		pod.Age,
+	// 	)
+	// }
 
 	// for i := 0; i < 30; i++ {
 	// 	go config.GetKubeInstance()
