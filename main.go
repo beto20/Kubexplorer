@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/beto20/kubessitant/objects"
-)
-
 func main() {
 	// home, _ := os.UserHomeDir()
 	// kubeConfigPath := filepath.Join(home, ".kube/config")
@@ -29,7 +25,8 @@ func main() {
 	/////////
 
 	// x := objects.GetPods("")
-	objects.GetDeployments("")
+	// objects.GetDeployments("")
+	// config.SqlExe()
 
 	// for _, pod := range x {
 

@@ -10,14 +10,13 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-var lock = &sync.Mutex{}
-
+var kube = &sync.Mutex{}
 var kubeClient *kubernetes.Clientset
 
 func GetKubeInstance() *kubernetes.Clientset {
 	if kubeClient == nil {
-		lock.Lock()
-		defer lock.Unlock()
+		kube.Lock()
+		defer kube.Unlock()
 		if kubeClient == nil {
 			fmt.Println("Creating a single instance")
 			kubeClient = buildKubeClient()
