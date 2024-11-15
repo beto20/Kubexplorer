@@ -1,15 +1,34 @@
 package usecase
 
-type Pod struct{}
+import (
+	"github.com/beto20/kubessitant/objects"
+)
 
-func (p *Pod) GetAll() {
+type IPodUseCase interface {
+	GetAllPods(namespace string) []objects.PodDto
 }
 
-func (p *Pod) GetDetailsById() {
+type podImpl struct {
+	object objects.IPodObject
 }
 
-func (p *Pod) DeleteOneById() {
+func NewPodUseCase(object objects.IPodObject) IPodUseCase {
+	return &podImpl{object: object}
 }
 
-func (p *Pod) EditOneById() {
+func (p *podImpl) GetAllPods(namespace string) []objects.PodDto {
+	return p.object.GetPodsMock(namespace)
+}
+
+//func (p *pod) GetAll() []objects.Pod {
+//	return objects.GetPods("assi")
+//}
+
+func (p *podImpl) GetDetailsById() {
+}
+
+func (p *podImpl) DeleteOneById() {
+}
+
+func (p *podImpl) EditOneById() {
 }

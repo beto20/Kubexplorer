@@ -1,15 +1,19 @@
 package usecase
 
-type Deployment struct{}
+import "github.com/beto20/kubessitant/objects"
 
-func (d *Deployment) GetAll() {
+type IDeploymentUseCase interface {
+	GetAllDeployments(namespace string) []objects.DeploymentDto
 }
 
-func (d *Deployment) GetDetailsById() {
+type deploymentImpl struct {
+	object objects.IDeployment
 }
 
-func (d *Deployment) DeleteOneById() {
+func NewDeploymentUseCase(object objects.IDeployment) IDeploymentUseCase {
+	return &deploymentImpl{object: object}
 }
 
-func (d *Deployment) EditOneById() {
+func (d *deploymentImpl) GetAllDeployments(namespace string) []objects.DeploymentDto {
+	return d.object.GetDeploymentsMock(namespace)
 }

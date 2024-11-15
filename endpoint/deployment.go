@@ -1,15 +1,33 @@
 package endpoint
 
-import "github.com/beto20/kubessitant/usecase"
+import (
+	"fmt"
+	"github.com/beto20/kubessitant/usecase"
+)
+
+type IDeploymentEndpoint interface {
+	GetDeployments(namespace string)
+}
 
 type DeploymentEndpoint struct {
-	usecase usecase.K8sObject
+	useCase usecase.IDeploymentUseCase
 }
 
-func NewDeploymentEndpoint(usecase usecase.K8sObject) *DeploymentEndpoint {
-	return &DeploymentEndpoint{}
+func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) *DeploymentEndpoint {
+	return &DeploymentEndpoint{
+		useCase: useCase,
+	}
 }
 
-func (de *DeploymentEndpoint) getDeployments() {
-	de.usecase.GetAll()
+func (de *DeploymentEndpoint) GetDeployments(namespace string) {
+	deployments := de.useCase.GetAllDeployments(namespace)
+
+	for _, d := range deployments {
+		fmt.Printf("deployment name: %s namespace: %s status: %s age: %s\n",
+			d.Name,
+			d.Namespace,
+			d.Status,
+			d.Age,
+		)
+	}
 }

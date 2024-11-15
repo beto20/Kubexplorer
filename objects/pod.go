@@ -3,13 +3,25 @@ package objects
 import (
 	"context"
 	"fmt"
-
 	"github.com/beto20/kubessitant/config"
 	"github.com/beto20/kubessitant/knowledge"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"math/rand"
+	"strconv"
 )
 
-type Pod struct {
+type IPodObject interface {
+	GetPodsMock(namespace string) []PodDto
+	GetPods(namespace string) []PodDto
+}
+
+type podImpl struct{}
+
+func NewPodObject() IPodObject {
+	return &podImpl{}
+}
+
+type PodDto struct {
 	Name      string
 	Namespace string
 	Container Container
@@ -29,16 +41,16 @@ type Resource struct {
 
 var client = config.GetKubeInstance()
 
-func GetPods(namespace string) []Pod {
+func (p *podImpl) GetPods(namespace string) []PodDto {
 	podsClient := client.CoreV1().Pods(namespace)
 	pods, err := podsClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		fmt.Println("Error when get pods")
 	}
-	var podArray []Pod
+	var podArray []PodDto
 
 	for _, pod := range pods.Items {
-		p := Pod{
+		p := PodDto{
 			Name:      pod.Name,
 			Namespace: pod.Namespace,
 			Container: Container{
@@ -71,6 +83,33 @@ func GetPods(namespace string) []Pod {
 	}
 
 	return podArray
+}
+
+func (p *podImpl) GetPodsMock(namespace string) []PodDto {
+	var pods []PodDto
+	for i := 0; i < 10; i++ {
+
+		p := PodDto{
+			Name:      fmt.Sprintf("pod %d", i),
+			Namespace: namespace,
+			Container: Container{
+				Limit: Resource{
+					Cpu:    strconv.Itoa(rand.Intn(1000)),
+					Memory: strconv.Itoa(rand.Intn(1000)),
+				},
+				Request: Resource{
+					Cpu:    strconv.Itoa(rand.Intn(1000)),
+					Memory: strconv.Itoa(rand.Intn(1000)),
+				},
+			},
+			Status: "Alive",
+			Age:    strconv.Itoa(rand.Intn(1000)),
+		}
+
+		pods = append(pods, p)
+	}
+
+	return pods
 }
 
 func status(namespace string) {

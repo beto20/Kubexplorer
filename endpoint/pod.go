@@ -1,15 +1,35 @@
 package endpoint
 
-import "github.com/beto20/kubessitant/usecase"
+import (
+	"fmt"
+	"github.com/beto20/kubessitant/usecase"
+)
+
+type IPodEndpoint interface {
+	GetPods(namespace string)
+}
 
 type PodEndpoint struct {
-	usecase usecase.K8sObject
+	useCase usecase.IPodUseCase
 }
 
-func NewPodEndpoint(usecase usecase.K8sObject) *PodEndpoint {
-	return &PodEndpoint{}
+func NewPodEndpoint(useCase usecase.IPodUseCase) IPodEndpoint {
+	return &PodEndpoint{useCase: useCase}
 }
 
-func (pe *PodEndpoint) getPods() {
-	pe.usecase.GetAll()
+func (pe *PodEndpoint) GetPods(namespace string) {
+	pods := pe.useCase.GetAllPods(namespace)
+
+	for _, pod := range pods {
+		fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitsCPU: %s requestMemory: %s limitsMemory: %s status: %s age: %s\n",
+			pod.Name,
+			pod.Namespace,
+			pod.Container.Request.Cpu,
+			pod.Container.Limit.Cpu,
+			pod.Container.Request.Memory,
+			pod.Container.Limit.Memory,
+			pod.Status,
+			pod.Age,
+		)
+	}
 }

@@ -1,6 +1,24 @@
 package main
 
+import (
+	"github.com/beto20/kubessitant/di"
+	"github.com/beto20/kubessitant/endpoint"
+)
+
+func exe() {
+	pc := di.SetupPodContainer()
+	podEp := pc.MustResolve("IPodEndpoint").(endpoint.IPodEndpoint)
+	podEp.GetPods("assi")
+
+	dc := di.SetupDeploymentContainer()
+	deploymentEp := dc.MustResolve("IDeploymentEndpoint").(endpoint.IDeploymentEndpoint)
+	deploymentEp.GetDeployments("assi")
+
+}
+
 func main() {
+	exe()
+	//////////////
 	// home, _ := os.UserHomeDir()
 	// kubeConfigPath := filepath.Join(home, ".kube/config")
 
