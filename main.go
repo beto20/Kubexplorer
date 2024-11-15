@@ -14,6 +14,10 @@ func exe() {
 	deploymentEp := dc.MustResolve("IDeploymentEndpoint").(endpoint.IDeploymentEndpoint)
 	deploymentEp.GetDeployments("assi")
 
+	sc := di.SetupServiceContainer()
+	serviceEp := sc.MustResolve("IServiceEndpoint").(endpoint.IServiceEndpoint)
+	serviceEp.GetServices("assi")
+
 }
 
 func main() {

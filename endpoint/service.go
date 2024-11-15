@@ -1,19 +1,23 @@
 package endpoint
 
-import "github.com/beto20/kubessitant/usecase"
+import (
+	"fmt"
+	"github.com/beto20/kubessitant/usecase"
+)
 
 type IServiceEndpoint interface {
-	getServices()
+	GetServices(namespace string)
 }
 
 type ServiceEndpoint struct {
-	useCase usecase.Service
+	useCase usecase.IServiceUseCase
 }
 
-func NewServiceEndpoint(useCase usecase.Service) *ServiceEndpoint {
+func NewServiceEndpoint(useCase usecase.IServiceUseCase) *ServiceEndpoint {
 	return &ServiceEndpoint{useCase: useCase}
 }
 
-func (se ServiceEndpoint) getServices() {
-	se.useCase.GetAll()
+func (se ServiceEndpoint) GetServices(namespace string) {
+	se.useCase.GetAll(namespace)
+	fmt.Printf("NS: %s", namespace)
 }

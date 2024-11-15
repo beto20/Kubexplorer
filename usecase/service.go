@@ -1,15 +1,31 @@
 package usecase
 
-type Service struct{}
+import "github.com/beto20/kubessitant/objects"
 
-func (s *Service) GetAll() {
+type IServiceUseCase interface {
+	GetAll(namespace string)
+	GetDetailsById()
+	DeleteOneById()
+	EditOneById()
 }
 
-func (s *Service) GetDetailsById() {
+type serviceImpl struct {
+	object objects.IServiceObject
 }
 
-func (s *Service) DeleteOneById() {
+func NewServiceUseCase(object objects.IServiceObject) IServiceUseCase {
+	return &serviceImpl{object: object}
 }
 
-func (s *Service) EditOneById() {
+func (s *serviceImpl) GetAll(namespace string) {
+	s.object.GetServicesMock(namespace)
+}
+
+func (s *serviceImpl) GetDetailsById() {
+}
+
+func (s *serviceImpl) DeleteOneById() {
+}
+
+func (s *serviceImpl) EditOneById() {
 }

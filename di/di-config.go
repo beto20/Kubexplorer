@@ -32,3 +32,15 @@ func SetupDeploymentContainer() *container.Container {
 
 	return c
 }
+
+func SetupServiceContainer() *container.Container {
+	c := container.NewContainer()
+
+	serviceObject := objects.NewServiceObject()
+	serviceUseCase := usecase.NewServiceUseCase(serviceObject)
+	serviceEndpoint := endpoint.NewServiceEndpoint(serviceUseCase)
+
+	c.Register("IServiceEndpoint", serviceEndpoint)
+
+	return c
+}
