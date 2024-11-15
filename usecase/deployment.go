@@ -7,10 +7,10 @@ type IDeploymentUseCase interface {
 }
 
 type deploymentImpl struct {
-	object objects.IDeployment
+	object objects.IDeploymentObject
 }
 
-func NewDeploymentUseCase(object objects.IDeployment) IDeploymentUseCase {
+func NewDeploymentUseCase(object objects.IDeploymentObject) IDeploymentUseCase {
 	return &deploymentImpl{object: object}
 }
 

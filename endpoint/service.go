@@ -2,14 +2,18 @@ package endpoint
 
 import "github.com/beto20/kubessitant/usecase"
 
-type ServiceEndpoint struct {
-	usecase usecase.K8sObject
+type IServiceEndpoint interface {
+	getServices()
 }
 
-func NewServiceEndpoint(usecase usecase.K8sObject) *ServiceEndpoint {
-	return &ServiceEndpoint{}
+type ServiceEndpoint struct {
+	useCase usecase.Service
+}
+
+func NewServiceEndpoint(useCase usecase.Service) *ServiceEndpoint {
+	return &ServiceEndpoint{useCase: useCase}
 }
 
 func (se ServiceEndpoint) getServices() {
-	se.usecase.GetAll()
+	se.useCase.GetAll()
 }
