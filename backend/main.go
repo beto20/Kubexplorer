@@ -20,8 +20,28 @@ func exe() {
 
 }
 
+//func fitness(solution []int64) {
+//	var distance [][]int64
+//
+//	for _, i := range len(solution) - 1 {
+//		distance += distance[solution[i]][solution[i+1]]
+//	}
+//}
+//
+//func createInitialPopulation(popSize []int64, numCities int64) []int64 {
+//	var population []int64
+//
+//	for _, i := range popSize {
+//		individual := rand.Int63n(numCities)
+//		population = append(population, individual)
+//	}
+//
+//	return population
+//}
+
 func main() {
 	exe()
+
 	//////////////
 	// home, _ := os.UserHomeDir()
 	// kubeConfigPath := filepath.Join(home, ".kube/config")

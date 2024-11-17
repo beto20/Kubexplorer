@@ -1,12 +1,12 @@
 package endpoint
 
 import (
+	"Kubessistant/backend/objects"
 	"Kubessistant/backend/usecase"
-	"fmt"
 )
 
 type IDeploymentEndpoint interface {
-	GetDeployments(namespace string)
+	GetDeployments(namespace string) []objects.DeploymentDto
 }
 
 type DeploymentEndpoint struct {
@@ -19,15 +19,15 @@ func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) *DeploymentEndpoi
 	}
 }
 
-func (de *DeploymentEndpoint) GetDeployments(namespace string) {
-	deployments := de.useCase.GetAllDeployments(namespace)
+func (de *DeploymentEndpoint) GetDeployments(namespace string) []objects.DeploymentDto {
+	return de.useCase.GetAllDeployments(namespace)
 
-	for _, d := range deployments {
-		fmt.Printf("deployment name: %s namespace: %s status: %s age: %s\n",
-			d.Name,
-			d.Namespace,
-			d.Status,
-			d.Age,
-		)
-	}
+	//for _, d := range deployments {
+	//	fmt.Printf("deployment name: %s namespace: %s status: %s age: %s\n",
+	//		d.Name,
+	//		d.Namespace,
+	//		d.Status,
+	//		d.Age,
+	//	)
+	//}
 }

@@ -13,8 +13,8 @@ type parameter struct {
 }
 
 type object struct {
-	name         string
-	descripction string
+	name        string
+	description string
 }
 
 func (p *parameter) get() []parameter {
@@ -25,8 +25,8 @@ func (p *parameter) get() []parameter {
 
 		for j := 0; j < 3; j++ {
 			o := object{
-				name:         "test" + strconv.Itoa(i),
-				descripction: "description" + strconv.Itoa(i),
+				name:        "test" + strconv.Itoa(i),
+				description: "description" + strconv.Itoa(i),
 			}
 			objs = append(objs, o)
 		}
