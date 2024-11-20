@@ -18,6 +18,10 @@ func exe() {
 	serviceEp := sc.MustResolve("IServiceEndpoint").(endpoint.IServiceEndpoint)
 	serviceEp.GetServices("assi")
 
+	ec := di.SetupEnvironmentContainer()
+	environmentEp := ec.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
+	environmentEp.GetAllEnvironment()
+
 }
 
 //func fitness(solution []int64) {

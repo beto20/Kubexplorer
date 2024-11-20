@@ -44,3 +44,15 @@ func SetupServiceContainer() *container.Container {
 
 	return c
 }
+
+func SetupEnvironmentContainer() *container.Container {
+	c := container.NewContainer()
+
+	environmentObject := objects.NewEnvironmentObject()
+	environmentUseCase := usecase.NewEnvironmentUseCase(environmentObject)
+	environmentEndpoint := endpoint.NewEnvironmentEndpoint(environmentUseCase)
+
+	c.Register("IEnvironmentEndpoint", environmentEndpoint)
+
+	return c
+}
