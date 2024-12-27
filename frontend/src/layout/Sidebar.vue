@@ -1,78 +1,143 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'ks-sidebar',
-    setup() {
-        // Reactive state for sidebar collapse
-        const isCollapsed = ref(false);
-
-        // Method to toggle the sidebar state
-        const toggleSidebar = () => {
-            isCollapsed.value = !isCollapsed.value;
-        };
-
-        // Expose variables and methods
+    data() {
         return {
-            isCollapsed,
-            toggleSidebar,
-        };
+            isCollapsed: false,
+            menuItems: [
+                { text: 'Home', link: 'home', icon: '🏠' },
+                { text: 'Overview', link: 'overview', icon: '📊' },
+                { text: 'General', link: 'general', icon: '📊' },
+                { text: 'Workload', link: 'workload', icon: '📊' },
+                { text: 'Network', link: 'network', icon: '📊' },
+                { text: 'Storage', link: 'storage', icon: '📊' },
+                { text: 'Settings', link: 'settings', icon: '⚙️' },
+            ]
+        }
     },
+    methods: {
+        toggleSidebar() {
+            this.isCollapsed = !this.isCollapsed;
+        }
+    }
 });
-
 </script>
 
 <template>
-    <div class="app-container">
-        <div :class="['sidebar', { 'sidebar--collapsed': isCollapsed }]">
-            <button @click="toggleSidebar">Toggle</button>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <div :class="['sidebar', { 'sidebar--collapsed': isCollapsed }]">
+        <div class="sidebar-header">
+            <button class="toggle-btn" @click="toggleSidebar">
+                {{ isCollapsed ? '→' : 'Kubessistant ←' }}
+            </button>
         </div>
-        <div class="content">
-            <h1>Content Area</h1>
-            <p>This is the main content area.</p>
-        </div>
+        <ul class="nav-list">
+            <li v-for="(item, index) in menuItems" :key="index">
+                <a :href="item.link" class="nav-link">
+                    <span class="icon">{{ item.icon }}</span>
+                    <span class="link-text" :class="{ 'hidden': isCollapsed }">
+                        {{ item.text }}
+                    </span>
+                </a>
+            </li>
+        </ul>
     </div>
 </template>
 
 <style scoped>
-.app-container {
-    display: flex;
-}
-
 .sidebar {
     width: 250px;
     background-color: #2c3e50;
     color: #ecf0f1;
-    padding: 15px;
-    transition: width 0.3s;
-    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .sidebar--collapsed {
     width: 60px;
 }
 
-.sidebar ul {
+.sidebar-header {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid #34495e;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    border-radius: 4px;
+}
+
+.toggle-btn:hover {
+    background-color: #34495e;
+}
+
+.nav-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    overflow-y: auto;
 }
 
-.sidebar li {
-    margin: 10px 0;
-}
-
-.sidebar a {
+.nav-link {
     color: #ecf0f1;
     text-decoration: none;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
 }
 
-.content {
-    flex: 1;
-    padding: 20px;
+.nav-link:hover {
+    background-color: #34495e;
 }
 
+.icon {
+    width: 24px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.link-text {
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+.hidden {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+/* Add smooth transitions for text */
+.sidebar .link-text {
+    transition: opacity 0.3s ease;
+}
+
+/* Ensure sidebar content doesn't overflow */
+.sidebar {
+    overflow-x: hidden;
+}
+
+/* Make scrollbar less intrusive */
+.nav-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.nav-list::-webkit-scrollbar-track {
+    background: #2c3e50;
+}
+
+.nav-list::-webkit-scrollbar-thumb {
+    background: #34495e;
+    border-radius: 3px;
+}
 </style>

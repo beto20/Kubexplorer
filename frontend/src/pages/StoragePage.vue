@@ -1,13 +1,13 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from "vue";
 
 export default defineComponent({
-    name: 'LoginPage',
-});
+    name: "StoragePage"
+})
 </script>
 
 <template>
-    <h2>PRUEBA LOGIN</h2>
+    <h2>Storage page</h2>
 
 </template>
 

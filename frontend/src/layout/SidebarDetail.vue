@@ -2,12 +2,12 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-name: "Sidebar2.vue"
+    name: "SidebarDetail"
 })
 </script>
 
 <template>
-  
+
 </template>
 
 <style scoped>

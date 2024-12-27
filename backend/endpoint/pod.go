@@ -33,3 +33,15 @@ func (pe *PodEndpoint) GetPods(namespace string) []objects.PodDto {
 	//	)
 	//}
 }
+
+func (pe *PodEndpoint) GetPodById(namespace string, id string) {
+
+}
+
+func (pe *PodEndpoint) DeletePodById(namespace string, id string) {
+
+}
+
+func (pe *PodEndpoint) UpdatePodById(namespace string, id string) {
+
+}

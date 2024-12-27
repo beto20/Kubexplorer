@@ -1,29 +1,41 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import HomePage from "./pages/HomePage.vue";
+import KsSidebar from "./layout/Sidebar.vue";
 
 export default defineComponent({
     name: 'App',
-    components: {HomePage},
+    components: {HomePage, KsSidebar},
 });
 </script>
 
 <template>
-    <home-page></home-page>
-<!--    <div id="app">-->
-<!--        <nav>-->
-<!--            <router-link to="/">Home</router-link>-->
-<!--            <router-link to="/login">login</router-link>-->
-<!--            <router-link to="/contact">Contact</router-link>-->
-<!--        </nav>-->
-<!--        <router-view></router-view>-->
-<!--    </div>-->
+
+    <div class="app-container">
+        <ks-sidebar></ks-sidebar>
+
+        <div class="content">
+            <!-- Your main content here -->
+            <p>loremasdasda sasdasdas</p>
+            <router-view></router-view>
+        </div>
+    </div>
+
 </template>
 
 
 <style>
-nav {
+.app-container {
     display: flex;
-    gap: 10px;
+    min-height: 100vh;
+}
+p {
+    color: red;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f6fa;
 }
 </style>

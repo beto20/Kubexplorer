@@ -10,8 +10,6 @@ export default defineComponent({
 
 <template>
     <h2>Home page</h2>
-    <ks-sidebar></ks-sidebar>
-
 </template>
 
 <style scoped>
