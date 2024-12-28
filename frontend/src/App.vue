@@ -10,17 +10,12 @@ export default defineComponent({
 </script>
 
 <template>
-
     <div class="app-container">
         <ks-sidebar></ks-sidebar>
-
         <div class="content">
-            <!-- Your main content here -->
-            <p>loremasdasda sasdasdas</p>
             <router-view></router-view>
         </div>
     </div>
-
 </template>
 
 
@@ -29,13 +24,13 @@ export default defineComponent({
     display: flex;
     min-height: 100vh;
 }
-p {
-    color: red;
-}
 
+/*
 .content {
     flex: 1;
     padding: 20px;
     background-color: #f5f6fa;
 }
+*/
 </style>
+

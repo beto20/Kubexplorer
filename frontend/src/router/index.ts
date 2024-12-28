@@ -6,6 +6,8 @@ import WorkloadPage from "../pages/WorkloadPage.vue";
 import NetworkPage from "../pages/NetworkPage.vue";
 import StoragePage from "../pages/StoragePage.vue";
 import SettingsPage from "../pages/SettingsPage.vue";
+import ConnectionPage from "../pages/ConnectionPage.vue";
+import DocumentationPage from "../pages/DocumentationPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/home', name: 'home', component: HomePage },
@@ -15,6 +17,8 @@ const routes: Array<RouteRecordRaw> = [
     { path: '/network', name: 'network', component: NetworkPage },
     { path: '/storage', name: 'storage', component: StoragePage },
     { path: '/settings', name: 'settings', component: SettingsPage },
+    { path: '/documentation', name: 'documentation', component: DocumentationPage },
+    { path: '/connections', name: 'connections', component: ConnectionPage },
 ];
 
 
