@@ -22,6 +22,11 @@ func exe() {
 	environmentEp := ec.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
 	environmentEp.GetAllEnvironment()
 
+	prc := di.SetupParameterContainer()
+	parameterEp := prc.MustResolve("IParameterEndpoint").(endpoint.IParameterEndpoint)
+	parameterEp.GetKubernetesParameters()
+	parameterEp.GetCommonParameters()
+
 }
 
 //func fitness(solution []int64) {

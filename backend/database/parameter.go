@@ -76,3 +76,50 @@ func setParams(db sql.DB) {
 		log.Fatalf("Could not insert data: %v", err)
 	}
 }
+
+type IParameterEntity interface {
+	GetKubernetesParameters() []CommonParameterDto
+	GetCommonParameters() []CommonParameterDto
+}
+
+type parameterImpl struct{}
+
+func NewParameterEntity() IParameterEntity {
+	return &parameterImpl{}
+}
+
+type CommonParameterDto struct {
+	name string
+	link string
+	icon string
+}
+
+func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
+	return []CommonParameterDto{
+		{name: "Overview", link: "overview", icon: "📊"},
+		{name: "General", link: "general", icon: "📊"},
+		{name: "Workload", link: "workload", icon: "📊"},
+		{name: "Network", link: "network", icon: "📊"},
+		{name: "Storage", link: "storage", icon: "📊"},
+	}
+}
+
+func (p *parameterImpl) GetCommonParameters() []CommonParameterDto {
+	return []CommonParameterDto{
+		{
+			name: "Connections",
+			link: "connections",
+			icon: "⚙️",
+		},
+		{
+			name: "Settings",
+			link: "settings",
+			icon: "⚙️",
+		},
+		{
+			name: "Documentation",
+			link: "documentation",
+			icon: "⚙️",
+		},
+	}
+}

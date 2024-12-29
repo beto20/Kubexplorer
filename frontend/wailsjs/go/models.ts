@@ -1,3 +1,20 @@
+export namespace database {
+	
+	export class CommonParameterDto {
+	
+	
+	    static createFrom(source: any = {}) {
+	        return new CommonParameterDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	
+	    }
+	}
+
+}
+
 export namespace objects {
 	
 	export class Resource {
@@ -62,6 +79,24 @@ export namespace objects {
 	        this.Namespace = source["Namespace"];
 	        this.Status = source["Status"];
 	        this.Age = source["Age"];
+	    }
+	}
+	export class EnvironmentDto {
+	    Name: string;
+	    Description: string;
+	    Env: string;
+	    Status: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new EnvironmentDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Name = source["Name"];
+	        this.Description = source["Description"];
+	        this.Env = source["Env"];
+	        this.Status = source["Status"];
 	    }
 	}
 	export class PodDto {

@@ -2,6 +2,7 @@ package di
 
 import (
 	"Kubessistant/backend/container"
+	"Kubessistant/backend/database"
 	"Kubessistant/backend/endpoint"
 	"Kubessistant/backend/objects"
 	"Kubessistant/backend/usecase"
@@ -53,6 +54,18 @@ func SetupEnvironmentContainer() *container.Container {
 	environmentEndpoint := endpoint.NewEnvironmentEndpoint(environmentUseCase)
 
 	c.Register("IEnvironmentEndpoint", environmentEndpoint)
+
+	return c
+}
+
+func SetupParameterContainer() *container.Container {
+	c := container.NewContainer()
+
+	parameterEntity := database.NewParameterEntity()
+	parameterUseCase := usecase.NewParameterUseCase(parameterEntity)
+	parameterEndpoint := endpoint.NewParameterEndpoint(parameterUseCase)
+
+	c.Register("IParameterEndpoint", parameterEndpoint)
 
 	return c
 }

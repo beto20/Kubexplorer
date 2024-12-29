@@ -4,7 +4,7 @@ import "Kubessistant/backend/objects"
 
 type IEnvironmentUseCase interface {
 	GetAllEnvironment() []objects.EnvironmentDto
-	GetCurrentEnvironment(envName string) objects.EnvironmentDto
+	GetCurrentEnvironment(env string, name string) objects.EnvironmentDto
 }
 
 type environmentImpl struct {
@@ -15,8 +15,8 @@ func NewEnvironmentUseCase(object objects.IEnvironmentObject) IEnvironmentUseCas
 	return &environmentImpl{object: object}
 }
 
-func (e *environmentImpl) GetCurrentEnvironment(envName string) objects.EnvironmentDto {
-	return e.object.GetCurrentEnvironment(envName)
+func (e *environmentImpl) GetCurrentEnvironment(env string, name string) objects.EnvironmentDto {
+	return e.object.GetCurrentEnvironment(env, name)
 }
 
 func (e *environmentImpl) GetAllEnvironment() []objects.EnvironmentDto {

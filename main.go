@@ -23,13 +23,22 @@ const (
 func main() {
 	dc := di.SetupDeploymentContainer()
 	deploymentEp := dc.MustResolve("IDeploymentEndpoint").(endpoint.IDeploymentEndpoint)
+
 	pc := di.SetupPodContainer()
 	podEp := pc.MustResolve("IPodEndpoint").(endpoint.IPodEndpoint)
 
+	pr := di.SetupParameterContainer()
+	parameterEp := pr.MustResolve("IParameterEndpoint").(endpoint.IParameterEndpoint)
+
+	e := di.SetupEnvironmentContainer()
+	environmentEp := e.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
+
 	// Create an instance of the app structure
 	app := middleware.NewApp()
-	d := middleware.NewDeploymentMiddleware(deploymentEp)
-	p := middleware.NewPodMiddleware(podEp)
+	deploymentMiddleware := middleware.NewDeploymentMiddleware(deploymentEp)
+	podMiddleware := middleware.NewPodMiddleware(podEp)
+	parameterMiddleware := middleware.NewParameterMiddleware(parameterEp)
+	environmentMiddleware := middleware.NewEnvironmentMiddleware(environmentEp)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -43,8 +52,10 @@ func main() {
 		OnStartup:        app.Startup,
 		Bind: []interface{}{
 			app,
-			d,
-			p,
+			deploymentMiddleware,
+			podMiddleware,
+			parameterMiddleware,
+			environmentMiddleware,
 		},
 	})
 

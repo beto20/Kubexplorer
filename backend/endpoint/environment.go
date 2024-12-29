@@ -7,24 +7,24 @@ import (
 )
 
 type IEnvironmentEndpoint interface {
-	GetCurrentEnvironment(envName string) objects.EnvironmentDto
+	GetCurrentEnvironment(env string, name string) objects.EnvironmentDto
 	GetAllEnvironment() []objects.EnvironmentDto
 }
 
-type EnvironmentEndpoint struct {
+type environmentEndpoint struct {
 	useCase usecase.IEnvironmentUseCase
 }
 
 func NewEnvironmentEndpoint(useCase usecase.IEnvironmentUseCase) IEnvironmentEndpoint {
-	return &EnvironmentEndpoint{useCase: useCase}
+	return &environmentEndpoint{useCase: useCase}
 }
 
-func (ee *EnvironmentEndpoint) GetCurrentEnvironment(envName string) objects.EnvironmentDto {
-	return ee.useCase.GetCurrentEnvironment(envName)
+func (ee *environmentEndpoint) GetCurrentEnvironment(env string, name string) objects.EnvironmentDto {
+	return ee.useCase.GetCurrentEnvironment(env, name)
 }
 
-func (ee *EnvironmentEndpoint) GetAllEnvironment() []objects.EnvironmentDto {
+func (ee *environmentEndpoint) GetAllEnvironment() []objects.EnvironmentDto {
 	x := ee.useCase.GetAllEnvironment()
-	fmt.Print("ENV NAME:", x[0].Name)
+	fmt.Print("ENV NAME: ", x[2].Name)
 	return ee.useCase.GetAllEnvironment()
 }

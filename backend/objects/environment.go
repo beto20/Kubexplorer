@@ -1,7 +1,7 @@
 package objects
 
 type IEnvironmentObject interface {
-	GetCurrentEnvironment(envName string) EnvironmentDto
+	GetCurrentEnvironment(env string, name string) EnvironmentDto
 	GetAllEnvironment() []EnvironmentDto
 }
 
@@ -18,10 +18,10 @@ type EnvironmentDto struct {
 	Status      bool
 }
 
-func (e *environmentImpl) GetCurrentEnvironment(envName string) EnvironmentDto {
+func (e *environmentImpl) GetCurrentEnvironment(env string, name string) EnvironmentDto {
 	dto := EnvironmentDto{
-		Name:        "test",
-		Description: "test description",
+		Name:        "minikube",
+		Description: "minikube description",
 		Env:         "Dev",
 		Status:      true,
 	}
@@ -30,15 +30,36 @@ func (e *environmentImpl) GetCurrentEnvironment(envName string) EnvironmentDto {
 }
 
 func (e *environmentImpl) GetAllEnvironment() []EnvironmentDto {
-	dto := EnvironmentDto{
-		Name:        "test",
-		Description: "test description",
-		Env:         "Dev",
-		Status:      true,
+	return []EnvironmentDto{
+		{
+			Name:        "minikube",
+			Description: "minikube description",
+			Env:         "Dev",
+			Status:      true,
+		},
+		{
+			Name:        "minikube-2",
+			Description: "minikube description",
+			Env:         "UAT",
+			Status:      true,
+		},
+		{
+			Name:        "minikube-3",
+			Description: "minikube description",
+			Env:         "PRD",
+			Status:      false,
+		},
+		{
+			Name:        "minikube-4",
+			Description: "minikube description",
+			Env:         "PRD-2",
+			Status:      true,
+		},
+		{
+			Name:        "minikube-5",
+			Description: "minikube description",
+			Env:         "Sandbox",
+			Status:      false,
+		},
 	}
-
-	var res []EnvironmentDto
-	res = append(res, dto)
-
-	return res
 }
