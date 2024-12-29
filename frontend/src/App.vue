@@ -15,6 +15,7 @@ export default defineComponent({
         <div class="content">
             <router-view></router-view>
         </div>
+
     </div>
 </template>
 
@@ -32,5 +33,6 @@ export default defineComponent({
     background-color: #f5f6fa;
 }
 */
+
 </style>
 

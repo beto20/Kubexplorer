@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from "../pages/HomePage.vue";
 import OverviewPage from "../pages/OverviewPage.vue";
-import GeneralPage from "../pages/GeneralPage.vue";
-import WorkloadPage from "../pages/WorkloadPage.vue";
-import NetworkPage from "../pages/NetworkPage.vue";
-import StoragePage from "../pages/StoragePage.vue";
-import SettingsPage from "../pages/SettingsPage.vue";
-import ConnectionPage from "../pages/ConnectionPage.vue";
-import DocumentationPage from "../pages/DocumentationPage.vue";
+import GeneralPage from "../pages/general/GeneralPage.vue";
+import WorkloadPage from "../pages/workloads/WorkloadPage.vue";
+import NetworkPage from "../pages/network/NetworkPage.vue";
+import StoragePage from "../pages/storage/StoragePage.vue";
+import SettingsPage from "../pages/common/SettingsPage.vue";
+import ConnectionPage from "../pages/common/ConnectionPage.vue";
+import DocumentationPage from "../pages/common/DocumentationPage.vue";
+import PodPage from "../pages/workloads/PodPage.vue";
+import DeploymentPage from "../pages/workloads/DeploymentPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/home', name: 'home', component: HomePage },
@@ -19,6 +21,9 @@ const routes: Array<RouteRecordRaw> = [
     { path: '/settings', name: 'settings', component: SettingsPage },
     { path: '/documentation', name: 'documentation', component: DocumentationPage },
     { path: '/connections', name: 'connections', component: ConnectionPage },
+
+    { path: '/pod', name: 'pod', component: PodPage },
+    { path: '/deployment', name: 'deployment', component: DeploymentPage },
 ];
 
 

@@ -1,13 +1,13 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent} from 'vue'
 
 export default defineComponent({
-    name: "NetworkPage",
+    name: "NamespacePage"
 })
 </script>
 
 <template>
-    <h2>Network page</h2>
+
 </template>
 
 <style scoped>
