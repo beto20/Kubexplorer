@@ -1,32 +1,19 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import HomePage from "./pages/HomePage.vue";
-import OverviewPage from "./pages/OverviewPage.vue";
-import GeneralPage from "./pages/general/GeneralPageExample.vue";
-import WorkloadPage from "./pages/workloads/WorkloadPage.vue";
-import NetworkPage from "./pages/network/NetworkPage.vue";
-import StoragePage from "./pages/storage/StoragePage.vue";
-import SettingsPage from "./pages/common/SettingsPage.vue";
-import ConnectionPage from "./pages/common/ConnectionPage.vue";
-import DocumentationPage from "./pages/common/DocumentationPage.vue";
-import PodPage from "./pages/workloads/PodPage.vue";
-import DeploymentPage from "./pages/workloads/DeploymentPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
-    { path: '/home', name: 'home', component: HomePage },
-    { path: '/overview', name: 'overview', component: OverviewPage },
-    { path: '/general',  name: 'general', component: () => import('./pages/general/GeneralPageExample.vue') },
-    // { path: '/general',  name: 'general', component: GeneralPage},
-    { path: '/workload', name: 'workload', component: WorkloadPage },
-    { path: '/network', name: 'network', component: NetworkPage },
-    { path: '/storage', name: 'storage', component: StoragePage },
-    { path: '/settings', name: 'settings', component: SettingsPage },
-    { path: '/documentation', name: 'documentation', component: DocumentationPage },
-    { path: '/connections', name: 'connections', component: ConnectionPage },
+    { path: '/home', name: 'home', component: () => import('./pages/HomePage.vue') },
+    { path: '/overview', name: 'overview', component: () => import('./pages/OverviewPage.vue') },
+    { path: '/general',  name: 'general', component: () => import('./pages/general/GeneralPage.vue') },
+    { path: '/workload', name: 'workload', component: () => import('./pages/workloads/WorkloadPage.vue') },
+    { path: '/network', name: 'network', component: () => import('./pages/network/NetworkPage.vue') },
+    { path: '/storage', name: 'storage', component: () => import('./pages/storage/StoragePage.vue') },
+    { path: '/settings', name: 'settings', component: () => import('./pages/common/SettingsPage.vue') },
+    { path: '/documentation', name: 'documentation', component: () => import('./pages/common/DocumentationPage.vue') },
+    { path: '/connections', name: 'connections', component: () => import('./pages/common/ConnectionPage.vue') },
 
-    { path: '/pod', name: 'pod', component: PodPage },
-    { path: '/deployment', name: 'deployment', component: DeploymentPage },
+    { path: '/pod', name: 'pod', component: () => import('./pages/workloads/PodPage.vue') },
+    { path: '/deployment', name: 'deployment', component: () => import('./pages/workloads/DeploymentPage.vue') },
 ];
-
 
 const router = createRouter({
     history: createWebHistory(),
