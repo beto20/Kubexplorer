@@ -8,12 +8,12 @@ import (
 )
 
 type parameter struct {
-	name    string
+	Name    string
 	objects []object
 }
 
 type object struct {
-	name        string
+	Name        string
 	description string
 }
 
@@ -25,13 +25,13 @@ func (p *parameter) get() []parameter {
 
 		for j := 0; j < 3; j++ {
 			o := object{
-				name:        "test" + strconv.Itoa(i),
+				Name:        "test" + strconv.Itoa(i),
 				description: "description" + strconv.Itoa(i),
 			}
 			objs = append(objs, o)
 		}
 		pa := parameter{
-			name:    "name test" + strconv.Itoa(i),
+			Name:    "Name test" + strconv.Itoa(i),
 			objects: objs,
 		}
 		params = append(params, pa)
@@ -40,7 +40,7 @@ func (p *parameter) get() []parameter {
 	return params
 }
 func SqlExe(db *sql.DB) {
-	query := `SELECT id, name, age FROM users`
+	query := `SELECT id, Name, age FROM users`
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Fatalf("Could not query data: %v", err)
@@ -50,12 +50,12 @@ func SqlExe(db *sql.DB) {
 	fmt.Println("Users:")
 	for rows.Next() {
 		var id int
-		var name string
+		var Name string
 		var age int
-		if err := rows.Scan(&id, &name, &age); err != nil {
+		if err := rows.Scan(&id, &Name, &age); err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("ID: %d, Name: %s, Age: %d\n", id, name, age)
+		fmt.Printf("ID: %d, Name: %s, Age: %d\n", id, Name, age)
 	}
 }
 
@@ -64,14 +64,14 @@ func setParams(db sql.DB) {
 	createTable := `
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		name TEXT,
+		Name TEXT,
 		age INTEGER
 	);`
 	if _, err := db.Exec(createTable); err != nil {
 		log.Fatalf("Could not create table: %v", err)
 	}
 
-	insertUser := `INSERT INTO users (name, age) VALUES (?, ?)`
+	insertUser := `INSERT INTO users (Name, age) VALUES (?, ?)`
 	if _, err := db.Exec(insertUser, "Alice", 30); err != nil {
 		log.Fatalf("Could not insert data: %v", err)
 	}
@@ -89,37 +89,37 @@ func NewParameterEntity() IParameterEntity {
 }
 
 type CommonParameterDto struct {
-	name string
-	link string
-	icon string
+	Name string
+	Link string
+	Icon string
 }
 
 func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
 	return []CommonParameterDto{
-		{name: "Overview", link: "overview", icon: "📊"},
-		{name: "General", link: "general", icon: "📊"},
-		{name: "Workload", link: "workload", icon: "📊"},
-		{name: "Network", link: "network", icon: "📊"},
-		{name: "Storage", link: "storage", icon: "📊"},
+		{Name: "Overview", Link: "/overview", Icon: "📊"},
+		{Name: "General", Link: "/general", Icon: "📊"},
+		{Name: "Workload", Link: "/workload", Icon: "📊"},
+		{Name: "Network", Link: "/network", Icon: "📊"},
+		{Name: "Storage", Link: "/storage", Icon: "📊"},
 	}
 }
 
 func (p *parameterImpl) GetCommonParameters() []CommonParameterDto {
 	return []CommonParameterDto{
 		{
-			name: "Connections",
-			link: "connections",
-			icon: "⚙️",
+			Name: "Connections",
+			Link: "connections",
+			Icon: "⚙️",
 		},
 		{
-			name: "Settings",
-			link: "settings",
-			icon: "⚙️",
+			Name: "Settings",
+			Link: "settings",
+			Icon: "⚙️",
 		},
 		{
-			name: "Documentation",
-			link: "documentation",
-			icon: "⚙️",
+			Name: "Documentation",
+			Link: "documentation",
+			Icon: "⚙️",
 		},
 	}
 }

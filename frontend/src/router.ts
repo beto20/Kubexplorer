@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomePage from "../pages/HomePage.vue";
 import OverviewPage from "../pages/OverviewPage.vue";
-import GeneralPage from "../pages/general/GeneralPage.vue";
+import GeneralPage from "../GeneralPage.vue";
 import WorkloadPage from "../pages/workloads/WorkloadPage.vue";
 import NetworkPage from "../pages/network/NetworkPage.vue";
 import StoragePage from "../pages/storage/StoragePage.vue";
