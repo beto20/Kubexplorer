@@ -1,7 +1,9 @@
 export namespace database {
 	
 	export class CommonParameterDto {
-	
+	    Name: string;
+	    Link: string;
+	    Icon: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new CommonParameterDto(source);
@@ -9,7 +11,9 @@ export namespace database {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	
+	        this.Name = source["Name"];
+	        this.Link = source["Link"];
+	        this.Icon = source["Icon"];
 	    }
 	}
 

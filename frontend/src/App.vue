@@ -1,17 +1,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HomePage from "./pages/HomePage.vue";
-import KsSidebar from "./layout/Sidebar.vue";
+import ksSidebarV2 from "./layout/SidebarV2.vue";
+// import GeneralPage from "./GeneralPage.vue"
 
 export default defineComponent({
     name: 'App',
-    components: {HomePage, KsSidebar},
+    components: {
+        // GeneralPage,
+        ksSidebarV2
+    },
 });
 </script>
 
 <template>
     <div class="app-container">
-        <ks-sidebar></ks-sidebar>
+        <ks-sidebar-v2></ks-sidebar-v2>
         <div class="content">
             <router-view></router-view>
         </div>
