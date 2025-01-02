@@ -13,6 +13,7 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+console.log("router.getRoutes()", router.getRoutes());
 app.use(vuetify);
 app.use(router)
 app.mount('#app');

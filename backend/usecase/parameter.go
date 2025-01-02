@@ -5,6 +5,7 @@ import "Kubessistant/backend/database"
 type IParameterUseCase interface {
 	GetKubernetesParameters() []database.CommonParameterDto
 	GetCommonParameters() []database.CommonParameterDto
+	GetK8sObjects() []database.ObjectType
 }
 
 type parameterImpl struct {
@@ -21,4 +22,8 @@ func (p *parameterImpl) GetKubernetesParameters() []database.CommonParameterDto 
 
 func (p *parameterImpl) GetCommonParameters() []database.CommonParameterDto {
 	return p.entity.GetCommonParameters()
+}
+
+func (p *parameterImpl) GetK8sObjects() []database.ObjectType {
+	return p.entity.GetK8sObjects()
 }

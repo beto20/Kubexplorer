@@ -8,6 +8,7 @@ import (
 type IParameterEndpoint interface {
 	GetKubernetesParameters() []database.CommonParameterDto
 	GetCommonParameters() []database.CommonParameterDto
+	GetK8sObjects() []database.ObjectType
 }
 
 type ParameterEndpoint struct {
@@ -24,4 +25,8 @@ func (p *ParameterEndpoint) GetKubernetesParameters() []database.CommonParameter
 
 func (p *ParameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
 	return p.useCase.GetCommonParameters()
+}
+
+func (p *ParameterEndpoint) GetK8sObjects() []database.ObjectType {
+	return p.useCase.GetK8sObjects()
 }

@@ -1,12 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ksSidebarV2 from "./layout/SidebarV2.vue";
-// import GeneralPage from "./GeneralPage.vue"
 
 export default defineComponent({
     name: 'App',
     components: {
-        // GeneralPage,
         ksSidebarV2
     },
 });

@@ -20,3 +20,7 @@ func (p *ParameterMiddleware) GetKubernetesParameters() []database.CommonParamet
 func (p *ParameterMiddleware) GetCommonParameters() []database.CommonParameterDto {
 	return p.endpoint.GetCommonParameters()
 }
+
+func (p *ParameterMiddleware) GetK8sObjects() []database.ObjectType {
+	return p.endpoint.GetK8sObjects()
+}

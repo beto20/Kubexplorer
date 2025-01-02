@@ -149,7 +149,6 @@ export default defineComponent({
         </div>
 </template>
 
-
 <style scoped>
 .sidebar {
     width: 250px;

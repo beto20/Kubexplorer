@@ -80,6 +80,7 @@ func setParams(db sql.DB) {
 type IParameterEntity interface {
 	GetKubernetesParameters() []CommonParameterDto
 	GetCommonParameters() []CommonParameterDto
+	GetK8sObjects() []ObjectType
 }
 
 type parameterImpl struct{}
@@ -92,6 +93,20 @@ type CommonParameterDto struct {
 	Name string
 	Link string
 	Icon string
+}
+
+type ObjectType struct {
+	Name       string
+	IsVisible  bool
+	IsEditable bool
+	K8sObject  []K8sObject
+}
+
+type K8sObject struct {
+	Name       string
+	Link       string
+	IsVisible  bool
+	IsEditable bool
 }
 
 func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
@@ -120,6 +135,91 @@ func (p *parameterImpl) GetCommonParameters() []CommonParameterDto {
 			Name: "Documentation",
 			Link: "documentation",
 			Icon: "⚙️",
+		},
+	}
+}
+
+func (p *parameterImpl) GetK8sObjects() []ObjectType {
+	return []ObjectType{
+		{
+			Name:       "Overview",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject:  []K8sObject{},
+		},
+		{
+			Name:       "General",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Node",
+					Link:       "/general/node",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Namespace",
+					Link:       "/general/namespace",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Event",
+					Link:       "/general/event",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{
+			Name:       "Workload",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Pod",
+					Link:       "/pod",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Deployment",
+					Link:       "/deployment",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{Name: "Network",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Ingress",
+					Link:       "/ingress",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Service",
+					Link:       "/service",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{Name: "Storage",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "PersistentVolume",
+					Link:       "/persistentvolume",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
 		},
 	}
 }
