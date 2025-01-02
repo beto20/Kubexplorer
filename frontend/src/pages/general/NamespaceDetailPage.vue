@@ -2,14 +2,13 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-    name: "NamespacePage"
+    name: "NamespaceDetailPage"
 })
-console.log("PRUEBA CARGA NS")
+console.log("PRUEBA CARGA DETAIL NS")
 </script>
 
 <template>
-    <h2>NS PAGE</h2>
-    <router-view></router-view>
+    <h2>NS DETAIL PAGE</h2>
 
 </template>
 

@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
+import KsNavBar from "../../layout/Navbar.vue";
 
 
 // TODO: Revisar el funciona wails events o usar SSE
 export default defineComponent({
     name: "NetworkPage",
+    components: {KsNavBar},
     // setup() {
     //     const messages = ref<string[]>([]);
     //
@@ -39,8 +41,13 @@ export default defineComponent({
 </script>
 
 <template>
-    <h2>Network page</h2>
-
+    <div>
+        <ks-nav-bar></ks-nav-bar>
+    </div>
+    <div>
+        <router-view></router-view>
+        <h2>Network page</h2>
+    </div>
 <!--    <div>-->
 <!--        <h1>Messages</h1>-->
 <!--        <ul>-->

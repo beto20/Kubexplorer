@@ -44,22 +44,10 @@ export default defineComponent({
     </div>
     <div>
         <router-view></router-view>
+        <h1>asdasdas</h1>
+        <h1>asdasdas</h1>
     </div>
-    <div>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
-        <h1>asdasdas</h1>
 
-    </div>
 </template>
 
 

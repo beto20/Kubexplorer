@@ -2,8 +2,6 @@
 import {defineComponent, onMounted, reactive, toRefs} from 'vue'
 import {useNavbarComposable} from "../composables/useNavbarComposable";
 import {K8sObjectDto, NavbarDto} from "../types/navbar.type";
-import {database} from "../../wailsjs/go/models";
-import K8sObject = database.K8sObject;
 
 interface NavbarState {
     menu: NavbarDto[];
@@ -56,18 +54,8 @@ export default defineComponent({
 <template>
     <nav class="navbar">
         <div class="nav-content">
-<!--            <ul>-->
-<!--                <li v-for="(item, index) in objects" :key="index">-->
-<!--                    <div>-->
-<!--                        {{ item.Name }}-->
-<!--                    </div>-->
-<!--&lt;!&ndash;                    <router-link to="{{ item.K8sObject[2].Link }}" class="nav-link">{{ item.K8sObject[2].Name }}</router-link>&ndash;&gt;-->
-
-<!--                </li>-->
-<!--            </ul>-->
-
             <div class="nav-links" v-for="(item, index) in objects" :key="index">
-                <a :href="item.Link" class="nav-link">{{ item.Name }}</a>
+                <router-link :to="{ name: item.Link }" class="nav-link">{{ item.Name }}</router-link>
             </div>
         </div>
     </nav>

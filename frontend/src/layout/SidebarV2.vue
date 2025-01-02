@@ -125,12 +125,12 @@ export default defineComponent({
                         }"
                     >
                         <li v-for="(option, index) in item.options" :key="index">
-                            <a :href="option.link" class="nav-link">
+                            <router-link :to="{name: option.link, params: { cluster: item.name }}" class="nav-link">
                                 <span class="icon">{{option.icon}}</span>
                                 <span class="link-text" :class="{ 'hidden': isCollapsed }">
                                     {{option.name}}
                                 </span>
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </li>
@@ -138,10 +138,10 @@ export default defineComponent({
             <div class="sidebar-footer">
                 <ul>
                     <li v-for="(item, index) in setting" :key="index" class="nav-item">
-                        <a :href="item.Link" class="nav-link">
+                        <router-link :to="{name: item.Link }" class="nav-link">
                             <span class="icon">{{item.Icon}}</span>
                             <span class="link-text" :class="{ 'hidden': isCollapsed }">{{item.Name}}</span>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </div>

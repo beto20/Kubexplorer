@@ -111,11 +111,11 @@ type K8sObject struct {
 
 func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
 	return []CommonParameterDto{
-		{Name: "Overview", Link: "/overview", Icon: "📊"},
-		{Name: "General", Link: "/general", Icon: "📊"},
-		{Name: "Workload", Link: "/workload", Icon: "📊"},
-		{Name: "Network", Link: "/network", Icon: "📊"},
-		{Name: "Storage", Link: "/storage", Icon: "📊"},
+		{Name: "Overview", Link: "overview", Icon: "📊"},
+		{Name: "General", Link: "general", Icon: "📊"},
+		{Name: "Workload", Link: "workload", Icon: "📊"},
+		{Name: "Network", Link: "network", Icon: "📊"},
+		{Name: "Storage", Link: "storage", Icon: "📊"},
 	}
 }
 
@@ -154,19 +154,19 @@ func (p *parameterImpl) GetK8sObjects() []ObjectType {
 			K8sObject: []K8sObject{
 				{
 					Name:       "Node",
-					Link:       "/general/node",
+					Link:       "node",
 					IsEditable: true,
 					IsVisible:  true,
 				},
 				{
 					Name:       "Namespace",
-					Link:       "/general/namespace",
+					Link:       "namespace",
 					IsEditable: true,
 					IsVisible:  true,
 				},
 				{
 					Name:       "Event",
-					Link:       "/general/event",
+					Link:       "event",
 					IsEditable: true,
 					IsVisible:  true,
 				},
