@@ -179,13 +179,13 @@ func (p *parameterImpl) GetK8sObjects() []ObjectType {
 			K8sObject: []K8sObject{
 				{
 					Name:       "Pod",
-					Link:       "/pod",
+					Link:       "pod",
 					IsEditable: true,
 					IsVisible:  true,
 				},
 				{
 					Name:       "Deployment",
-					Link:       "/deployment",
+					Link:       "deployment",
 					IsEditable: true,
 					IsVisible:  true,
 				},
@@ -197,13 +197,13 @@ func (p *parameterImpl) GetK8sObjects() []ObjectType {
 			K8sObject: []K8sObject{
 				{
 					Name:       "Ingress",
-					Link:       "/ingress",
+					Link:       "ingress",
 					IsEditable: true,
 					IsVisible:  true,
 				},
 				{
 					Name:       "Service",
-					Link:       "/service",
+					Link:       "service",
 					IsEditable: true,
 					IsVisible:  true,
 				},
@@ -215,7 +215,7 @@ func (p *parameterImpl) GetK8sObjects() []ObjectType {
 			K8sObject: []K8sObject{
 				{
 					Name:       "PersistentVolume",
-					Link:       "/persistentvolume",
+					Link:       "persistentVolumes",
 					IsEditable: true,
 					IsVisible:  true,
 				},

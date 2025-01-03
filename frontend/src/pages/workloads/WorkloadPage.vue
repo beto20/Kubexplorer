@@ -4,12 +4,17 @@ import KsNavBar from "../../layout/Navbar.vue";
 
 export default defineComponent({
     name: "WorkloadPage" ,
-    components: {KsNavBar}
+    components: {KsNavBar},
+    data() {
+        return {
+            followingPage: 'Workload'
+        }
+    },
 })
 </script>
 <template>
     <div>
-        <ks-nav-bar></ks-nav-bar>
+        <ks-nav-bar :content="followingPage"></ks-nav-bar>
     </div>
     <div>
         <router-view></router-view>

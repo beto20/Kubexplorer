@@ -7,6 +7,7 @@ export default defineComponent({
 </script>
 
 <template>
+    <h2>Persistent PAGE</h2>
 
 </template>
 

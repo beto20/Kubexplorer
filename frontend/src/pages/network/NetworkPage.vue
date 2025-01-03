@@ -7,6 +7,11 @@ import KsNavBar from "../../layout/Navbar.vue";
 export default defineComponent({
     name: "NetworkPage",
     components: {KsNavBar},
+    data() {
+        return {
+            followingPage: 'Network'
+        }
+    },
     // setup() {
     //     const messages = ref<string[]>([]);
     //
@@ -42,7 +47,7 @@ export default defineComponent({
 
 <template>
     <div>
-        <ks-nav-bar></ks-nav-bar>
+        <ks-nav-bar :content="followingPage"></ks-nav-bar>
     </div>
     <div>
         <router-view></router-view>

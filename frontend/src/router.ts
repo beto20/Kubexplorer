@@ -16,7 +16,8 @@ const routes: Array<RouteRecordRaw> = [
                     {
                         path: 'detail/:id',
                         name: 'nodeDetail',
-                        component: () => import('./pages/general/NodesDetailPage.vue')
+                        component: () => import('./pages/general/NodesDetailPage.vue'),
+                        props: true
                     },
                 ]
             },
@@ -28,7 +29,8 @@ const routes: Array<RouteRecordRaw> = [
                     {
                         path: 'detail/:id',
                         name: 'namespaceDetail',
-                        component: () => import('./pages/general/NamespaceDetailPage.vue')
+                        component: () => import('./pages/general/NamespaceDetailPage.vue'),
+                        props: true
                     },
                 ]
             },
@@ -44,16 +46,30 @@ const routes: Array<RouteRecordRaw> = [
         name: 'workload',
         component: () => import('./pages/workloads/WorkloadPage.vue'),
         children: [
-            { path: 'pod', name: 'pod', component: () => import('./pages/workloads/PodPage.vue') },
-            { path: 'deployment', name: 'deployment', component: () => import('./pages/workloads/DeploymentPage.vue') },
+            { path: 'pod', name: 'pod', component: () => import('./pages/workloads/PodPage.vue'), props: true },
+            { path: 'deployment', name: 'deployment', component: () => import('./pages/workloads/DeploymentPage.vue'), props: true },
         ]
     },
-    { path: '/:cluster/network', name: 'network', component: () => import('./pages/network/NetworkPage.vue') },
-    { path: '/:cluster/storage', name: 'storage', component: () => import('./pages/storage/StoragePage.vue') },
+    {
+        path: '/:cluster/network',
+        name: 'network',
+        component: () => import('./pages/network/NetworkPage.vue'),
+        children: [
+            { path: 'ingress', name: 'ingress', component: () => import('./pages/network/IngressesPage.vue'), props: true },
+            { path: 'service', name: 'service', component: () => import('./pages/network/ServicesPage.vue'), props: true },
+        ]
+    },
+    {
+        path: '/:cluster/storage',
+        name: 'storage',
+        component: () => import('./pages/storage/StoragePage.vue'),
+        children: [
+            { path: 'persistentVolumes', name: 'persistentVolumes', component: () => import('./pages/storage/PersistentVolumesPage.vue'), props: true },
+        ]
+    },
     { path: '/settings', name: 'settings', component: () => import('./pages/common/SettingsPage.vue') },
     { path: '/documentation', name: 'documentation', component: () => import('./pages/common/DocumentationPage.vue') },
     { path: '/connections', name: 'connections', component: () => import('./pages/common/ConnectionPage.vue') },
-
 
 ];
 

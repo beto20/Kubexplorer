@@ -10,6 +10,11 @@ import KsNavBar from "../../layout/Navbar.vue";
 export default defineComponent({
     name: "GeneralPage",
     components: {KsNavBar},
+    data() {
+        return {
+            followingPage: 'General'
+        }
+    },
     setup() {
         const response = ref<CommonParameterDto[]>([]);
         const { result } = useLayoutComposableExample();
@@ -40,7 +45,7 @@ export default defineComponent({
 
 <template>
     <div>
-        <ks-nav-bar></ks-nav-bar>
+        <ks-nav-bar :content="followingPage"></ks-nav-bar>
     </div>
     <div>
         <router-view></router-view>

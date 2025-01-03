@@ -10,7 +10,13 @@ interface NavbarState {
 
 export default defineComponent({
     name: "ks-nav-bar",
-    setup() {
+    props: {
+        content: {
+            type: String,
+            required: true,
+        },
+    },
+    setup(props) {
         const { objects, fetchData } = useNavbarComposable();
 
         const state = reactive<NavbarState>({
@@ -38,11 +44,10 @@ export default defineComponent({
                 }
             })
 
+            const type = dto.find(x => x.Name == props.content)
             state.menu = dto
-            state.objects = dto[1].K8sObject
+            state.objects = type!.K8sObject
         });
-
-        console.log("state.menu", state.menu);
 
         return {
             ...toRefs(state)

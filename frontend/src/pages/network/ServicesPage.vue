@@ -7,7 +7,10 @@ export default defineComponent({
 </script>
 
 <template>
-
+    <div>
+        <router-view></router-view>
+        <h2>Service page</h2>
+    </div>
 </template>
 
 <style scoped>
