@@ -27,13 +27,9 @@ export default defineComponent({
     min-height: 100vh;
 }
 
-/*
 .content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f5f6fa;
+    width: 100%;
 }
-*/
 
 </style>
 

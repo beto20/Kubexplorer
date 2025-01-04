@@ -69,6 +69,8 @@ export default defineComponent({
 <style scoped>
 .navbar {
     position: sticky;
+    display: flex;
+    align-items: center;
     top: 0;
     left: 0;
     right: 0;
@@ -96,6 +98,7 @@ export default defineComponent({
 .nav-links {
     display: flex;
     gap: 2rem;
+    padding: 0 35px 0 35px;
 }
 
 .nav-link {
