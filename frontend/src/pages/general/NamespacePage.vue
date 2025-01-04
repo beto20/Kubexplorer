@@ -1,16 +1,16 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
+import KsGridBody from "../../layout/GridBody.vue";
 
 export default defineComponent({
-    name: "NamespacePage"
+    name: "NamespacePage",
+    components: { KsGridBody }
 })
 console.log("PRUEBA CARGA NS")
 </script>
 
 <template>
-    <h2>NS PAGE</h2>
-    <router-view></router-view>
-
+    <ks-grid-body></ks-grid-body>
 </template>
 
 <style scoped>

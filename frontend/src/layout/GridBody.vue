@@ -58,9 +58,15 @@ export default defineComponent({
             console.log("DELETE")
         };
 
+        const base = () => {
+            console.log("BASE")
+        };
+
+
         return {
             editPod,
             deletePod,
+            base,
         }
     }
 })
@@ -89,6 +95,7 @@ export default defineComponent({
                 item-value="name"
                 density="compact"
                 fixed-header
+                @click="base"
             >
                 <template v-slot:top>
                     <v-toolbar flat>

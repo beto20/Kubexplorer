@@ -1,13 +1,15 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
+import KsGridBody from "../../layout/GridBody.vue";
 
 export default defineComponent({
-    name: "PodPage"
+    name: "PodPage" ,
+    components: {KsGridBody}
 })
 </script>
 
 <template>
-    <h2>PodPage</h2>
+    <ks-grid-body></ks-grid-body>
 </template>
 
 <style scoped>

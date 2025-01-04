@@ -1,16 +1,15 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
+import KsGridBody from "../../layout/GridBody.vue";
 
 export default defineComponent({
-    name: "ServicePage"
+    name: "ServicePage" ,
+    components: {KsGridBody}
 })
 </script>
 
 <template>
-    <div>
-        <router-view></router-view>
-        <h2>Service page</h2>
-    </div>
+    <ks-grid-body></ks-grid-body>
 </template>
 
 <style scoped>

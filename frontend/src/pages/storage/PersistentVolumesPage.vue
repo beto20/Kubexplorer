@@ -1,14 +1,15 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
+import KsGridBody from "../../layout/GridBody.vue";
 
 export default defineComponent({
-    name: "PersistentVolumesPage"
+    name: "PersistentVolumesPage" ,
+    components: {KsGridBody}
 })
 </script>
 
 <template>
-    <h2>Persistent PAGE</h2>
-
+    <ks-grid-body></ks-grid-body>
 </template>
 
 <style scoped>
