@@ -209,6 +209,18 @@ export namespace objects {
 		    return a;
 		}
 	}
+	export class PersistentVolumeDto {
+	
+	
+	    static createFrom(source: any = {}) {
+	        return new PersistentVolumeDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	
+	    }
+	}
 	export class PodDto {
 	    Name: string;
 	    Namespace: string;

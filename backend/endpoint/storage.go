@@ -9,14 +9,14 @@ type IStorageEndpoint interface {
 	GetPersistentVolumes() []objects.PersistentVolumeDto
 }
 
-type StorageEndpoint struct {
+type storageEndpoint struct {
 	useCase usecase.IStorageUseCase
 }
 
 func NewStorageEndpoint(useCase usecase.IStorageUseCase) IStorageEndpoint {
-	return &StorageEndpoint{useCase: useCase}
+	return &storageEndpoint{useCase: useCase}
 }
 
-func (s *StorageEndpoint) GetPersistentVolumes() []objects.PersistentVolumeDto {
+func (s *storageEndpoint) GetPersistentVolumes() []objects.PersistentVolumeDto {
 	return s.useCase.GetPersistentVolumes()
 }

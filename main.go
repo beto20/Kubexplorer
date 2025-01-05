@@ -38,6 +38,9 @@ func main() {
 	n := di.SetupNodeContainer()
 	nodeEp := n.MustResolve("INodeEndpoint").(endpoint.INodeEndpoint)
 
+	stg := di.SetupStorageContainer()
+	storageEp := stg.MustResolve("IStorageEndpoint").(endpoint.IStorageEndpoint)
+
 	// Create an instance of the app structure
 	app := middleware.NewApp()
 	deploymentMiddleware := middleware.NewDeploymentMiddleware(deploymentEp)
@@ -46,6 +49,7 @@ func main() {
 	environmentMiddleware := middleware.NewEnvironmentMiddleware(environmentEp)
 	serviceMiddleware := middleware.NewServiceMiddleware(serviceEp)
 	nodeMiddleware := middleware.NewNodeMiddleware(nodeEp)
+	storageMiddleware := middleware.NewStorageMiddleware(storageEp)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -65,6 +69,7 @@ func main() {
 			environmentMiddleware,
 			serviceMiddleware,
 			nodeMiddleware,
+			storageMiddleware,
 		},
 	})
 
