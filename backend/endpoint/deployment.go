@@ -13,7 +13,7 @@ type DeploymentEndpoint struct {
 	useCase usecase.IDeploymentUseCase
 }
 
-func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) *DeploymentEndpoint {
+func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) IDeploymentEndpoint {
 	return &DeploymentEndpoint{
 		useCase: useCase,
 	}
@@ -21,13 +21,4 @@ func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) *DeploymentEndpoi
 
 func (de *DeploymentEndpoint) GetDeployments(namespace string) []objects.DeploymentDto {
 	return de.useCase.GetAllDeployments(namespace)
-
-	//for _, d := range deployments {
-	//	fmt.Printf("deployment name: %s namespace: %s status: %s age: %s\n",
-	//		d.Name,
-	//		d.Namespace,
-	//		d.Status,
-	//		d.Age,
-	//	)
-	//}
 }

@@ -20,10 +20,6 @@ func (p *podImpl) GetAllPods(namespace string) []objects.PodDto {
 	return p.object.GetPodsMock(namespace)
 }
 
-//func (p *pod) GetAll() []objects.Pod {
-//	return objects.GetPods("assi")
-//}
-
 func (p *podImpl) GetDetailsById() {
 }
 

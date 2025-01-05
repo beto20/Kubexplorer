@@ -32,12 +32,20 @@ func main() {
 	e := di.SetupEnvironmentContainer()
 	environmentEp := e.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
 
+	s := di.SetupServiceContainer()
+	serviceEp := s.MustResolve("IServiceEndpoint").(endpoint.IServiceEndpoint)
+
+	n := di.SetupNodeContainer()
+	nodeEp := n.MustResolve("INodeEndpoint").(endpoint.INodeEndpoint)
+
 	// Create an instance of the app structure
 	app := middleware.NewApp()
 	deploymentMiddleware := middleware.NewDeploymentMiddleware(deploymentEp)
 	podMiddleware := middleware.NewPodMiddleware(podEp)
 	parameterMiddleware := middleware.NewParameterMiddleware(parameterEp)
 	environmentMiddleware := middleware.NewEnvironmentMiddleware(environmentEp)
+	serviceMiddleware := middleware.NewServiceMiddleware(serviceEp)
+	nodeMiddleware := middleware.NewNodeMiddleware(nodeEp)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -55,6 +63,8 @@ func main() {
 			podMiddleware,
 			parameterMiddleware,
 			environmentMiddleware,
+			serviceMiddleware,
+			nodeMiddleware,
 		},
 	})
 

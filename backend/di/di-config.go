@@ -69,3 +69,27 @@ func SetupParameterContainer() *container.Container {
 
 	return c
 }
+
+func SetupNodeContainer() *container.Container {
+	c := container.NewContainer()
+
+	nodeObject := objects.NewNodeObject()
+	nodeUseCase := usecase.NewNodeUseCase(nodeObject)
+	nodeEndpoint := endpoint.NewNodeEndpoint(nodeUseCase)
+
+	c.Register("INodeEndpoint", nodeEndpoint)
+
+	return c
+}
+
+func SetupStorageContainer() *container.Container {
+	c := container.NewContainer()
+
+	storageObject := objects.NewStorageObject()
+	storageUseCase := usecase.NewStorageUseCase(storageObject)
+	storageEndpoint := endpoint.NewStorageEndpoint(storageUseCase)
+
+	c.Register("IStorageEndpoint", storageEndpoint)
+
+	return c
+}
