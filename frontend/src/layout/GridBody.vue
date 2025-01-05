@@ -50,24 +50,30 @@ export default defineComponent({
         },
     },
     setup() {
-        const editPod = () => {
-            console.log("EDIT")
+        const editPod = (item: any) => {
+            console.log("EDIT", item);
         };
 
-        const deletePod = () => {
-            console.log("DELETE")
+        const deletePod = (item: any) => {
+            console.log("DELETE", item);
         };
-
-        const base = () => {
-            console.log("BASE")
-        };
-
 
         return {
             editPod,
             deletePod,
-            base,
         }
+    },
+    methods: {
+        // onRowClick(...args: any) {
+        //     // this will log all arguments, as array
+        //     console.log(args);
+        // }
+        onRowClick(cellData: any, item: any) {
+            console.log("cellData", cellData);
+            console.log("item", item);
+            console.log("item", item.item.name);
+        },
+
     }
 })
 </script>
@@ -95,7 +101,8 @@ export default defineComponent({
                 item-value="name"
                 density="compact"
                 fixed-header
-                @click="base"
+                @click:row="onRowClick"
+                hover
             >
                 <template v-slot:top>
                     <v-toolbar flat>
@@ -125,10 +132,10 @@ export default defineComponent({
                 </template>
 
                 <template v-slot:item.actions="{ item }">
-                    <v-btn @click="editPod" icon >
+                    <v-btn @click.stop="editPod(item)" icon >
                         <v-icon icon="mdi-pencil" />
                     </v-btn>
-                    <v-btn @click="deletePod" icon>
+                    <v-btn @click.stop="deletePod(item)" icon>
                         <v-icon icon="mdi-delete" />
                     </v-btn>
                 </template>

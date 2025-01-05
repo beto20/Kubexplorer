@@ -49,6 +49,7 @@ export default defineComponent({
     </div>
     <div>
         <router-view></router-view>
+        <h2>General page</h2>
     </div>
 
 </template>
