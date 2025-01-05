@@ -10,18 +10,18 @@ type IServiceEndpoint interface {
 	GetIngresses(namespace string) []objects.IngressDto
 }
 
-type ServiceEndpoint struct {
+type serviceEndpoint struct {
 	useCase usecase.IServiceUseCase
 }
 
 func NewServiceEndpoint(useCase usecase.IServiceUseCase) IServiceEndpoint {
-	return &ServiceEndpoint{useCase: useCase}
+	return &serviceEndpoint{useCase: useCase}
 }
 
-func (se *ServiceEndpoint) GetServices(namespace string) []objects.ServiceDto {
+func (se *serviceEndpoint) GetServices(namespace string) []objects.ServiceDto {
 	return se.useCase.GetServices(namespace)
 }
 
-func (se *ServiceEndpoint) GetIngresses(namespace string) []objects.IngressDto {
+func (se *serviceEndpoint) GetIngresses(namespace string) []objects.IngressDto {
 	return se.useCase.GetIngresses(namespace)
 }

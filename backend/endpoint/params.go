@@ -11,22 +11,22 @@ type IParameterEndpoint interface {
 	GetK8sObjects() []database.ObjectType
 }
 
-type ParameterEndpoint struct {
+type parameterEndpoint struct {
 	useCase usecase.IParameterUseCase
 }
 
 func NewParameterEndpoint(useCase usecase.IParameterUseCase) IParameterEndpoint {
-	return &ParameterEndpoint{useCase: useCase}
+	return &parameterEndpoint{useCase: useCase}
 }
 
-func (p *ParameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
+func (p *parameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
 	return p.useCase.GetKubernetesParameters()
 }
 
-func (p *ParameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
+func (p *parameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
 	return p.useCase.GetCommonParameters()
 }
 
-func (p *ParameterEndpoint) GetK8sObjects() []database.ObjectType {
+func (p *parameterEndpoint) GetK8sObjects() []database.ObjectType {
 	return p.useCase.GetK8sObjects()
 }

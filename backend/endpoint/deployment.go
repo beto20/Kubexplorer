@@ -9,16 +9,16 @@ type IDeploymentEndpoint interface {
 	GetDeployments(namespace string) []objects.DeploymentDto
 }
 
-type DeploymentEndpoint struct {
+type deploymentEndpoint struct {
 	useCase usecase.IDeploymentUseCase
 }
 
 func NewDeploymentEndpoint(useCase usecase.IDeploymentUseCase) IDeploymentEndpoint {
-	return &DeploymentEndpoint{
+	return &deploymentEndpoint{
 		useCase: useCase,
 	}
 }
 
-func (de *DeploymentEndpoint) GetDeployments(namespace string) []objects.DeploymentDto {
+func (de *deploymentEndpoint) GetDeployments(namespace string) []objects.DeploymentDto {
 	return de.useCase.GetAllDeployments(namespace)
 }

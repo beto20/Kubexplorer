@@ -9,14 +9,14 @@ type INodeEndpoint interface {
 	GetNodes() []objects.NodeDto
 }
 
-type NodeEndpoint struct {
+type nodeEndpoint struct {
 	useCase usecase.INodeUseCase
 }
 
 func NewNodeEndpoint(useCase usecase.INodeUseCase) INodeEndpoint {
-	return &NodeEndpoint{useCase}
+	return &nodeEndpoint{useCase}
 }
 
-func (n *NodeEndpoint) GetNodes() []objects.NodeDto {
+func (n *nodeEndpoint) GetNodes() []objects.NodeDto {
 	return n.useCase.GetNodes()
 }
