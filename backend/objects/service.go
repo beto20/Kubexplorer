@@ -3,15 +3,12 @@ package objects
 type IServiceObject interface {
 	GetServices(namespace string) []ServiceDto
 	GetServicesMock(namespace string) []ServiceDto
-	GetIngresses(namespace string) []IngressDto
+	GetServiceByName(name string) ServiceDto
 }
 
 type serviceImpl struct{}
 
 type ServiceDto struct {
-}
-
-type IngressDto struct {
 }
 
 func NewServiceObject() IServiceObject {
@@ -30,8 +27,8 @@ func (s *serviceImpl) GetServicesMock(namespace string) []ServiceDto {
 	return services
 }
 
-func (s *serviceImpl) GetIngresses(namespace string) []IngressDto {
-	var ingress []IngressDto
+func (s *serviceImpl) GetServiceByName(name string) ServiceDto {
+	var services ServiceDto
 
-	return ingress
+	return services
 }

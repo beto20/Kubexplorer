@@ -6,6 +6,7 @@ import (
 
 type IPodUseCase interface {
 	GetAllPods(namespace string) []objects.PodDto
+	GetPodByName(name string) objects.PodDto
 }
 
 type podImpl struct {
@@ -20,11 +21,6 @@ func (p *podImpl) GetAllPods(namespace string) []objects.PodDto {
 	return p.object.GetPodsMock(namespace)
 }
 
-func (p *podImpl) GetDetailsById() {
-}
-
-func (p *podImpl) DeleteOneById() {
-}
-
-func (p *podImpl) EditOneById() {
+func (p *podImpl) GetPodByName(name string) objects.PodDto {
+	return p.object.GetPodByName(name)
 }

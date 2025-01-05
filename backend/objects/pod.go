@@ -13,6 +13,7 @@ import (
 type IPodObject interface {
 	GetPodsMock(namespace string) []PodDto
 	GetPods(namespace string) []PodDto
+	GetPodByName(name string) PodDto
 }
 
 type podImpl struct{}
@@ -128,4 +129,10 @@ func status(namespace string) {
 	}
 
 	knowledge.ErrorSource(knowledge.PODS, string(knowledge.CRASH_LOOP_BACK_OFF))
+}
+
+func (p *podImpl) GetPodByName(name string) PodDto {
+	var pods PodDto
+
+	return pods
 }

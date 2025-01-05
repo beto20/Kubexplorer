@@ -2,6 +2,7 @@ package objects
 
 type IStorageObject interface {
 	GetPersistentVolumes() []PersistentVolumeDto
+	GetPersistentVolumeByName() PersistentVolumeDto
 }
 
 type storageImpl struct {
@@ -16,4 +17,8 @@ func NewStorageObject() IStorageObject {
 
 func (s *storageImpl) GetPersistentVolumes() []PersistentVolumeDto {
 	return []PersistentVolumeDto{}
+}
+
+func (s *storageImpl) GetPersistentVolumeByName() PersistentVolumeDto {
+	return PersistentVolumeDto{}
 }

@@ -19,14 +19,14 @@ func NewParameterEndpoint(useCase usecase.IParameterUseCase) IParameterEndpoint 
 	return &parameterEndpoint{useCase: useCase}
 }
 
-func (p *parameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
-	return p.useCase.GetKubernetesParameters()
+func (pe *parameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
+	return pe.useCase.GetKubernetesParameters()
 }
 
-func (p *parameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
-	return p.useCase.GetCommonParameters()
+func (pe *parameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
+	return pe.useCase.GetCommonParameters()
 }
 
-func (p *parameterEndpoint) GetK8sObjects() []database.ObjectType {
-	return p.useCase.GetK8sObjects()
+func (pe *parameterEndpoint) GetK8sObjects() []database.ObjectType {
+	return pe.useCase.GetK8sObjects()
 }

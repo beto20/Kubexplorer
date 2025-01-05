@@ -2,6 +2,7 @@ package objects
 
 type INodeObject interface {
 	GetNodes() []NodeDto
+	GetNodeByName(name string) NodeDto
 }
 
 type nodeImpl struct {
@@ -50,5 +51,22 @@ func (n *nodeImpl) GetNodes() []NodeDto {
 			Age:     "100 day",
 			Status:  true,
 		},
+	}
+}
+
+func (n *nodeImpl) GetNodeByName(name string) NodeDto {
+	return NodeDto{
+		Name: "node-1",
+		Resource: Resource{
+			Cpu:    "6Gi",
+			Memory: "20Gi",
+		},
+		Roles: []string{
+			"ADMIN",
+			"GENERAL",
+		},
+		Version: "1.24.0",
+		Age:     "20 day",
+		Status:  true,
 	}
 }

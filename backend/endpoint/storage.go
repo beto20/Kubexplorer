@@ -7,6 +7,7 @@ import (
 
 type IStorageEndpoint interface {
 	GetPersistentVolumes() []objects.PersistentVolumeDto
+	GetPersistentVolumeByName() objects.PersistentVolumeDto
 }
 
 type storageEndpoint struct {
@@ -17,6 +18,10 @@ func NewStorageEndpoint(useCase usecase.IStorageUseCase) IStorageEndpoint {
 	return &storageEndpoint{useCase: useCase}
 }
 
-func (s *storageEndpoint) GetPersistentVolumes() []objects.PersistentVolumeDto {
-	return s.useCase.GetPersistentVolumes()
+func (se *storageEndpoint) GetPersistentVolumes() []objects.PersistentVolumeDto {
+	return se.useCase.GetPersistentVolumes()
+}
+
+func (se *storageEndpoint) GetPersistentVolumeByName() objects.PersistentVolumeDto {
+	return se.useCase.GetPersistentVolumeByName()
 }

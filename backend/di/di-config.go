@@ -13,10 +13,12 @@ func SetupWorkloadContainer() *container.Container {
 
 	deploymentObject := objects.NewDeploymentObject()
 	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentObject)
+
 	podObject := objects.NewPodObject()
 	podUseCase := usecase.NewPodUseCase(podObject)
 
 	workloadEndpoint := endpoint.NewWorkloadEndpoint(podUseCase, deploymentUseCase)
+
 	c.Register("IWorkloadEndpoint", workloadEndpoint)
 
 	return c
@@ -27,7 +29,11 @@ func SetupNetworkContainer() *container.Container {
 
 	serviceObject := objects.NewServiceObject()
 	serviceUseCase := usecase.NewServiceUseCase(serviceObject)
-	networkEndpoint := endpoint.NewNetworkEndpoint(serviceUseCase)
+
+	ingressObject := objects.NewIngressObject()
+	ingressUseCase := usecase.NewIngressUseCase(ingressObject)
+
+	networkEndpoint := endpoint.NewNetworkEndpoint(serviceUseCase, ingressUseCase)
 
 	c.Register("INetworkEndpoint", networkEndpoint)
 

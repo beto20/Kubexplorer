@@ -8,20 +8,31 @@ import (
 type INetworkEndpoint interface {
 	GetServices(namespace string) []objects.ServiceDto
 	GetIngresses(namespace string) []objects.IngressDto
+	GetServiceByName(name string) objects.ServiceDto
+	GetIngressByName(name string) objects.IngressDto
 }
 
 type networkEndpoint struct {
-	useCase usecase.IServiceUseCase
+	serviceUseCase usecase.IServiceUseCase
+	ingressUseCase usecase.IIngressUseCase
 }
 
-func NewNetworkEndpoint(useCase usecase.IServiceUseCase) INetworkEndpoint {
-	return &networkEndpoint{useCase: useCase}
+func NewNetworkEndpoint(serviceUseCase usecase.IServiceUseCase, ingressUseCase usecase.IIngressUseCase) INetworkEndpoint {
+	return &networkEndpoint{serviceUseCase: serviceUseCase, ingressUseCase: ingressUseCase}
 }
 
-func (se *networkEndpoint) GetServices(namespace string) []objects.ServiceDto {
-	return se.useCase.GetServices(namespace)
+func (ne *networkEndpoint) GetServices(namespace string) []objects.ServiceDto {
+	return ne.serviceUseCase.GetServices(namespace)
 }
 
-func (se *networkEndpoint) GetIngresses(namespace string) []objects.IngressDto {
-	return se.useCase.GetIngresses(namespace)
+func (ne *networkEndpoint) GetIngresses(namespace string) []objects.IngressDto {
+	return ne.ingressUseCase.GetIngresses(namespace)
+}
+
+func (ne *networkEndpoint) GetServiceByName(name string) objects.ServiceDto {
+	return ne.serviceUseCase.GetServiceByName(name)
+}
+
+func (ne *networkEndpoint) GetIngressByName(name string) objects.IngressDto {
+	return ne.ingressUseCase.GetIngressByName(name)
 }

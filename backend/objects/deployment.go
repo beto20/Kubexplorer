@@ -11,6 +11,7 @@ import (
 type IDeploymentObject interface {
 	GetDeployments(namespace string) []DeploymentDto
 	GetDeploymentsMock(namespace string) []DeploymentDto
+	GetDeploymentByName(name string) DeploymentDto
 }
 
 type deploymentImpl struct{}
@@ -68,6 +69,12 @@ func (d *deploymentImpl) GetDeploymentsMock(namespace string) []DeploymentDto {
 
 		deployments = append(deployments, p)
 	}
+
+	return deployments
+}
+
+func (d *deploymentImpl) GetDeploymentByName(name string) DeploymentDto {
+	var deployments DeploymentDto
 
 	return deployments
 }
