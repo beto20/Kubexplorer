@@ -4,7 +4,7 @@ import "Kubessistant/backend/objects"
 
 type IStorageUseCase interface {
 	GetPersistentVolumes() []objects.PersistentVolumeDto
-	GetPersistentVolumeByName() objects.PersistentVolumeDto
+	GetPersistentVolumeByName(name string) objects.PersistentVolumeDto
 }
 
 type storageImpl struct {
@@ -19,6 +19,6 @@ func (s *storageImpl) GetPersistentVolumes() []objects.PersistentVolumeDto {
 	return s.object.GetPersistentVolumes()
 }
 
-func (s *storageImpl) GetPersistentVolumeByName() objects.PersistentVolumeDto {
-	return s.object.GetPersistentVolumeByName()
+func (s *storageImpl) GetPersistentVolumeByName(name string) objects.PersistentVolumeDto {
+	return s.object.GetPersistentVolumeByName(name)
 }

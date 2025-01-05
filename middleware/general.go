@@ -16,3 +16,7 @@ func NewGeneralMiddleware(endpoint endpoint.IGeneralEndpoint) *GeneralMiddleware
 func (n *GeneralMiddleware) GetNodes() []objects.NodeDto {
 	return n.endpoint.GetNodes()
 }
+
+func (n *GeneralMiddleware) GetNodeByName(name string) objects.NodeDto {
+	return n.endpoint.GetNodeByName(name)
+}

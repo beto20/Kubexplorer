@@ -20,3 +20,11 @@ func (d *WorkloadMiddleware) GetPods(namespace string) []objects.PodDto {
 func (d *WorkloadMiddleware) GetDeployments(namespace string) []objects.DeploymentDto {
 	return d.endpoint.GetDeployments(namespace)
 }
+
+func (d *WorkloadMiddleware) GetPodByName(name string) objects.PodDto {
+	return d.endpoint.GetPodByName(name)
+}
+
+func (d *WorkloadMiddleware) GetDeploymentByName(name string) objects.DeploymentDto {
+	return d.endpoint.GetDeploymentByName(name)
+}

@@ -20,3 +20,11 @@ func (s *NetworkMiddleware) GetServices() []objects.ServiceDto {
 func (s *NetworkMiddleware) GetIngresses() []objects.IngressDto {
 	return s.endpoint.GetIngresses("")
 }
+
+func (s *NetworkMiddleware) GetServiceByName(name string) objects.ServiceDto {
+	return s.endpoint.GetServiceByName(name)
+}
+
+func (s *NetworkMiddleware) GetIngressByName(name string) objects.IngressDto {
+	return s.endpoint.GetIngressByName(name)
+}
