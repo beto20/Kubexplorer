@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import {GetDeployments} from "../../wailsjs/go/middleware/DeploymentMiddleware";
+import {GetDeployments} from "../../wailsjs/go/middleware/WorkloadMiddleware";
 
 export default defineComponent({
     name: 'GridComponent',

@@ -8,40 +8,28 @@ import (
 	"Kubessistant/backend/usecase"
 )
 
-func SetupPodContainer() *container.Container {
-	c := container.NewContainer()
-
-	podObject := objects.NewPodObject()
-	c.Register("IPod", podObject)
-
-	podUseCase := usecase.NewPodUseCase(podObject)
-	c.Register("IPod", podUseCase)
-
-	podEndpoint := endpoint.NewPodEndpoint(podUseCase)
-	c.Register("IPodEndpoint", podEndpoint)
-
-	return c
-}
-
-func SetupDeploymentContainer() *container.Container {
+func SetupWorkloadContainer() *container.Container {
 	c := container.NewContainer()
 
 	deploymentObject := objects.NewDeploymentObject()
 	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentObject)
-	deploymentEndpoint := endpoint.NewDeploymentEndpoint(deploymentUseCase)
-	c.Register("IDeploymentEndpoint", deploymentEndpoint)
+	podObject := objects.NewPodObject()
+	podUseCase := usecase.NewPodUseCase(podObject)
+
+	workloadEndpoint := endpoint.NewWorkloadEndpoint(podUseCase, deploymentUseCase)
+	c.Register("IWorkloadEndpoint", workloadEndpoint)
 
 	return c
 }
 
-func SetupServiceContainer() *container.Container {
+func SetupNetworkContainer() *container.Container {
 	c := container.NewContainer()
 
 	serviceObject := objects.NewServiceObject()
 	serviceUseCase := usecase.NewServiceUseCase(serviceObject)
-	serviceEndpoint := endpoint.NewServiceEndpoint(serviceUseCase)
+	networkEndpoint := endpoint.NewNetworkEndpoint(serviceUseCase)
 
-	c.Register("IServiceEndpoint", serviceEndpoint)
+	c.Register("INetworkEndpoint", networkEndpoint)
 
 	return c
 }
@@ -70,14 +58,14 @@ func SetupParameterContainer() *container.Container {
 	return c
 }
 
-func SetupNodeContainer() *container.Container {
+func SetupGeneralContainer() *container.Container {
 	c := container.NewContainer()
 
 	nodeObject := objects.NewNodeObject()
 	nodeUseCase := usecase.NewNodeUseCase(nodeObject)
-	nodeEndpoint := endpoint.NewNodeEndpoint(nodeUseCase)
+	generalEndpoint := endpoint.NewGeneralEndpoint(nodeUseCase)
 
-	c.Register("INodeEndpoint", nodeEndpoint)
+	c.Register("IGeneralEndpoint", generalEndpoint)
 
 	return c
 }

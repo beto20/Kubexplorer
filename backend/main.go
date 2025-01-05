@@ -6,18 +6,6 @@ import (
 )
 
 func exe() {
-	pc := di.SetupPodContainer()
-	podEp := pc.MustResolve("IPodEndpoint").(endpoint.IPodEndpoint)
-	podEp.GetPods("assi")
-
-	dc := di.SetupDeploymentContainer()
-	deploymentEp := dc.MustResolve("IDeploymentEndpoint").(endpoint.IDeploymentEndpoint)
-	deploymentEp.GetDeployments("assi")
-
-	sc := di.SetupServiceContainer()
-	serviceEp := sc.MustResolve("IServiceEndpoint").(endpoint.IServiceEndpoint)
-	serviceEp.GetServices("assi")
-
 	ec := di.SetupEnvironmentContainer()
 	environmentEp := ec.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
 	environmentEp.GetAllEnvironment()

@@ -20,11 +20,8 @@ const (
 )
 
 func main() {
-	dc := di.SetupDeploymentContainer()
-	deploymentEp := dc.MustResolve("IDeploymentEndpoint").(endpoint.IDeploymentEndpoint)
-
-	pc := di.SetupPodContainer()
-	podEp := pc.MustResolve("IPodEndpoint").(endpoint.IPodEndpoint)
+	pc := di.SetupWorkloadContainer()
+	podEp := pc.MustResolve("IWorkloadEndpoint").(endpoint.IWorkloadEndpoint)
 
 	pr := di.SetupParameterContainer()
 	parameterEp := pr.MustResolve("IParameterEndpoint").(endpoint.IParameterEndpoint)
@@ -32,23 +29,22 @@ func main() {
 	e := di.SetupEnvironmentContainer()
 	environmentEp := e.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
 
-	s := di.SetupServiceContainer()
-	serviceEp := s.MustResolve("IServiceEndpoint").(endpoint.IServiceEndpoint)
+	s := di.SetupNetworkContainer()
+	serviceEp := s.MustResolve("INetworkEndpoint").(endpoint.INetworkEndpoint)
 
-	n := di.SetupNodeContainer()
-	nodeEp := n.MustResolve("INodeEndpoint").(endpoint.INodeEndpoint)
+	n := di.SetupGeneralContainer()
+	nodeEp := n.MustResolve("IGeneralEndpoint").(endpoint.IGeneralEndpoint)
 
 	stg := di.SetupStorageContainer()
 	storageEp := stg.MustResolve("IStorageEndpoint").(endpoint.IStorageEndpoint)
 
 	// Create an instance of the app structure
 	app := middleware.NewApp()
-	deploymentMiddleware := middleware.NewDeploymentMiddleware(deploymentEp)
-	podMiddleware := middleware.NewPodMiddleware(podEp)
+	workloadMiddleware := middleware.NewWorkloadMiddleware(podEp)
 	parameterMiddleware := middleware.NewParameterMiddleware(parameterEp)
 	environmentMiddleware := middleware.NewEnvironmentMiddleware(environmentEp)
-	serviceMiddleware := middleware.NewServiceMiddleware(serviceEp)
-	nodeMiddleware := middleware.NewNodeMiddleware(nodeEp)
+	networkMiddleware := middleware.NewNetworkMiddleware(serviceEp)
+	generalMiddleware := middleware.NewGeneralMiddleware(nodeEp)
 	storageMiddleware := middleware.NewStorageMiddleware(storageEp)
 
 	// Create application with options
@@ -63,12 +59,11 @@ func main() {
 		OnStartup:        app.Startup,
 		Bind: []interface{}{
 			app,
-			deploymentMiddleware,
-			podMiddleware,
+			workloadMiddleware,
 			parameterMiddleware,
 			environmentMiddleware,
-			serviceMiddleware,
-			nodeMiddleware,
+			networkMiddleware,
+			generalMiddleware,
 			storageMiddleware,
 		},
 	})
