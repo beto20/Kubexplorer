@@ -8,6 +8,8 @@ import (
 type IStorageEndpoint interface {
 	GetPersistentVolumes() []objects.PersistentVolumeDto
 	GetPersistentVolumeByName(name string) objects.PersistentVolumeDto
+	UpdatePersistentVolumeByName(name string) bool
+	DeletePersistentVolumeByName(name string) bool
 }
 
 type storageEndpoint struct {
@@ -24,4 +26,12 @@ func (se *storageEndpoint) GetPersistentVolumes() []objects.PersistentVolumeDto 
 
 func (se *storageEndpoint) GetPersistentVolumeByName(name string) objects.PersistentVolumeDto {
 	return se.useCase.GetPersistentVolumeByName(name)
+}
+
+func (se *storageEndpoint) UpdatePersistentVolumeByName(name string) bool {
+	return se.useCase.UpdatePersistentVolumeByName(name)
+}
+
+func (se *storageEndpoint) DeletePersistentVolumeByName(name string) bool {
+	return se.useCase.DeletePersistentVolumeByName(name)
 }

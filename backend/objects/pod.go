@@ -14,6 +14,8 @@ type IPodObject interface {
 	GetPodsMock(namespace string) []PodDto
 	GetPods(namespace string) []PodDto
 	GetPodByName(name string) PodDto
+	UpdatePodByName(name string) bool
+	DeletePodByName(name string) bool
 }
 
 type podImpl struct{}
@@ -135,4 +137,12 @@ func (p *podImpl) GetPodByName(name string) PodDto {
 	var pods PodDto
 
 	return pods
+}
+
+func (p *podImpl) UpdatePodByName(name string) bool {
+	return true
+}
+
+func (p *podImpl) DeletePodByName(name string) bool {
+	return true
 }

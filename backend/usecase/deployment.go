@@ -5,6 +5,8 @@ import "Kubessistant/backend/objects"
 type IDeploymentUseCase interface {
 	GetAllDeployments(namespace string) []objects.DeploymentDto
 	GetDeploymentByName(name string) objects.DeploymentDto
+	UpdateDeploymentByName(name string) bool
+	DeleteDeploymentByName(name string) bool
 }
 
 type deploymentImpl struct {
@@ -21,4 +23,12 @@ func (d *deploymentImpl) GetAllDeployments(namespace string) []objects.Deploymen
 
 func (d *deploymentImpl) GetDeploymentByName(name string) objects.DeploymentDto {
 	return d.object.GetDeploymentByName(name)
+}
+
+func (d *deploymentImpl) UpdateDeploymentByName(name string) bool {
+	return d.object.UpdateDeploymentByName(name)
+}
+
+func (d *deploymentImpl) DeleteDeploymentByName(name string) bool {
+	return d.object.DeleteDeploymentByName(name)
 }

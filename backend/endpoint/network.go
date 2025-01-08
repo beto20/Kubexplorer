@@ -7,9 +7,13 @@ import (
 
 type INetworkEndpoint interface {
 	GetServices(namespace string) []objects.ServiceDto
-	GetIngresses(namespace string) []objects.IngressDto
 	GetServiceByName(name string) objects.ServiceDto
+	UpdateServiceByName(name string) bool
+	DeleteServiceByName(name string) bool
+	GetIngresses(namespace string) []objects.IngressDto
 	GetIngressByName(name string) objects.IngressDto
+	UpdateIngressByName(name string) bool
+	DeleteIngressByName(name string) bool
 }
 
 type networkEndpoint struct {
@@ -25,14 +29,30 @@ func (ne *networkEndpoint) GetServices(namespace string) []objects.ServiceDto {
 	return ne.serviceUseCase.GetServices(namespace)
 }
 
-func (ne *networkEndpoint) GetIngresses(namespace string) []objects.IngressDto {
-	return ne.ingressUseCase.GetIngresses(namespace)
-}
-
 func (ne *networkEndpoint) GetServiceByName(name string) objects.ServiceDto {
 	return ne.serviceUseCase.GetServiceByName(name)
 }
 
+func (ne *networkEndpoint) UpdateServiceByName(name string) bool {
+	return ne.serviceUseCase.UpdateServiceByName(name)
+}
+
+func (ne *networkEndpoint) DeleteServiceByName(name string) bool {
+	return ne.serviceUseCase.DeleteServiceByName(name)
+}
+
+func (ne *networkEndpoint) GetIngresses(namespace string) []objects.IngressDto {
+	return ne.ingressUseCase.GetIngresses(namespace)
+}
+
 func (ne *networkEndpoint) GetIngressByName(name string) objects.IngressDto {
 	return ne.ingressUseCase.GetIngressByName(name)
+}
+
+func (ne *networkEndpoint) UpdateIngressByName(name string) bool {
+	return ne.ingressUseCase.UpdateIngressByName(name)
+}
+
+func (ne *networkEndpoint) DeleteIngressByName(name string) bool {
+	return ne.ingressUseCase.DeleteIngressByName(name)
 }

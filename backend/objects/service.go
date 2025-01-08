@@ -4,6 +4,8 @@ type IServiceObject interface {
 	GetServices(namespace string) []ServiceDto
 	GetServicesMock(namespace string) []ServiceDto
 	GetServiceByName(name string) ServiceDto
+	UpdateServiceByName(name string) bool
+	DeleteServiceByName(name string) bool
 }
 
 type serviceImpl struct{}
@@ -31,4 +33,12 @@ func (s *serviceImpl) GetServiceByName(name string) ServiceDto {
 	var services ServiceDto
 
 	return services
+}
+
+func (s *serviceImpl) UpdateServiceByName(name string) bool {
+	return true
+}
+
+func (s *serviceImpl) DeleteServiceByName(name string) bool {
+	return true
 }

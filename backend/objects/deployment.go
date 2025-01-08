@@ -12,6 +12,8 @@ type IDeploymentObject interface {
 	GetDeployments(namespace string) []DeploymentDto
 	GetDeploymentsMock(namespace string) []DeploymentDto
 	GetDeploymentByName(name string) DeploymentDto
+	UpdateDeploymentByName(name string) bool
+	DeleteDeploymentByName(name string) bool
 }
 
 type deploymentImpl struct{}
@@ -77,4 +79,12 @@ func (d *deploymentImpl) GetDeploymentByName(name string) DeploymentDto {
 	var deployments DeploymentDto
 
 	return deployments
+}
+
+func (d *deploymentImpl) UpdateDeploymentByName(name string) bool {
+	return true
+}
+
+func (d *deploymentImpl) DeleteDeploymentByName(name string) bool {
+	return true
 }

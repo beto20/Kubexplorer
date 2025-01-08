@@ -69,7 +69,11 @@ func SetupGeneralContainer() *container.Container {
 
 	nodeObject := objects.NewNodeObject()
 	nodeUseCase := usecase.NewNodeUseCase(nodeObject)
-	generalEndpoint := endpoint.NewGeneralEndpoint(nodeUseCase)
+
+	namespaceObject := objects.NewNamespaceObject()
+	namespaceUseCase := usecase.NewNamespaceUseCase(namespaceObject)
+
+	generalEndpoint := endpoint.NewGeneralEndpoint(nodeUseCase, namespaceUseCase)
 
 	c.Register("IGeneralEndpoint", generalEndpoint)
 
