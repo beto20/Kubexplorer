@@ -20,3 +20,11 @@ func (s *StorageMiddleware) GetPersistentVolumes() []objects.PersistentVolumeDto
 func (s *StorageMiddleware) GetPersistentVolumeByName(name string) objects.PersistentVolumeDto {
 	return s.endpoint.GetPersistentVolumeByName(name)
 }
+
+func (s *StorageMiddleware) UpdatePersistentVolumeByName(name string) bool {
+	return s.endpoint.UpdatePersistentVolumeByName(name)
+}
+
+func (s *StorageMiddleware) DeletePersistentVolumeByName(name string) bool {
+	return s.endpoint.DeletePersistentVolumeByName(name)
+}
