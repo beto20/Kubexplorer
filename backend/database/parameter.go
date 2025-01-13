@@ -109,6 +109,13 @@ type K8sObject struct {
 	IsEditable bool
 }
 
+type HeadParamsDto struct {
+	Title    string
+	Key      string
+	Align    string
+	Sortable bool
+}
+
 func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
 	return []CommonParameterDto{
 		{Name: "Overview", Link: "overview", Icon: "📊"},

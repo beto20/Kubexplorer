@@ -4,7 +4,7 @@ import {onMounted, ref} from "vue";
 import {fetchObjectsParameter} from "../services/navbar.service";
 
 
-export function useNavbarComposable() {
+export function navbarComposable() {
 
     const objects = ref<ObjectType[]>([]);
 

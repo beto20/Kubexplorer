@@ -4,7 +4,7 @@ import {database, objects} from "../../wailsjs/go/models";
 import EnvironmentDto = objects.EnvironmentDto;
 import CommonParameterDto = database.CommonParameterDto;
 
-export function useLayoutComposable() {
+export function sidebarComposable() {
     const commonParameters = ref<CommonParameterDto[]>([]);
     const kubernetesParameters = ref<CommonParameterDto[]>([]);
     const environments = ref<EnvironmentDto[]>([]);

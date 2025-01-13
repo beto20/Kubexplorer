@@ -24,3 +24,7 @@ func (p *ParameterMiddleware) GetCommonParameters() []database.CommonParameterDt
 func (p *ParameterMiddleware) GetK8sObjects() []database.ObjectType {
 	return p.endpoint.GetK8sObjects()
 }
+
+func (p *ParameterMiddleware) GetHeaderParams(k8sObject string) []database.HeadParamsDto {
+	return p.endpoint.GetHeadParams(k8sObject)
+}

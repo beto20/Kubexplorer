@@ -4,6 +4,8 @@ import {database} from '../models';
 
 export function GetCommonParameters():Promise<Array<database.CommonParameterDto>>;
 
+export function GetHeaderParams(arg1:string):Promise<Array<database.HeadParamsDto>>;
+
 export function GetK8sObjects():Promise<Array<database.ObjectType>>;
 
 export function GetKubernetesParameters():Promise<Array<database.CommonParameterDto>>;

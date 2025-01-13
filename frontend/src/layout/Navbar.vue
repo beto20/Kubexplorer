@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent, onMounted, reactive, toRefs} from 'vue'
-import {useNavbarComposable} from "../composables/useNavbarComposable";
+import {navbarComposable} from "../composables/NavbarComposable";
 import {K8sObjectDto, NavbarDto} from "../types/navbar.type";
 
 interface NavbarState {
@@ -17,7 +17,7 @@ export default defineComponent({
         },
     },
     setup(props) {
-        const { objects, fetchData } = useNavbarComposable();
+        const { objects, fetchData } = navbarComposable();
 
         const state = reactive<NavbarState>({
             menu: [],
@@ -68,6 +68,7 @@ export default defineComponent({
 
 <style scoped>
 .navbar {
+    width: fit-content;
     position: sticky;
     display: flex;
     align-items: center;
@@ -75,7 +76,7 @@ export default defineComponent({
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -86,19 +87,17 @@ export default defineComponent({
 }
 
 .nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 0 20px;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
-
 .nav-links {
     display: flex;
-    gap: 2rem;
-    padding: 0 35px 0 35px;
+    gap: 1rem;
+    padding: 5px 20px 5px 20px;
 }
 
 .nav-link {

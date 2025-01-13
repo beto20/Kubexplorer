@@ -16,6 +16,24 @@ export namespace database {
 	        this.Icon = source["Icon"];
 	    }
 	}
+	export class HeadParamsDto {
+	    Title: string;
+	    Key: string;
+	    Align: string;
+	    Sortable: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new HeadParamsDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Title = source["Title"];
+	        this.Key = source["Key"];
+	        this.Align = source["Align"];
+	        this.Sortable = source["Sortable"];
+	    }
+	}
 	export class K8sObject {
 	    Name: string;
 	    Link: string;

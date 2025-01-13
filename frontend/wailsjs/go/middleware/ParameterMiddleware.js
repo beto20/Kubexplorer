@@ -6,6 +6,10 @@ export function GetCommonParameters() {
   return window['go']['middleware']['ParameterMiddleware']['GetCommonParameters']();
 }
 
+export function GetHeaderParams(arg1) {
+  return window['go']['middleware']['ParameterMiddleware']['GetHeaderParams'](arg1);
+}
+
 export function GetK8sObjects() {
   return window['go']['middleware']['ParameterMiddleware']['GetK8sObjects']();
 }

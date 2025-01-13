@@ -6,7 +6,7 @@ import {database} from "../../../wailsjs/go/models";
 import CommonParameterDto = database.CommonParameterDto;
 import { Init } from '@wailsapp/runtime';
 import {useLayoutComposableExample} from "../../composables/useLayoutComposableExample";
-import {useLayoutComposable} from "../../composables/useLayoutComposable";
+import {sidebarComposable} from "../../composables/SidebarComposable";
 
 console.log("HOLA GENERAL")
 

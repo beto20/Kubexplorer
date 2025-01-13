@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent, onMounted, reactive, toRefs} from 'vue';
-import { useLayoutComposable } from '../composables/useLayoutComposable';
+import { sidebarComposable } from '../composables/SidebarComposable';
 import { EnvironmentLayout } from "../types/layout.type";
 import {database} from "../../wailsjs/go/models";
 import CommonParameterDto = database.CommonParameterDto;
@@ -16,7 +16,7 @@ export default defineComponent({
     name: 'ks-sidebar-v2',
 
     setup() {
-        const { commonParameters, kubernetesParameters, environments, fetchData } = useLayoutComposable();
+        const { commonParameters, kubernetesParameters, environments, fetchData } = sidebarComposable();
 
         const state = reactive<SidebarState>({
             isCollapsed: false,
