@@ -1,12 +1,20 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, reactive, ref, toRefs} from 'vue'
-import {gridBodyPodsComposable} from "../composables/GridBodyComposable";
+import { gridGeneralComposable} from "../composables/GridGeneralComposable";
+import {gridBodyPodsComposable} from "../composables/GridWorkloadComposable";
+import KsSidebarDetail from "./SidebarDetail.vue";
 
 interface GridState {
+    // header: Array <{
+    //    title: string,
+    //    key: string,
+    //    align: string,
+    //    sortable: boolean
+    // }>;
     items: Array<{
         name: string;
         namespace: string;
-        replicas: string;
+        replicas: number;
         cpu: string;
         memory: string;
         age: string;
@@ -18,10 +26,24 @@ interface GridState {
     sortBy: any;
 }
 
+interface HeadState {
+    header: Array <any>;
+}
+
 export default defineComponent({
     name: "ks-grid-body",
-
-    setup() {
+    components: {KsSidebarDetail},
+    props: {
+        k8sObject: {
+            type: String,
+            // required: true
+        },
+        namespace: {
+            type: String,
+            // required: true
+        }
+    },
+    setup(props) {
         const editPod = (item: any) => {
             console.log("EDIT", item);
         };
@@ -30,27 +52,23 @@ export default defineComponent({
             console.log("DELETE", item);
         };
 
-        const { pods, fetchData } = gridBodyPodsComposable("mock");
-        const headers = ref<any>([
-            { title: 'Name', key: 'name', align: 'start', sortable: true },
-            { title: 'Namespace', key: 'namespace', align: 'start', sortable: false },
-            { title: 'Replicas', key: 'replicas', align: 'start', sortable: false },
-            { title: 'Cpu', key: 'cpu', align: 'start', sortable: false },
-            { title: 'Memory', key: 'memory', align: 'start', sortable: false },
-            { title: 'Age', key: 'age', align: 'start', sortable: true },
-            { title: 'Status', key: 'status', align: 'start', sortable: false },
-            { title: 'Actions', key: 'actions', align: 'start', sortable: false },
-        ]);
+        const { pods, headers, fetchData } = gridBodyPodsComposable("mock", "pod");
+        // const { nodes, namespaces, headers, fetchData } = gridGeneralComposable(props.k8sObject);
 
         const namespaces = ['ns-local', 'ns-dev'];
-        const statuses = ['Active', 'Inactive'];
+        const statuses = ['Alive', 'Inactive'];
 
         const state = reactive<GridState>({
+            // header: [],
             items: [],
             search: '',
             filterNamespace: null,
             filterStatus: null,
             sortBy: [{ key: 'name', order: 'asc' }],
+        });
+
+        const header = reactive<HeadState>({
+            header: [],
         });
 
         const filteredItems = computed(() => {
@@ -66,11 +84,7 @@ export default defineComponent({
         const selectedRow = ref<any>(null);
 
         const onRowClick = (cellData: any, item: any) => {
-            console.log("cellData", cellData);
-            console.log("item", item);
-
-            selectedRow.value = item;
-
+            selectedRow.value = item.item;
 
             if (isSidebarVisible.value) {
                 console.log("FALSE")
@@ -87,19 +101,27 @@ export default defineComponent({
 
         onMounted(async () => {
             await fetchData();
+
             state.items = pods.value.map((p) => ({
                 name: p.Name,
                 namespace: p.Namespace,
-                replicas: '',
-                cpu: '',
-                memory: '',
+                replicas: p.Replicas,
+                cpu: p.Container.Limit.Cpu + '/' + p.Container.Request.Cpu,
+                memory: p.Container.Limit.Memory + '/' + p.Container.Request.Memory,
                 age: p.Age,
                 status: p.Status,
+            }));
+
+            header.header = headers.value.map((h) => ({
+                title: h.Title,
+                key: h.Key,
+                align: h.Align,
+                sortable: h.Sortable,
             }));
         });
 
         return {
-            headers,
+            header,
             namespaces,
             statuses,
             ...toRefs(state),
@@ -110,18 +132,6 @@ export default defineComponent({
             selectedRow,
             onRowClick,
         }
-    },
-    methods: {
-        // onRowClick(...args: any) {
-        //     // this will log all arguments, as array
-        //     console.log(args);
-        // }
-        // onRowClick(cellData: any, item: any) {
-        //     console.log("cellData", cellData);
-        //     console.log("item", item);
-        //     console.log("item", item.item.name);
-        // },
-
     },
 
 })
@@ -142,7 +152,7 @@ export default defineComponent({
             </v-card-title>
 
             <v-data-table-virtual
-                :headers="headers"
+                :headers="header.header"
                 :items="filteredItems"
                 :search="search"
                 :sort-by="sortBy"
@@ -211,19 +221,20 @@ export default defineComponent({
                             </template>
                         <v-divider></v-divider>
                         <v-card-text>
-                            <p>PRUEBAS123</p>
-<!--                            <p>Name: {{ selectedRow?.name }}</p>-->
-<!--                            <p>Namespace: {{ selectedRow?.namespace }}</p>-->
-<!--                            <p>Replicas: {{ selectedRow?.replicas }}</p>-->
-<!--                            <p>CPU: {{ selectedRow?.cpu }}</p>-->
-<!--                            <p>Memory: {{ selectedRow?.memory }}</p>-->
-<!--                            <p>Age: {{ selectedRow?.age }}</p>-->
-<!--                            <p>Status: {{ selectedRow?.status }}</p>-->
+                            <p>Name: {{ selectedRow?.name }}</p>
+                            <p>Namespace: {{ selectedRow?.namespace }}</p>
+                            <p>Replicas: {{ selectedRow?.replicas }}</p>
+                            <p>CPU: {{ selectedRow?.cpu }}</p>
+                            <p>Memory: {{ selectedRow?.memory }}</p>
+                            <p>Age: {{ selectedRow?.age }}</p>
+                            <p>Status: {{ selectedRow?.status }}</p>
                         </v-card-text>
                     </v-card>
                 </v-navigation-drawer>
             </v-layout>
         </v-card>
+
+<!--        <ks-sidebar-detail></ks-sidebar-detail>-->
 
     </v-container>
 </template>

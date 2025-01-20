@@ -282,6 +282,7 @@ export namespace objects {
 	export class PodDto {
 	    Name: string;
 	    Namespace: string;
+	    Replicas: number;
 	    Container: Container;
 	    Age: string;
 	    Status: string;
@@ -294,6 +295,7 @@ export namespace objects {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.Name = source["Name"];
 	        this.Namespace = source["Namespace"];
+	        this.Replicas = source["Replicas"];
 	        this.Container = this.convertValues(source["Container"], Container);
 	        this.Age = source["Age"];
 	        this.Status = source["Status"];

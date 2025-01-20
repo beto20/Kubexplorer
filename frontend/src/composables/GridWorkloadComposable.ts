@@ -7,16 +7,14 @@ import {fetchHeaderParams} from "../services/layout.service";
 import HeadParamsDto = database.HeadParamsDto;
 
 
-export function gridBodyPodsComposable(namespace: string) {
+export function gridBodyPodsComposable(namespace: string, k8sObject: string) {
     const pods = ref<PodDto[]>([]);
     const headers = ref<HeadParamsDto[]>([]);
 
-    const fetchData = async (): Promise<PodDto[]> => {
+    const fetchData = async (): Promise<any> => {
         try {
             pods.value = await fetchGetPods(namespace);
-            headers.value = await fetchHeaderParams(namespace);
-
-            return pods.value
+            headers.value = await fetchHeaderParams(k8sObject);
         } catch (error) {
             console.log("Error fetching pod data: ", error);
             throw error;
@@ -30,6 +28,7 @@ export function gridBodyPodsComposable(namespace: string) {
 
     return {
         pods,
+        headers,
         fetchData
     }
 }

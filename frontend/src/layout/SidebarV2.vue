@@ -55,9 +55,6 @@ export default defineComponent({
 
             state.menu = env
             state.setting = set
-            // console.log('Result from Go:', commonParameters.value);
-            // console.log('Result from Go:', kubernetesParameters.value);
-            // console.log('Result from Go:', environments.value);
         });
 
         const toggleSidebar = (): void => {

@@ -27,6 +27,7 @@ func NewPodObject() IPodObject {
 type PodDto struct {
 	Name      string
 	Namespace string
+	Replicas  int32
 	Container Container
 	Age       string
 	Status    string
@@ -56,6 +57,7 @@ func (p *podImpl) GetPods(namespace string) []PodDto {
 		p := PodDto{
 			Name:      pod.Name,
 			Namespace: pod.Namespace,
+			Replicas:  1,
 			Container: Container{
 				Limit: Resource{
 					Cpu:    pod.Spec.Containers[0].Resources.Limits.Cpu().String(),
@@ -95,9 +97,10 @@ func (p *podImpl) GetPodsMock(namespace string) []PodDto {
 		p := PodDto{
 			Name:      fmt.Sprintf("pod %d", i),
 			Namespace: namespace,
+			Replicas:  1,
 			Container: Container{
 				Limit: Resource{
-					Cpu:    strconv.Itoa(rand.Intn(1000)),
+					Cpu:    strconv.Itoa(rand.Intn(1000)) + "mi",
 					Memory: strconv.Itoa(rand.Intn(1000)),
 				},
 				Request: Resource{

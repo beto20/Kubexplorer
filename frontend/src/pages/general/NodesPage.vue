@@ -8,7 +8,9 @@ export default defineComponent({
     components: {KsNavBar, KsGridBody },
     data() {
         return {
-            followingPage: 'General'
+            k8sObject: 'node',
+            namespace: 'mock'
+
         }
     },
 })
@@ -16,7 +18,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <ks-grid-body></ks-grid-body>
+    <ks-grid-body :namespace="namespace" :k8sObject="k8sObject"></ks-grid-body>
 
 </template>
 
