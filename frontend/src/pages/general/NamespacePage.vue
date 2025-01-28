@@ -9,7 +9,7 @@ export default defineComponent({
     components: {KsNavBar, KsGridBody, KsGridBodyV2 },
     data() {
         return {
-            k8sObject: 'pod',
+            k8sObject: 'namespace',
             namespace: 'mock'
 
         }

@@ -52,7 +52,7 @@ export default defineComponent({
             console.log("DELETE", item);
         };
 
-        const { pods, headers, fetchData } = gridBodyPodsComposable("mock", "pod");
+        // const { pods, headers, fetchData } = gridBodyPodsComposable("mock", "pod");
         // const { nodes, namespaces, headers, fetchData } = gridGeneralComposable(props.k8sObject);
 
         const namespaces = ['ns-local', 'ns-dev'];
@@ -100,24 +100,24 @@ export default defineComponent({
         };
 
         onMounted(async () => {
-            await fetchData();
+            // await fetchData();
 
-            state.items = pods.value.map((p) => ({
-                name: p.Name,
-                namespace: p.Namespace,
-                replicas: p.Replicas,
-                cpu: p.Container.Limit.Cpu + '/' + p.Container.Request.Cpu,
-                memory: p.Container.Limit.Memory + '/' + p.Container.Request.Memory,
-                age: p.Age,
-                status: p.Status,
-            }));
+            // state.items = pods.value.map((p) => ({
+            //     name: p.Name,
+            //     namespace: p.Namespace,
+            //     replicas: p.Replicas,
+            //     cpu: p.Container.Limit.Cpu + '/' + p.Container.Request.Cpu,
+            //     memory: p.Container.Limit.Memory + '/' + p.Container.Request.Memory,
+            //     age: p.Age,
+            //     status: p.Status,
+            // }));
 
-            header.header = headers.value.map((h) => ({
-                title: h.Title,
-                key: h.Key,
-                align: h.Align,
-                sortable: h.Sortable,
-            }));
+            // header.header = headers.value.map((h) => ({
+            //     title: h.Title,
+            //     key: h.Key,
+            //     align: h.Align,
+            //     sortable: h.Sortable,
+            // }));
         });
 
         return {
