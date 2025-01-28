@@ -6,8 +6,8 @@ import (
 )
 
 type IWorkloadEndpoint interface {
-	GetPods(namespace string) []objects.PodDto
-	GetDeployments(namespace string) []objects.DeploymentDto
+	GetPods() []objects.PodDto
+	GetDeployments() []objects.DeploymentDto
 	GetPodByName(name string) objects.PodDto
 	GetDeploymentByName(name string) objects.DeploymentDto
 	UpdatePodByName(name string) bool
@@ -25,8 +25,8 @@ func NewWorkloadEndpoint(podUseCase usecase.IPodUseCase, deploymentUseCase useca
 	return &workloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
 }
 
-func (we *workloadEndpoint) GetPods(namespace string) []objects.PodDto {
-	return we.podUseCase.GetAllPods(namespace)
+func (we *workloadEndpoint) GetPods() []objects.PodDto {
+	return we.podUseCase.GetAllPods()
 }
 
 func (we *workloadEndpoint) GetPodByName(name string) objects.PodDto {
@@ -41,8 +41,8 @@ func (we *workloadEndpoint) RestartPodByName(name string) bool {
 	return we.podUseCase.DeletePodByName(name)
 }
 
-func (we *workloadEndpoint) GetDeployments(namespace string) []objects.DeploymentDto {
-	return we.deploymentUseCase.GetAllDeployments(namespace)
+func (we *workloadEndpoint) GetDeployments() []objects.DeploymentDto {
+	return we.deploymentUseCase.GetAllDeployments()
 }
 
 func (we *workloadEndpoint) GetDeploymentByName(name string) objects.DeploymentDto {

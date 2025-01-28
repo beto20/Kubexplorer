@@ -10,16 +10,16 @@ export function GetDeploymentByName(arg1) {
   return window['go']['middleware']['WorkloadMiddleware']['GetDeploymentByName'](arg1);
 }
 
-export function GetDeployments(arg1) {
-  return window['go']['middleware']['WorkloadMiddleware']['GetDeployments'](arg1);
+export function GetDeployments() {
+  return window['go']['middleware']['WorkloadMiddleware']['GetDeployments']();
 }
 
 export function GetPodByName(arg1) {
   return window['go']['middleware']['WorkloadMiddleware']['GetPodByName'](arg1);
 }
 
-export function GetPods(arg1) {
-  return window['go']['middleware']['WorkloadMiddleware']['GetPods'](arg1);
+export function GetPods() {
+  return window['go']['middleware']['WorkloadMiddleware']['GetPods']();
 }
 
 export function RestartPodByName(arg1) {

@@ -9,8 +9,8 @@ import (
 )
 
 type IDeploymentObject interface {
-	GetDeployments(namespace string) []DeploymentDto
-	GetDeploymentsMock(namespace string) []DeploymentDto
+	GetDeployments() []DeploymentDto
+	GetDeploymentsMock() []DeploymentDto
 	GetDeploymentByName(name string) DeploymentDto
 	UpdateDeploymentByName(name string) bool
 	DeleteDeploymentByName(name string) bool
@@ -29,8 +29,8 @@ type DeploymentDto struct {
 	Age       string
 }
 
-func (d *deploymentImpl) GetDeployments(namespace string) []DeploymentDto {
-	deploymentClient := client.AppsV1().Deployments(namespace)
+func (d *deploymentImpl) GetDeployments() []DeploymentDto {
+	deploymentClient := client.AppsV1().Deployments("TODO")
 	deploys, err := deploymentClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		fmt.Println("Error when get deploys")
@@ -58,13 +58,13 @@ func (d *deploymentImpl) GetDeployments(namespace string) []DeploymentDto {
 	return deployments
 }
 
-func (d *deploymentImpl) GetDeploymentsMock(namespace string) []DeploymentDto {
+func (d *deploymentImpl) GetDeploymentsMock() []DeploymentDto {
 	var deployments []DeploymentDto
 	for i := 0; i < 10; i++ {
 
 		p := DeploymentDto{
 			Name:      fmt.Sprintf("Deployment %d", i),
-			Namespace: namespace,
+			Namespace: "TODO",
 			Status:    "Alive",
 			Age:       strconv.Itoa(rand.Intn(1000)),
 		}

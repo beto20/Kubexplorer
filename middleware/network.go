@@ -14,7 +14,7 @@ func NewNetworkMiddleware(endpoint endpoint.INetworkEndpoint) *NetworkMiddleware
 }
 
 func (n *NetworkMiddleware) GetServices() []objects.ServiceDto {
-	return n.endpoint.GetServices("")
+	return n.endpoint.GetServices()
 }
 
 func (n *NetworkMiddleware) GetServiceByName(name string) objects.ServiceDto {
@@ -30,7 +30,7 @@ func (n *NetworkMiddleware) DeleteServiceByName(name string) bool {
 }
 
 func (n *NetworkMiddleware) GetIngresses() []objects.IngressDto {
-	return n.endpoint.GetIngresses("")
+	return n.endpoint.GetIngresses()
 }
 
 func (n *NetworkMiddleware) GetIngressByName(name string) objects.IngressDto {

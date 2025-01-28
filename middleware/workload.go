@@ -13,8 +13,8 @@ func NewWorkloadMiddleware(endpoint endpoint.IWorkloadEndpoint) *WorkloadMiddlew
 	return &WorkloadMiddleware{endpoint: endpoint}
 }
 
-func (w *WorkloadMiddleware) GetPods(namespace string) []objects.PodDto {
-	return w.endpoint.GetPods(namespace)
+func (w *WorkloadMiddleware) GetPods() []objects.PodDto {
+	return w.endpoint.GetPods()
 }
 
 func (w *WorkloadMiddleware) GetPodByName(name string) objects.PodDto {
@@ -29,8 +29,8 @@ func (w *WorkloadMiddleware) RestartPodByName(name string) bool {
 	return w.endpoint.RestartPodByName(name)
 }
 
-func (w *WorkloadMiddleware) GetDeployments(namespace string) []objects.DeploymentDto {
-	return w.endpoint.GetDeployments(namespace)
+func (w *WorkloadMiddleware) GetDeployments() []objects.DeploymentDto {
+	return w.endpoint.GetDeployments()
 }
 
 func (w *WorkloadMiddleware) GetDeploymentByName(name string) objects.DeploymentDto {

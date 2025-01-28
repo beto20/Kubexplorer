@@ -1,6 +1,6 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, reactive, ref, toRefs} from 'vue'
-import {gridBodyComposable, gridBodyPodsComposable} from "../composables/GridWorkloadComposable";
+import {gridComposable} from "../composables/GridComposable";
 import KsSidebarDetail from "./SidebarDetail.vue";
 import KsGridTable from "../components/GridTableComponent.vue";
 import KsGridHeader from "../components/GridHeaderComponent.vue";
@@ -33,7 +33,7 @@ export default defineComponent({
         namespace: { type: String, required: true },
     },
     setup(props) {
-        const response = gridBodyComposable("mock", props.k8sObject);
+        const response = gridComposable(props.k8sObject);
         const namespaces = ["ns-local", "ns-dev"];
         const statuses = ["Alive", "Inactive"];
 
@@ -80,22 +80,8 @@ export default defineComponent({
 
         onMounted(async () => {
             await response.fetchData();
-            state.items = response.body.value.map((p: any) => ({
-                name: p.Name,
-                namespace: p.Namespace,
-                replicas: p.Replicas,
-                // cpu: `${p.Container.Limit.Cpu}/${p.Container.Request.Cpu}`,
-                // memory: `${p.Container.Limit.Memory}/${p.Container.Request.Memory}`,
-                age: p.Age,
-                status: p.Status,
-            }));
-
-            header.header = response.header.value.map((h: any) => ({
-                title: h.Title,
-                key: h.Key,
-                align: h.Align,
-                sortable: h.Sortable,
-            }));
+            header.header = response.content?.head.value
+            state.items = response.content?.body.value
         });
 
         return {

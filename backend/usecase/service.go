@@ -3,7 +3,7 @@ package usecase
 import "Kubessistant/backend/objects"
 
 type IServiceUseCase interface {
-	GetServices(namespace string) []objects.ServiceDto
+	GetServices() []objects.ServiceDto
 	GetServiceByName(name string) objects.ServiceDto
 	UpdateServiceByName(name string) bool
 	DeleteServiceByName(name string) bool
@@ -17,8 +17,8 @@ func NewServiceUseCase(object objects.IServiceObject) IServiceUseCase {
 	return &serviceImpl{object: object}
 }
 
-func (s *serviceImpl) GetServices(namespace string) []objects.ServiceDto {
-	return s.object.GetServicesMock(namespace)
+func (s *serviceImpl) GetServices() []objects.ServiceDto {
+	return s.object.GetServicesMock()
 }
 
 func (s *serviceImpl) GetServiceByName(name string) objects.ServiceDto {

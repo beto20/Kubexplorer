@@ -1,7 +1,6 @@
 <script lang="ts">
 import {computed, defineComponent, onMounted, reactive, ref, toRefs} from 'vue'
 import { gridGeneralComposable} from "../composables/GridGeneralComposable";
-import {gridBodyPodsComposable} from "../composables/GridWorkloadComposable";
 import KsSidebarDetail from "./SidebarDetail.vue";
 
 interface GridState {

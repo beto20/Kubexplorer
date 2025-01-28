@@ -56,6 +56,7 @@ func (pe *parameterEndpoint) GetHeadParams(k8sObject string) []database.HeadPara
 	} else if k8sObject == "namespace" {
 		return []database.HeadParamsDto{
 			{Title: "Name", Key: "name", Align: "start", Sortable: true},
+			//{Title: "Label", Key: "age", Align: "start", Sortable: true},
 			{Title: "Age", Key: "age", Align: "start", Sortable: true},
 			{Title: "Status", Key: "status", Align: "start", Sortable: false},
 			{Title: "Actions", Key: "actions", Align: "start", Sortable: false},

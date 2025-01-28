@@ -6,11 +6,11 @@ export function DeleteDeploymentByName(arg1:string):Promise<boolean>;
 
 export function GetDeploymentByName(arg1:string):Promise<objects.DeploymentDto>;
 
-export function GetDeployments(arg1:string):Promise<Array<objects.DeploymentDto>>;
+export function GetDeployments():Promise<Array<objects.DeploymentDto>>;
 
 export function GetPodByName(arg1:string):Promise<objects.PodDto>;
 
-export function GetPods(arg1:string):Promise<Array<objects.PodDto>>;
+export function GetPods():Promise<Array<objects.PodDto>>;
 
 export function RestartPodByName(arg1:string):Promise<boolean>;
 

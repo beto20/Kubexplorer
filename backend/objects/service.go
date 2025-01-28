@@ -2,7 +2,7 @@ package objects
 
 type IServiceObject interface {
 	GetServices(namespace string) []ServiceDto
-	GetServicesMock(namespace string) []ServiceDto
+	GetServicesMock() []ServiceDto
 	GetServiceByName(name string) ServiceDto
 	UpdateServiceByName(name string) bool
 	DeleteServiceByName(name string) bool
@@ -23,7 +23,7 @@ func (s *serviceImpl) GetServices(namespace string) []ServiceDto {
 	return services
 }
 
-func (s *serviceImpl) GetServicesMock(namespace string) []ServiceDto {
+func (s *serviceImpl) GetServicesMock() []ServiceDto {
 	var services []ServiceDto
 
 	return services

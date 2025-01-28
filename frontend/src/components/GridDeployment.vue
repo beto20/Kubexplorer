@@ -12,7 +12,7 @@ export default defineComponent({
 });
 
 function getDeployments() {
-    GetDeployments("assi").then((response) => {
+    GetDeployments().then((response) => {
         console.log(response);
 
     }).catch((error) => {

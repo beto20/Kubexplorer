@@ -1,7 +1,7 @@
 package objects
 
 type IIngressObject interface {
-	GetIngresses(namespace string) []IngressDto
+	GetIngresses() []IngressDto
 	GetIngressByName(name string) IngressDto
 	UpdateIngressByName(name string) bool
 	DeleteIngressByName(name string) bool
@@ -16,7 +16,7 @@ func NewIngressObject() IIngressObject {
 	return &ingressImpl{}
 }
 
-func (i *ingressImpl) GetIngresses(namespace string) []IngressDto {
+func (i *ingressImpl) GetIngresses() []IngressDto {
 	var ingress []IngressDto
 
 	return ingress

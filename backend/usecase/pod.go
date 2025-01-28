@@ -5,7 +5,7 @@ import (
 )
 
 type IPodUseCase interface {
-	GetAllPods(namespace string) []objects.PodDto
+	GetAllPods() []objects.PodDto
 	GetPodByName(name string) objects.PodDto
 	UpdatePodByName(name string) bool
 	DeletePodByName(name string) bool
@@ -19,8 +19,8 @@ func NewPodUseCase(object objects.IPodObject) IPodUseCase {
 	return &podImpl{object: object}
 }
 
-func (p *podImpl) GetAllPods(namespace string) []objects.PodDto {
-	return p.object.GetPodsMock(namespace)
+func (p *podImpl) GetAllPods() []objects.PodDto {
+	return p.object.GetPodsMock()
 }
 
 func (p *podImpl) GetPodByName(name string) objects.PodDto {

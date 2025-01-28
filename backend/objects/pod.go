@@ -11,8 +11,8 @@ import (
 )
 
 type IPodObject interface {
-	GetPodsMock(namespace string) []PodDto
-	GetPods(namespace string) []PodDto
+	GetPodsMock() []PodDto
+	GetPods() []PodDto
 	GetPodByName(name string) PodDto
 	UpdatePodByName(name string) bool
 	DeletePodByName(name string) bool
@@ -45,8 +45,8 @@ type Resource struct {
 
 var client = config.GetKubeInstance()
 
-func (p *podImpl) GetPods(namespace string) []PodDto {
-	podsClient := client.CoreV1().Pods(namespace)
+func (p *podImpl) GetPods() []PodDto {
+	podsClient := client.CoreV1().Pods("TODO")
 	pods, err := podsClient.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		fmt.Println("Error when get pods")
@@ -90,13 +90,13 @@ func (p *podImpl) GetPods(namespace string) []PodDto {
 	return podArray
 }
 
-func (p *podImpl) GetPodsMock(namespace string) []PodDto {
+func (p *podImpl) GetPodsMock() []PodDto {
 	var pods []PodDto
 	for i := 0; i < 10; i++ {
 
 		p := PodDto{
 			Name:      fmt.Sprintf("pod %d", i),
-			Namespace: namespace,
+			Namespace: "TODO",
 			Replicas:  1,
 			Container: Container{
 				Limit: Resource{
