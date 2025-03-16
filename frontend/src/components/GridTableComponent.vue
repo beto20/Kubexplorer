@@ -1,5 +1,11 @@
 <script lang="ts">
-import {defineComponent} from 'vue'
+import {defineComponent, onMounted} from 'vue'
+import {gridGeneralComposable} from "../composables/GridTableComposable";
+
+
+interface State {
+  isRestarted?: any;
+}
 
 export default defineComponent({
     name: "KsGridTable",
@@ -11,12 +17,24 @@ export default defineComponent({
     },
     emits: ["rowClick", "edit", "delete"],
     setup() {
+        const response = gridGeneralComposable("")
+
         const editPod = (item: any) => {
             console.log("EDIT", item);
         };
 
+        const state: State = {
+          isRestarted: null
+        }
+
+        onMounted(async () => {
+            await response.fetchData()
+            state.isRestarted = response.isRestarted
+        })
+
         const deletePod = (item: any) => {
-            console.log("DELETE", item);
+            // console.log("DELETE", item);
+            console.log("RESTARTED", state.isRestarted.value)
         };
 
         return {
