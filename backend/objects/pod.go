@@ -6,6 +6,9 @@ import (
 	"context"
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/discovery"
+	"k8s.io/client-go/rest"
+	metricsv "k8s.io/metrics/pkg/client/clientset/versioned"
 	"math/rand"
 	"strconv"
 )
@@ -16,6 +19,7 @@ type IPodObject interface {
 	GetPodByName(name string) PodDto
 	UpdatePodByName(name string) bool
 	DeletePodByName(name string) bool
+	GetPodMetric(namespace string) []PodMetricDto
 }
 
 type podImpl struct{}
@@ -33,14 +37,22 @@ type PodDto struct {
 	Status    string
 }
 
+type PodMetricDto struct {
+	Name      string
+	Namespace string
+	Consume   Resource
+}
+
 type Container struct {
 	Limit   Resource
 	Request Resource
 }
 
 type Resource struct {
-	Cpu    string
-	Memory string
+	Cpu              string
+	Memory           string
+	Storage          string
+	StorageEphemeral string
 }
 
 var client = config.GetKubeInstance()
@@ -148,4 +160,74 @@ func (p *podImpl) UpdatePodByName(name string) bool {
 
 func (p *podImpl) DeletePodByName(name string) bool {
 	return true
+}
+
+func (p *podImpl) GetPodMetric(namespace string) []PodMetricDto {
+	inClusterConfig, err := rest.InClusterConfig()
+	if err != nil {
+		fmt.Printf("Error creating in-cluster config: %v", err)
+	}
+
+	metricsClient, err := metricsv.NewForConfig(inClusterConfig)
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	isWatchEnable := validateWatchFeature(inClusterConfig)
+	if isWatchEnable && false {
+		watchMetrics()
+	}
+
+	return pollMetrics(metricsClient, namespace)
+}
+
+func pollMetrics(metricsClient *metricsv.Clientset, namespace string) []PodMetricDto {
+	podMetrics, err := metricsClient.MetricsV1beta1().PodMetricses(namespace).List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		fmt.Println("Error to get pod metrics")
+	}
+
+	var metrics []PodMetricDto
+
+	for _, podMetric := range podMetrics.Items {
+		for _, container := range podMetric.Containers {
+			metrics = append(metrics, PodMetricDto{
+				Name:      podMetric.Name,
+				Namespace: podMetric.Namespace,
+				Consume: Resource{
+					Cpu:              container.Usage.Cpu().String(),
+					Memory:           container.Usage.Memory().String(),
+					Storage:          container.Usage.Storage().String(),
+					StorageEphemeral: container.Usage.StorageEphemeral().String(),
+				},
+			})
+		}
+	}
+
+	return metrics
+}
+
+func watchMetrics() {
+	// TODO: next feature
+}
+
+func validateWatchFeature(inClusterConfig *rest.Config) bool {
+
+	discoveryClient := discovery.NewDiscoveryClientForConfigOrDie(inClusterConfig)
+	apiResourceList, err := discoveryClient.ServerResourcesForGroupVersion("metrics.k8s.io/v1beta1")
+	if err != nil {
+		fmt.Printf("Error getting API resources: %v", err)
+	}
+
+	for _, resources := range apiResourceList.APIResources {
+		if resources.Name == "pods" {
+			for _, verb := range resources.Verbs {
+				if verb == "watch" {
+					return true
+				}
+			}
+		}
+	}
+
+	return false
 }

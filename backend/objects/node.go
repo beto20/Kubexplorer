@@ -3,6 +3,7 @@ package objects
 type INodeObject interface {
 	GetNodes() []NodeDto
 	GetNodeByName(name string) NodeDto
+	GetNodeMetric()
 }
 
 type nodeImpl struct {
@@ -69,4 +70,8 @@ func (n *nodeImpl) GetNodeByName(name string) NodeDto {
 		Age:     "20 day",
 		Status:  true,
 	}
+}
+
+func (n *nodeImpl) GetNodeMetric() {
+
 }
