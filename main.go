@@ -38,6 +38,9 @@ func main() {
 	stg := di.SetupStorageContainer()
 	storageEp := stg.MustResolve("IStorageEndpoint").(endpoint.IStorageEndpoint)
 
+	mtc := di.SetupMetricsContainer2()
+	metricEp := mtc.MustResolve("IMetricEndpoint").(endpoint.IMetricEndpoint)
+
 	// Create an instance of the app structure
 	app := middleware.NewApp()
 	workloadMiddleware := middleware.NewWorkloadMiddleware(podEp)
@@ -46,6 +49,7 @@ func main() {
 	networkMiddleware := middleware.NewNetworkMiddleware(serviceEp)
 	generalMiddleware := middleware.NewGeneralMiddleware(nodeEp)
 	storageMiddleware := middleware.NewStorageMiddleware(storageEp)
+	metricMiddleware := middleware.NewMetricMiddleware(metricEp)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -57,6 +61,7 @@ func main() {
 		},
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
 		OnStartup:        app.Startup,
+		OnShutdown:       app.Shutdown,
 		Bind: []interface{}{
 			app,
 			workloadMiddleware,
@@ -65,6 +70,7 @@ func main() {
 			networkMiddleware,
 			generalMiddleware,
 			storageMiddleware,
+			metricMiddleware,
 		},
 	})
 

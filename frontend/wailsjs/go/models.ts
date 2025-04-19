@@ -96,6 +96,8 @@ export namespace objects {
 	export class Resource {
 	    Cpu: string;
 	    Memory: string;
+	    Storage: string;
+	    StorageEphemeral: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new Resource(source);
@@ -105,6 +107,8 @@ export namespace objects {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.Cpu = source["Cpu"];
 	        this.Memory = source["Memory"];
+	        this.Storage = source["Storage"];
+	        this.StorageEphemeral = source["StorageEphemeral"];
 	    }
 	}
 	export class Container {
