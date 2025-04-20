@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"Kubessistant/backend/endpoint"
-	"Kubessistant/backend/objects"
+	"Kubessistant/backend/model"
 )
 
 type WorkloadMiddleware struct {
@@ -13,34 +13,34 @@ func NewWorkloadMiddleware(endpoint endpoint.IWorkloadEndpoint) *WorkloadMiddlew
 	return &WorkloadMiddleware{endpoint: endpoint}
 }
 
-func (w *WorkloadMiddleware) GetPods() []objects.PodDto {
+func (w *WorkloadMiddleware) GetPods() ([]model.PodDto, error) {
 	return w.endpoint.GetPods()
 }
 
-func (w *WorkloadMiddleware) GetPodByName(name string) objects.PodDto {
-	return w.endpoint.GetPodByName(name)
+func (w *WorkloadMiddleware) GetPod(name string) (model.PodDto, error) {
+	return w.endpoint.GetPod(name)
 }
 
-func (w *WorkloadMiddleware) UpdatePodByName(name string) bool {
-	return w.endpoint.UpdatePodByName(name)
+func (w *WorkloadMiddleware) UpdatePod(name string) error {
+	return w.endpoint.UpdatePod(name)
 }
 
-func (w *WorkloadMiddleware) RestartPodByName(name string) bool {
-	return w.endpoint.RestartPodByName(name)
+func (w *WorkloadMiddleware) RestartPod(name string) error {
+	return w.endpoint.RestartPod(name)
 }
 
-func (w *WorkloadMiddleware) GetDeployments() []objects.DeploymentDto {
+func (w *WorkloadMiddleware) GetDeployments() ([]model.DeploymentDto, error) {
 	return w.endpoint.GetDeployments()
 }
 
-func (w *WorkloadMiddleware) GetDeploymentByName(name string) objects.DeploymentDto {
-	return w.endpoint.GetDeploymentByName(name)
+func (w *WorkloadMiddleware) GetDeployment(name string) (model.DeploymentDto, error) {
+	return w.endpoint.GetDeployment(name)
 }
 
-func (w *WorkloadMiddleware) UpdateDeploymentByName(name string) bool {
-	return w.endpoint.UpdateDeploymentByName(name)
+func (w *WorkloadMiddleware) UpdateDeployment(name string) error {
+	return w.endpoint.UpdateDeployment(name)
 }
 
-func (w *WorkloadMiddleware) DeleteDeploymentByName(name string) bool {
-	return w.endpoint.DeleteDeploymentByName(name)
+func (w *WorkloadMiddleware) DeleteDeployment(name string) error {
+	return w.endpoint.DeleteDeployment(name)
 }

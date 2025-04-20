@@ -12,8 +12,8 @@ import (
 func SetupWorkloadContainer() *container.Container {
 	c := container.NewContainer()
 
-	deploymentObject := objects.NewDeploymentObject()
-	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentObject)
+	deploymentClient := kubeclient.NewDeployment()
+	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentClient)
 
 	//podObject := objects.NewPodObject()
 	podClient := kubeclient.NewPod()

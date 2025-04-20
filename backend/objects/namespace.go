@@ -1,5 +1,7 @@
 package objects
 
+import "Kubessistant/backend/model"
+
 type INamespaceObject interface {
 	GetNamespace() []NamespaceDto
 	GetNamespaceByName(name string) NamespaceDto
@@ -16,7 +18,7 @@ func NewNamespaceObject() INamespaceObject {
 
 type NamespaceDto struct {
 	Name     string
-	Resource Resource
+	Resource model.Resource
 	Roles    []string
 	Version  string
 	Age      string
@@ -27,7 +29,7 @@ func (n *namespaceImpl) GetNamespace() []NamespaceDto {
 	return []NamespaceDto{
 		{
 			Name: "node-1",
-			Resource: Resource{
+			Resource: model.Resource{
 				Cpu:    "6Gi",
 				Memory: "20Gi",
 			},
@@ -41,7 +43,7 @@ func (n *namespaceImpl) GetNamespace() []NamespaceDto {
 		},
 		{
 			Name: "node-2",
-			Resource: Resource{
+			Resource: model.Resource{
 				Cpu:    "6Gi",
 				Memory: "20Gi",
 			},
@@ -58,7 +60,7 @@ func (n *namespaceImpl) GetNamespace() []NamespaceDto {
 func (n *namespaceImpl) GetNamespaceByName(name string) NamespaceDto {
 	return NamespaceDto{
 		Name: "node-1",
-		Resource: Resource{
+		Resource: model.Resource{
 			Cpu:    "6Gi",
 			Memory: "20Gi",
 		},

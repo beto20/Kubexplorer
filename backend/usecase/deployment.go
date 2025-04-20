@@ -1,34 +1,37 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type IDeploymentUseCase interface {
-	GetAllDeployments() []objects.DeploymentDto
-	GetDeploymentByName(name string) objects.DeploymentDto
-	UpdateDeploymentByName(name string) bool
-	DeleteDeploymentByName(name string) bool
+type DeploymentUseCase interface {
+	GetAllDeployments() ([]model.DeploymentDto, error)
+	GetDeployment(name string) (model.DeploymentDto, error)
+	UpdateDeployment(name string) error
+	DeleteDeployment(name string) error
 }
 
-type deploymentImpl struct {
-	object objects.IDeploymentObject
+type deploymentUseCase struct {
+	client kubeclient.DeploymentClient
 }
 
-func NewDeploymentUseCase(object objects.IDeploymentObject) IDeploymentUseCase {
-	return &deploymentImpl{object: object}
+func NewDeploymentUseCase(client kubeclient.DeploymentClient) DeploymentUseCase {
+	return &deploymentUseCase{client: client}
 }
 
-func (d *deploymentImpl) GetAllDeployments() []objects.DeploymentDto {
-	return d.object.GetDeploymentsMock()
+func (d *deploymentUseCase) GetAllDeployments() ([]model.DeploymentDto, error) {
+	return d.client.GetDeploymentsMock()
 }
 
-func (d *deploymentImpl) GetDeploymentByName(name string) objects.DeploymentDto {
-	return d.object.GetDeploymentByName(name)
+func (d *deploymentUseCase) GetDeployment(name string) (model.DeploymentDto, error) {
+	return d.client.GetDeployment(name)
 }
 
-func (d *deploymentImpl) UpdateDeploymentByName(name string) bool {
-	return d.object.UpdateDeploymentByName(name)
+func (d *deploymentUseCase) UpdateDeployment(name string) error {
+	return d.client.UpdateDeployment(name)
 }
 
-func (d *deploymentImpl) DeleteDeploymentByName(name string) bool {
-	return d.object.DeleteDeploymentByName(name)
+func (d *deploymentUseCase) DeleteDeployment(name string) error {
+	return d.client.DeleteDeployment(name)
 }
