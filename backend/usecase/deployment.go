@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/kubeclient2"
 	"Kubessistant/backend/model"
 )
 
@@ -13,10 +13,10 @@ type DeploymentUseCase interface {
 }
 
 type deploymentUseCase struct {
-	client kubeclient.DeploymentClient
+	client kubeclient2.DeploymentClient
 }
 
-func NewDeploymentUseCase(client kubeclient.DeploymentClient) DeploymentUseCase {
+func NewDeploymentUseCase(client kubeclient2.DeploymentClient) DeploymentUseCase {
 	return &deploymentUseCase{client: client}
 }
 

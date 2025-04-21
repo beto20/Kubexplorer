@@ -16,43 +16,43 @@ type IWorkloadEndpoint interface {
 	DeleteDeployment(name string) error
 }
 
-type workloadEndpoint struct {
+type WorkloadEndpoint struct {
 	podUseCase        usecase.PodUseCase
 	deploymentUseCase usecase.DeploymentUseCase
 }
 
 func NewWorkloadEndpoint(podUseCase usecase.PodUseCase, deploymentUseCase usecase.DeploymentUseCase) IWorkloadEndpoint {
-	return &workloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
+	return &WorkloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
 }
 
-func (we *workloadEndpoint) GetPods() ([]model.PodDto, error) {
+func (we *WorkloadEndpoint) GetPods() ([]model.PodDto, error) {
 	return we.podUseCase.GetAllPods()
 }
 
-func (we *workloadEndpoint) GetPod(name string) (model.PodDto, error) {
+func (we *WorkloadEndpoint) GetPod(name string) (model.PodDto, error) {
 	return we.podUseCase.GetPod(name)
 }
 
-func (we *workloadEndpoint) UpdatePod(name string) error {
+func (we *WorkloadEndpoint) UpdatePod(name string) error {
 	return we.podUseCase.UpdatePod(name)
 }
 
-func (we *workloadEndpoint) RestartPod(name string) error {
+func (we *WorkloadEndpoint) RestartPod(name string) error {
 	return we.podUseCase.DeletePod(name)
 }
 
-func (we *workloadEndpoint) GetDeployments() ([]model.DeploymentDto, error) {
+func (we *WorkloadEndpoint) GetDeployments() ([]model.DeploymentDto, error) {
 	return we.deploymentUseCase.GetAllDeployments()
 }
 
-func (we *workloadEndpoint) GetDeployment(name string) (model.DeploymentDto, error) {
+func (we *WorkloadEndpoint) GetDeployment(name string) (model.DeploymentDto, error) {
 	return we.deploymentUseCase.GetDeployment(name)
 }
 
-func (we *workloadEndpoint) UpdateDeployment(name string) error {
+func (we *WorkloadEndpoint) UpdateDeployment(name string) error {
 	return we.deploymentUseCase.UpdateDeployment(name)
 }
 
-func (we *workloadEndpoint) DeleteDeployment(name string) error {
+func (we *WorkloadEndpoint) DeleteDeployment(name string) error {
 	return we.deploymentUseCase.DeleteDeployment(name)
 }

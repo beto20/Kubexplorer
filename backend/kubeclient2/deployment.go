@@ -1,20 +1,43 @@
-package kubeclient
+package kubeclient2
 
 import (
 	"Kubessistant/backend/model"
 	"errors"
 	"fmt"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/tools/clientcmd"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"strconv"
 )
 
-type deploymentClient struct{}
+//type DeploymentClient interface {
+//	GetDeployments() ([]model.DeploymentDto, error)
+//	GetDeploymentsMock() ([]model.DeploymentDto, error)
+//	GetDeployment(name string) (model.DeploymentDto, error)
+//	UpdateDeployment(name string) error
+//	DeleteDeployment(name string) error
+//}
 
-func NewDeployment() DeploymentClient {
-	return &deploymentClient{}
+type DeploymentClient struct {
+	client kubernetes.Interface
 }
 
-func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
+func NewDeployment(client kubernetes.Interface) *DeploymentClient {
+	return &DeploymentClient{client: client}
+}
+
+func (d DeploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
+	home, _ := os.UserHomeDir()
+	kubeconfigPath := filepath.Join(home, ".kube", "config")
+	config, err := clientcmd.BuildConfigFromFlags("", kubeconfigPath)
+	if err != nil {
+		panic(err)
+	}
+
+	kubernetes.NewForConfigOrDie(config)
+
 	//deploymentClient := client.AppsV1().Deployments("TODO")
 	//deploys, err := deploymentClient.List(context.TODO(), metav1.ListOptions{})
 	//if err != nil {
@@ -43,7 +66,7 @@ func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
 	return deployments, errors.New("deployment list is empty")
 }
 
-func (d deploymentClient) GetDeploymentsMock() ([]model.DeploymentDto, error) {
+func (d DeploymentClient) GetDeploymentsMock() ([]model.DeploymentDto, error) {
 	var deployments []model.DeploymentDto
 	for i := 0; i < 10; i++ {
 
@@ -60,17 +83,17 @@ func (d deploymentClient) GetDeploymentsMock() ([]model.DeploymentDto, error) {
 	return deployments, errors.New("Deployment Not Found")
 }
 
-func (d deploymentClient) GetDeployment(name string) (model.DeploymentDto, error) {
+func (d DeploymentClient) GetDeployment(name string) (model.DeploymentDto, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d deploymentClient) UpdateDeployment(name string) error {
+func (d DeploymentClient) UpdateDeployment(name string) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d deploymentClient) DeleteDeployment(name string) error {
+func (d DeploymentClient) DeleteDeployment(name string) error {
 	//TODO implement me
 	panic("implement me")
 }

@@ -4,25 +4,28 @@ import (
 	"Kubessistant/backend/model"
 	"errors"
 	"fmt"
-	//v1 "k8s.io/api/core/v1"
-	//metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	//"k8s.io/client-go/discovery"
-	//"k8s.io/client-go/rest"
-	//metricsv "k8s.io/metrics/pkg/client/clientset/versioned"
+	"k8s.io/client-go/kubernetes"
 	"math/rand"
 	"strconv"
 )
 
-type pod struct {
+type PodClient interface {
+	GetPodsMock() ([]model.PodDto, error)
+	GetPods() ([]model.PodDto, error)
+	GetPod(name string) (model.PodDto, error)
+	UpdatePod(name string) error
+	DeletePod(name string) error
 }
 
-func NewPod() PodClient {
-	return &pod{}
+type podClient struct {
+	client kubernetes.Interface
 }
 
-//var client = config.GetKubeInstance()
+func NewPod(client kubernetes.Interface) PodClient {
+	return &podClient{client: client}
+}
 
-func (p *pod) GetPodsMock() ([]model.PodDto, error) {
+func (p *podClient) GetPodsMock() ([]model.PodDto, error) {
 	var pods []model.PodDto
 	for i := 0; i < 10; i++ {
 
@@ -50,14 +53,15 @@ func (p *pod) GetPodsMock() ([]model.PodDto, error) {
 	return pods, errors.New("Not implemented")
 }
 
-func (p *pod) GetPods() ([]model.PodDto, error) {
-	//podsClient := client.CoreV1().Pods("TODO")
+func (p *podClient) GetPods() ([]model.PodDto, error) {
+	//podsClient := p.client.CoreV1().Pods("TODO")
+	//
 	//pods, err := podsClient.List(context.TODO(), metav1.ListOptions{})
 	//if err != nil {
 	//	fmt.Println("Error when get pods")
 	//}
 	var podArray []model.PodDto
-
+	//
 	//for _, pod := range pods.Items {
 	//	p := model.PodDto{
 	//		Name:      pod.Name,
@@ -95,91 +99,17 @@ func (p *pod) GetPods() ([]model.PodDto, error) {
 	return podArray, errors.New("Not implemented")
 }
 
-func (p *pod) GetPod(name string) (model.PodDto, error) {
+func (p *podClient) GetPod(name string) (model.PodDto, error) {
 	return model.PodDto{}, errors.New("Not implemented")
 }
 
-func (p *pod) UpdatePod(name string) error {
+func (p *podClient) UpdatePod(name string) error {
 	return errors.New("Not implemented")
 }
 
-func (p *pod) DeletePod(name string) error {
+func (p *podClient) DeletePod(name string) error {
 	return errors.New("Not implemented")
 }
-
-func (p *pod) GetPodMetric(namespace string) []model.PodMetricDto {
-	//inClusterConfig, err := rest.InClusterConfig()
-	//if err != nil {
-	//	fmt.Printf("Error creating in-cluster config: %v", err)
-	//}
-	//
-	//metricsClient, err := metricsv.NewForConfig(inClusterConfig)
-	//if err != nil {
-	//	fmt.Print(err)
-	//}
-	//
-	//isWatchEnable := validateWatchFeature(inClusterConfig)
-	//if isWatchEnable && false {
-	//	watchMetrics()
-	//}
-
-	//return pollMetrics(nil, namespace)
-
-	var metrics []model.PodMetricDto
-	return metrics
-
-}
-
-//func pollMetrics(metricsClient *metricsv.Clientset, namespace string) []model.PodMetricDto {
-//podMetrics, err := metricsClient.MetricsV1beta1().PodMetricses(namespace).List(context.TODO(), metav1.ListOptions{})
-//if err != nil {
-//	fmt.Println("Error to get pod metrics")
-//}
-
-var metrics []model.PodMetricDto
-
-//for _, podMetric := range podMetrics.Items {
-//	for _, container := range podMetric.Containers {
-//		metrics = append(metrics, model.PodMetricDto{
-//			Name:      podMetric.Name,
-//			Namespace: podMetric.Namespace,
-//			Consume: model.Resource{
-//				Cpu:              container.Usage.Cpu().String(),
-//				Memory:           container.Usage.Memory().String(),
-//				Storage:          container.Usage.Storage().String(),
-//				StorageEphemeral: container.Usage.StorageEphemeral().String(),
-//			},
-//		})
-//	}
-//}
-
-//	return metrics
-//}
-
-func watchMetrics() {
-	// TODO: next feature
-}
-
-//func validateWatchFeature(inClusterConfig *rest.Config) bool {
-
-//discoveryClient := discovery.NewDiscoveryClientForConfigOrDie(inClusterConfig)
-//apiResourceList, err := discoveryClient.ServerResourcesForGroupVersion("metrics.k8s.io/v1beta1")
-//if err != nil {
-//	fmt.Printf("Error getting API resources: %v", err)
-//}
-//
-//for _, resources := range apiResourceList.APIResources {
-//	if resources.Name == "pods" {
-//		for _, verb := range resources.Verbs {
-//			if verb == "watch" {
-//				return true
-//			}
-//		}
-//	}
-//}
-
-//return false
-//}
 
 //func status(namespace string) {
 //	podsClient := client.CoreV1().Pods(namespace)

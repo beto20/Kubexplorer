@@ -1,8 +1,6 @@
 package main
 
 import (
-	"Kubessistant/backend/di"
-	"Kubessistant/backend/endpoint"
 	"Kubessistant/middleware"
 	"embed"
 	"github.com/wailsapp/wails/v2"
@@ -20,36 +18,53 @@ const (
 )
 
 func main() {
-	pc := di.SetupWorkloadContainer()
-	podEp := pc.MustResolve("IWorkloadEndpoint").(endpoint.IWorkloadEndpoint)
+	//clusterManager := kubeclient.NewClusterManager()
+	//client, _ := clusterManager.GetClient("dev", "/.kube/config")
 
-	pr := di.SetupParameterContainer()
-	parameterEp := pr.MustResolve("IParameterEndpoint").(endpoint.IParameterEndpoint)
+	//podEp := bootstrap2.Execute()
+	//parameterEp := bootstrap2.ParameterEp()
+	//environmentEp := bootstrap2.EnvironmentEp()
+	//serviceEp := bootstrap2.ServiceEp()
+	//nodeEp := bootstrap2.NodeEp()
+	//storageEp := bootstrap2.StorageEp()
+	//metricEp := bootstrap2.MetricEp()
 
-	e := di.SetupEnvironmentContainer()
-	environmentEp := e.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
-
-	s := di.SetupNetworkContainer()
-	serviceEp := s.MustResolve("INetworkEndpoint").(endpoint.INetworkEndpoint)
-
-	n := di.SetupGeneralContainer()
-	nodeEp := n.MustResolve("IGeneralEndpoint").(endpoint.IGeneralEndpoint)
-
-	stg := di.SetupStorageContainer()
-	storageEp := stg.MustResolve("IStorageEndpoint").(endpoint.IStorageEndpoint)
-
-	mtc := di.SetupMetricsContainer2()
-	metricEp := mtc.MustResolve("IMetricEndpoint").(endpoint.IMetricEndpoint)
+	//pc := di.SetupWorkloadContainer()
+	//podEp := pc.MustResolve("IWorkloadEndpoint").(endpoint.IWorkloadEndpoint)
+	//
+	//pr := di.SetupParameterContainer()
+	//parameterEp := pr.MustResolve("IParameterEndpoint").(endpoint.IParameterEndpoint)
+	//
+	//e := di.SetupEnvironmentContainer()
+	//environmentEp := e.MustResolve("IEnvironmentEndpoint").(endpoint.IEnvironmentEndpoint)
+	//
+	//s := di.SetupNetworkContainer()
+	//serviceEp := s.MustResolve("INetworkEndpoint").(endpoint.INetworkEndpoint)
+	//
+	//n := di.SetupGeneralContainer()
+	//nodeEp := n.MustResolve("IGeneralEndpoint").(endpoint.IGeneralEndpoint)
+	//
+	//stg := di.SetupStorageContainer()
+	//storageEp := stg.MustResolve("IStorageEndpoint").(endpoint.IStorageEndpoint)
+	//
+	//mtc := di.SetupMetricsContainer2()
+	//metricEp := mtc.MustResolve("IMetricEndpoint").(endpoint.IMetricEndpoint)
+	//
+	//client := kubeclient.NewPod()
+	//client2 := kubeclient.NewDeployment()
+	//usecase := usecase2.NewPodUseCase(client)
+	//usecase2 := usecase2.NewDeploymentUseCase(client2)
+	//ep := endpoint.NewWorkloadEndpoint(usecase, usecase2)
 
 	// Create an instance of the app structure
 	app := middleware.NewApp()
-	workloadMiddleware := middleware.NewWorkloadMiddleware(podEp)
-	parameterMiddleware := middleware.NewParameterMiddleware(parameterEp)
-	environmentMiddleware := middleware.NewEnvironmentMiddleware(environmentEp)
-	networkMiddleware := middleware.NewNetworkMiddleware(serviceEp)
-	generalMiddleware := middleware.NewGeneralMiddleware(nodeEp)
-	storageMiddleware := middleware.NewStorageMiddleware(storageEp)
-	metricMiddleware := middleware.NewMetricMiddleware(metricEp)
+	workloadMiddleware := middleware.NewWorkloadMiddleware(nil)
+	parameterMiddleware := middleware.NewParameterMiddleware(nil)
+	environmentMiddleware := middleware.NewEnvironmentMiddleware(nil)
+	networkMiddleware := middleware.NewNetworkMiddleware(nil)
+	generalMiddleware := middleware.NewGeneralMiddleware(nil)
+	storageMiddleware := middleware.NewStorageMiddleware(nil)
+	metricMiddleware := middleware.NewMetricMiddleware(nil)
 
 	// Create application with options
 	err := wails.Run(&options.App{
