@@ -1,36 +1,37 @@
 package usecase
 
 import (
-	"Kubessistant/backend/objects"
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
 )
 
-type IPodUseCase interface {
-	GetAllPods() []objects.PodDto
-	GetPodByName(name string) objects.PodDto
-	UpdatePodByName(name string) bool
-	DeletePodByName(name string) bool
+type PodUseCase interface {
+	GetAllPods() ([]model.PodDto, error)
+	GetPod(name string) (model.PodDto, error)
+	UpdatePod(name string) error
+	DeletePod(name string) error
 }
 
-type podImpl struct {
-	object objects.IPodObject
+type podUseCase struct {
+	client kubeclient.PodClient
 }
 
-func NewPodUseCase(object objects.IPodObject) IPodUseCase {
-	return &podImpl{object: object}
+func NewPodUseCase(client kubeclient.PodClient) PodUseCase {
+	return &podUseCase{client: client}
 }
 
-func (p *podImpl) GetAllPods() []objects.PodDto {
-	return p.object.GetPodsMock()
+func (p *podUseCase) GetAllPods() ([]model.PodDto, error) {
+	return p.client.GetPodsMock()
 }
 
-func (p *podImpl) GetPodByName(name string) objects.PodDto {
-	return p.object.GetPodByName(name)
+func (p *podUseCase) GetPod(name string) (model.PodDto, error) {
+	return p.client.GetPod(name)
 }
 
-func (p *podImpl) UpdatePodByName(name string) bool {
-	return p.object.UpdatePodByName(name)
+func (p *podUseCase) UpdatePod(name string) error {
+	return p.client.UpdatePod(name)
 }
 
-func (p *podImpl) DeletePodByName(name string) bool {
-	return p.object.DeletePodByName(name)
+func (p *podUseCase) DeletePod(name string) error {
+	return p.client.DeletePod(name)
 }

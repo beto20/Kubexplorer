@@ -1,5 +1,5 @@
 import {onMounted, ref} from "vue";
-import {fetchRestartPodByName} from "../services/workload.service";
+import {fetchRestartPod} from "../services/workload.service";
 
 
 interface DeleteResponse {
@@ -17,7 +17,7 @@ export function restartPod(podName: string) {
 
     const fetchData = async () => {
         try {
-            isRestarted.value = await fetchRestartPodByName(podName)
+            isRestarted.value = await fetchRestartPod(podName)
             console.log("VAL", isRestarted.value)
         } catch (error) {
             console.log("Error fetching pod data: ", error);

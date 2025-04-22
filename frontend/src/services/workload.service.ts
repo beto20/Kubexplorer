@@ -1,19 +1,19 @@
 import {
-    DeleteDeploymentByName,
-    GetDeploymentByName,
+    DeleteDeployment,
+    GetDeployment,
     GetDeployments,
-    GetPodByName,
+    GetPod,
     GetPods,
-    RestartPodByName, UpdateDeploymentByName,
-    UpdatePodByName
+    RestartPod, UpdateDeployment,
+    UpdatePod
 } from "../../wailsjs/go/middleware/WorkloadMiddleware";
 
 export const fetchGetPods = async() => GetPods();
-export const fetchGetPodByName = async(name: string) => GetPodByName(name);
-export const fetchUpdatePodByName = async(name: string) => UpdatePodByName(name);
-export const fetchRestartPodByName = async(name: string) => RestartPodByName(name);
+export const fetchGetPod = async(name: string) => GetPod(name);
+export const fetchUpdatePod = async(name: string) => UpdatePod(name);
+export const fetchRestartPod = async(name: string) => RestartPod(name);
 
 export const fetchGetDeployments = async() => GetDeployments();
-export const fetchGetDeploymentByName = async(name: string) => GetDeploymentByName(name);
-export const fetchUpdateDeploymentByName = async(name: string) => UpdateDeploymentByName(name);
-export const fetchDeleteDeploymentByName = async(name: string) => DeleteDeploymentByName(name);
+export const fetchGetDeployment = async(name: string) => GetDeployment(name);
+export const fetchUpdateDeployment = async(name: string) => UpdateDeployment(name);
+export const fetchDeleteDeployment = async(name: string) => DeleteDeployment(name);

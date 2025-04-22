@@ -1,8 +1,6 @@
 import {onMounted, ref} from "vue";
-import {database, objects} from "../../wailsjs/go/models";
-import PodDto = objects.PodDto;
+import {database, model, objects} from "../../wailsjs/go/models";
 import {fetchGetDeployments, fetchGetPods} from "../services/workload.service";
-import DeploymentDto = objects.DeploymentDto;
 import {fetchHeaderParams} from "../services/layout.service";
 import HeadParamsDto = database.HeadParamsDto;
 import {fetchGetNamespace, fetchGetNodes} from "../services/general.service";
@@ -13,6 +11,8 @@ import IngressDto = objects.IngressDto;
 import {fetchGetPersistentVolumes} from "../services/storage.service";
 import PersistentVolumeDto = objects.PersistentVolumeDto;
 import NodeDto = objects.NodeDto;
+import PodDto = model.PodDto;
+import DeploymentDto = model.DeploymentDto;
 
 
 interface GridResponse {

@@ -1,5 +1,7 @@
 package objects
 
+import "Kubessistant/backend/model"
+
 type INodeObject interface {
 	GetNodes() []NodeDto
 	GetNodeByName(name string) NodeDto
@@ -15,7 +17,7 @@ func NewNodeObject() INodeObject {
 
 type NodeDto struct {
 	Name     string
-	Resource Resource
+	Resource model.Resource
 	Roles    []string
 	Version  string
 	Age      string
@@ -26,7 +28,7 @@ func (n *nodeImpl) GetNodes() []NodeDto {
 	return []NodeDto{
 		{
 			Name: "node-1",
-			Resource: Resource{
+			Resource: model.Resource{
 				Cpu:    "6Gi",
 				Memory: "20Gi",
 			},
@@ -40,7 +42,7 @@ func (n *nodeImpl) GetNodes() []NodeDto {
 		},
 		{
 			Name: "node-2",
-			Resource: Resource{
+			Resource: model.Resource{
 				Cpu:    "6Gi",
 				Memory: "20Gi",
 			},
@@ -58,7 +60,7 @@ func (n *nodeImpl) GetNodes() []NodeDto {
 func (n *nodeImpl) GetNodeByName(name string) NodeDto {
 	return NodeDto{
 		Name: "node-1",
-		Resource: Resource{
+		Resource: model.Resource{
 			Cpu:    "6Gi",
 			Memory: "20Gi",
 		},
