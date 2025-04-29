@@ -1,58 +1,58 @@
 package endpoint
 
 import (
-	"Kubessistant/backend/objects"
+	"Kubessistant/backend/model"
 	"Kubessistant/backend/usecase"
 )
 
 type IWorkloadEndpoint interface {
-	GetPods() []objects.PodDto
-	GetDeployments() []objects.DeploymentDto
-	GetPodByName(name string) objects.PodDto
-	GetDeploymentByName(name string) objects.DeploymentDto
-	UpdatePodByName(name string) bool
-	UpdateDeploymentByName(name string) bool
-	RestartPodByName(name string) bool
-	DeleteDeploymentByName(name string) bool
+	GetPods() ([]model.PodDto, error)
+	GetDeployments() ([]model.DeploymentDto, error)
+	GetPod(name string) (model.PodDto, error)
+	GetDeployment(name string) (model.DeploymentDto, error)
+	UpdatePod(name string) error
+	UpdateDeployment(name string) error
+	RestartPod(name string) error
+	DeleteDeployment(name string) error
 }
 
-type workloadEndpoint struct {
-	podUseCase        usecase.IPodUseCase
-	deploymentUseCase usecase.IDeploymentUseCase
+type WorkloadEndpoint struct {
+	podUseCase        usecase.PodUseCase
+	deploymentUseCase usecase.DeploymentUseCase
 }
 
-func NewWorkloadEndpoint(podUseCase usecase.IPodUseCase, deploymentUseCase usecase.IDeploymentUseCase) IWorkloadEndpoint {
-	return &workloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
+func NewWorkloadEndpoint(podUseCase usecase.PodUseCase, deploymentUseCase usecase.DeploymentUseCase) IWorkloadEndpoint {
+	return &WorkloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
 }
 
-func (we *workloadEndpoint) GetPods() []objects.PodDto {
+func (we *WorkloadEndpoint) GetPods() ([]model.PodDto, error) {
 	return we.podUseCase.GetAllPods()
 }
 
-func (we *workloadEndpoint) GetPodByName(name string) objects.PodDto {
-	return we.podUseCase.GetPodByName(name)
+func (we *WorkloadEndpoint) GetPod(name string) (model.PodDto, error) {
+	return we.podUseCase.GetPod(name)
 }
 
-func (we *workloadEndpoint) UpdatePodByName(name string) bool {
-	return we.podUseCase.UpdatePodByName(name)
+func (we *WorkloadEndpoint) UpdatePod(name string) error {
+	return we.podUseCase.UpdatePod(name)
 }
 
-func (we *workloadEndpoint) RestartPodByName(name string) bool {
-	return we.podUseCase.DeletePodByName(name)
+func (we *WorkloadEndpoint) RestartPod(name string) error {
+	return we.podUseCase.DeletePod(name)
 }
 
-func (we *workloadEndpoint) GetDeployments() []objects.DeploymentDto {
+func (we *WorkloadEndpoint) GetDeployments() ([]model.DeploymentDto, error) {
 	return we.deploymentUseCase.GetAllDeployments()
 }
 
-func (we *workloadEndpoint) GetDeploymentByName(name string) objects.DeploymentDto {
-	return we.deploymentUseCase.GetDeploymentByName(name)
+func (we *WorkloadEndpoint) GetDeployment(name string) (model.DeploymentDto, error) {
+	return we.deploymentUseCase.GetDeployment(name)
 }
 
-func (we *workloadEndpoint) UpdateDeploymentByName(name string) bool {
-	return we.deploymentUseCase.UpdateDeploymentByName(name)
+func (we *WorkloadEndpoint) UpdateDeployment(name string) error {
+	return we.deploymentUseCase.UpdateDeployment(name)
 }
 
-func (we *workloadEndpoint) DeleteDeploymentByName(name string) bool {
-	return we.deploymentUseCase.DeleteDeploymentByName(name)
+func (we *WorkloadEndpoint) DeleteDeployment(name string) error {
+	return we.deploymentUseCase.DeleteDeployment(name)
 }
