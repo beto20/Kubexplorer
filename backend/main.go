@@ -1,9 +1,20 @@
 package main
 
 import (
-	"Kubessistant/backend/kubeclient2"
+	"Kubessistant/backend/kubeclient"
 	"fmt"
+	"os"
+	"path/filepath"
 )
+
+func getPath() string {
+	home, _ := os.UserHomeDir()
+	kubeConfigPath := filepath.Join(home, ".kube/config")
+
+	//kubeConfig, _ := clientcmd.BuildConfigFromFlags("", kubeConfigPath)
+
+	return kubeConfigPath
+}
 
 func main() {
 	fmt.Println("Hello World")
@@ -16,6 +27,14 @@ func main() {
 
 	//ep.GetPod("")
 
-	x := kubeclient2.DeploymentClient{}
-	x.GetDeployments()
+	//x := kubeclient2.DeploymentClient{}
+	//x.GetDeployments()
+
+	//kubeConfig, _ := clientcmd.BuildConfigFromFlags("", getPath())
+
+	conf := kubeclient.NewClusterManager()
+	client, _ := conf.GetClient("minikube", getPath())
+
+	y := kubeclient.NewPod(client)
+	y.GetPods()
 }

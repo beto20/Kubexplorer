@@ -9,5 +9,13 @@ type ClusterClient interface {
 }
 
 type MetricClient interface {
-	GetPodMetrics(namespace string) []model.PodMetricDto
+	GetPodMetrics(namespace string, chMetricDto <-chan []model.PodMetricDto) []model.PodMetricDto
+}
+
+type DeploymentClient interface {
+	GetDeployments() ([]model.DeploymentDto, error)
+	GetDeploymentsMock() ([]model.DeploymentDto, error)
+	GetDeployment(name string) (model.DeploymentDto, error)
+	UpdateDeployment(name string) error
+	DeleteDeployment(name string) error
 }

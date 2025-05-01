@@ -2,8 +2,10 @@ package kubeclient
 
 import (
 	"Kubessistant/backend/model"
+	"context"
 	"errors"
 	"fmt"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"math/rand"
 	"strconv"
@@ -50,51 +52,53 @@ func (p *podClient) GetPodsMock() ([]model.PodDto, error) {
 		pods = append(pods, p)
 	}
 
+	fmt.Println(pods[0].Name)
+
 	return pods, errors.New("Not implemented")
 }
 
 func (p *podClient) GetPods() ([]model.PodDto, error) {
-	//podsClient := p.client.CoreV1().Pods("TODO")
-	//
-	//pods, err := podsClient.List(context.TODO(), metav1.ListOptions{})
-	//if err != nil {
-	//	fmt.Println("Error when get pods")
-	//}
+	podsClient := p.client.CoreV1().Pods("")
+
+	pods, err := podsClient.List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		fmt.Println("Error when get pods")
+	}
 	var podArray []model.PodDto
-	//
-	//for _, pod := range pods.Items {
-	//	p := model.PodDto{
-	//		Name:      pod.Name,
-	//		Namespace: pod.Namespace,
-	//		Replicas:  1,
-	//		Container: model.Container{
-	//			Limit: model.Resource{
-	//				Cpu:    pod.Spec.Containers[0].Resources.Limits.Cpu().String(),
-	//				Memory: pod.Spec.Containers[0].Resources.Limits.Memory().String(),
-	//			},
-	//			Request: model.Resource{
-	//				Cpu:    pod.Spec.Containers[0].Resources.Requests.Cpu().String(),
-	//				Memory: pod.Spec.Containers[0].Resources.Requests.Memory().String(),
-	//			},
-	//		},
-	//		Status: string(pod.Status.Phase),
-	//		Age:    pod.Status.StartTime.String(),
-	//	}
-	//
-	//	podArray = append(podArray, p)
-	//
-	//	fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitsCPU: %s requestMemory: %s limitsMemory: %s storage: %s startTime: %s status: %s\n",
-	//		pod.Name,
-	//		pod.Namespace,
-	//		pod.Spec.Containers[0].Resources.Requests.Cpu(),
-	//		pod.Spec.Containers[0].Resources.Limits.Cpu(),
-	//		pod.Spec.Containers[0].Resources.Requests.Memory(),
-	//		pod.Spec.Containers[0].Resources.Limits.Memory(),
-	//		pod.Spec.Containers[0].Resources.Limits.Storage(),
-	//		pod.Status.StartTime,
-	//		pod.Status.Phase,
-	//	)
-	//}
+
+	for _, pod := range pods.Items {
+		p := model.PodDto{
+			Name:      pod.Name,
+			Namespace: pod.Namespace,
+			Replicas:  1,
+			Container: model.Container{
+				Limit: model.Resource{
+					Cpu:    pod.Spec.Containers[0].Resources.Limits.Cpu().String(),
+					Memory: pod.Spec.Containers[0].Resources.Limits.Memory().String(),
+				},
+				Request: model.Resource{
+					Cpu:    pod.Spec.Containers[0].Resources.Requests.Cpu().String(),
+					Memory: pod.Spec.Containers[0].Resources.Requests.Memory().String(),
+				},
+			},
+			Status: string(pod.Status.Phase),
+			Age:    pod.Status.StartTime.String(),
+		}
+
+		podArray = append(podArray, p)
+
+		fmt.Printf("pod name: %s namespace: %s requestCPU: %s limitsCPU: %s requestMemory: %s limitsMemory: %s storage: %s startTime: %s status: %s\n",
+			pod.Name,
+			pod.Namespace,
+			pod.Spec.Containers[0].Resources.Requests.Cpu(),
+			pod.Spec.Containers[0].Resources.Limits.Cpu(),
+			pod.Spec.Containers[0].Resources.Requests.Memory(),
+			pod.Spec.Containers[0].Resources.Limits.Memory(),
+			pod.Spec.Containers[0].Resources.Limits.Storage(),
+			pod.Status.StartTime,
+			pod.Status.Phase,
+		)
+	}
 
 	return podArray, errors.New("Not implemented")
 }
