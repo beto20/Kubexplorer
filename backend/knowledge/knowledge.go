@@ -1,7 +1,5 @@
 package knowledge
 
-import "fmt"
-
 func ErrorSource(source SourceObject, errorType string) {
 
 	if source == PODS {
@@ -60,7 +58,7 @@ func secretSolutions(errorType string) {
 }
 
 func rollbackImage() {
-	fmt.Print("rollback")
+	//fmt.Print("rollback")
 }
 
 func calibrateResources() {
@@ -77,9 +75,9 @@ func calibrateResources() {
 }
 
 func increaseMemory() {
-	fmt.Print("memory increase")
+	//fmt.Print("memory increase")
 }
 
 func increaseCPU() {
-	fmt.Print("cpu increase")
+	//fmt.Print("cpu increase")
 }

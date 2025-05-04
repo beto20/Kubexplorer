@@ -1,11 +1,5 @@
 package objects
 
-import (
-	"fmt"
-	"math/rand"
-	"strconv"
-)
-
 type IDeploymentObject interface {
 	GetDeployments() []DeploymentDto
 	GetDeploymentsMock() []DeploymentDto
@@ -61,10 +55,12 @@ func (d *deploymentImpl) GetDeploymentsMock() []DeploymentDto {
 	for i := 0; i < 10; i++ {
 
 		p := DeploymentDto{
-			Name:      fmt.Sprintf("Deployment %d", i),
+			Name:      "",
 			Namespace: "TODO",
 			Status:    "Alive",
-			Age:       strconv.Itoa(rand.Intn(1000)),
+			//Age:       strconv.Itoa(rand.Intn(1000)),
+
+			Age: "1",
 		}
 
 		deployments = append(deployments, p)

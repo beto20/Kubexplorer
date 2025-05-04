@@ -1,11 +1,6 @@
 package database
 
-import (
-	"database/sql"
-	"fmt"
-	"log"
-	"strconv"
-)
+import "strconv"
 
 type parameter struct {
 	Name    string
@@ -38,43 +33,6 @@ func (p *parameter) get() []parameter {
 	}
 
 	return params
-}
-func SqlExe(db *sql.DB) {
-	query := `SELECT id, Name, age FROM users`
-	rows, err := db.Query(query)
-	if err != nil {
-		log.Fatalf("Could not query data: %v", err)
-	}
-	defer rows.Close()
-
-	fmt.Println("Users:")
-	for rows.Next() {
-		var id int
-		var Name string
-		var age int
-		if err := rows.Scan(&id, &Name, &age); err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("ID: %d, Name: %s, Age: %d\n", id, Name, age)
-	}
-}
-
-// TODO: build first param table with data
-func setParams(db sql.DB) {
-	createTable := `
-	CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		Name TEXT,
-		age INTEGER
-	);`
-	if _, err := db.Exec(createTable); err != nil {
-		log.Fatalf("Could not create table: %v", err)
-	}
-
-	insertUser := `INSERT INTO users (Name, age) VALUES (?, ?)`
-	if _, err := db.Exec(insertUser, "Alice", 30); err != nil {
-		log.Fatalf("Could not insert data: %v", err)
-	}
 }
 
 type IParameterEntity interface {

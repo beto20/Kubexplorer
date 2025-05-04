@@ -5,7 +5,6 @@ go 1.24.0
 toolchain go1.24.2
 
 require (
-	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/wailsapp/wails/v2 v2.10.1
 	k8s.io/apimachinery v0.33.0
 	k8s.io/client-go v0.33.0
