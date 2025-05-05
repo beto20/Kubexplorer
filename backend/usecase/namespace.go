@@ -1,33 +1,36 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type INamespaceUseCase interface {
-	GetNamespace() []objects.NamespaceDto
-	GetNamespaceByName(name string) objects.NamespaceDto
-	UpdateNamespaceByName(name string) bool
-	DeleteNamespaceByName(name string) bool
+type NamespaceUseCase interface {
+	GetNamespaces() ([]model.NamespaceDto, error)
+	GetNamespace(name string) (model.NamespaceDto, error)
+	UpdateNamespace(name string) error
+	DeleteNamespace(name string) error
 }
 
-type namespaceImpl struct {
-	object objects.INamespaceObject
+type namespaceUseCase struct {
+	client kubeclient.NamespaceClient
 }
 
-func NewNamespaceUseCase(object objects.INamespaceObject) INamespaceUseCase {
-	return &namespaceImpl{object: object}
+func NewNamespaceUseCase(client kubeclient.NamespaceClient) NamespaceUseCase {
+	return &namespaceUseCase{client: client}
 }
 
-func (n *namespaceImpl) GetNamespace() []objects.NamespaceDto {
-	return n.object.GetNamespace()
+func (n *namespaceUseCase) GetNamespaces() ([]model.NamespaceDto, error) {
+	return n.client.GetNamespaces()
 }
-func (n *namespaceImpl) GetNamespaceByName(name string) objects.NamespaceDto {
-	return n.object.GetNamespaceByName(name)
-}
-
-func (n *namespaceImpl) UpdateNamespaceByName(name string) bool {
-	return n.object.UpdateNamespaceByName(name)
+func (n *namespaceUseCase) GetNamespace(name string) (model.NamespaceDto, error) {
+	return n.client.GetNamespace(name)
 }
 
-func (n *namespaceImpl) DeleteNamespaceByName(name string) bool {
-	return n.object.DeleteNamespaceByName(name)
+func (n *namespaceUseCase) UpdateNamespace(name string) error {
+	return n.client.UpdateNamespace(name)
+}
+
+func (n *namespaceUseCase) DeleteNamespace(name string) error {
+	return n.client.DeleteNamespace(name)
 }

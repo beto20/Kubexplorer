@@ -5,28 +5,17 @@ import (
 	"Kubessistant/backend/usecase"
 )
 
-type IWorkloadEndpoint interface {
-	GetPods() ([]model.PodDto, error)
-	GetDeployments() ([]model.DeploymentDto, error)
-	GetPod(name string) (model.PodDto, error)
-	GetDeployment(name string) (model.DeploymentDto, error)
-	UpdatePod(name string) error
-	UpdateDeployment(name string) error
-	RestartPod(name string) error
-	DeleteDeployment(name string) error
-}
-
 type WorkloadEndpoint struct {
 	podUseCase        usecase.PodUseCase
 	deploymentUseCase usecase.DeploymentUseCase
 }
 
-func NewWorkloadEndpoint(podUseCase usecase.PodUseCase, deploymentUseCase usecase.DeploymentUseCase) IWorkloadEndpoint {
+func NewWorkloadEndpoint(podUseCase usecase.PodUseCase, deploymentUseCase usecase.DeploymentUseCase) *WorkloadEndpoint {
 	return &WorkloadEndpoint{podUseCase: podUseCase, deploymentUseCase: deploymentUseCase}
 }
 
 func (we *WorkloadEndpoint) GetPods() ([]model.PodDto, error) {
-	return we.podUseCase.GetAllPods()
+	return we.podUseCase.GetPods()
 }
 
 func (we *WorkloadEndpoint) GetPod(name string) (model.PodDto, error) {
@@ -38,11 +27,11 @@ func (we *WorkloadEndpoint) UpdatePod(name string) error {
 }
 
 func (we *WorkloadEndpoint) RestartPod(name string) error {
-	return we.podUseCase.DeletePod(name)
+	return we.podUseCase.RestartPod(name)
 }
 
 func (we *WorkloadEndpoint) GetDeployments() ([]model.DeploymentDto, error) {
-	return we.deploymentUseCase.GetAllDeployments()
+	return we.deploymentUseCase.GetDeployments()
 }
 
 func (we *WorkloadEndpoint) GetDeployment(name string) (model.DeploymentDto, error) {

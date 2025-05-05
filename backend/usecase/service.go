@@ -1,34 +1,37 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type IServiceUseCase interface {
-	GetServices() []objects.ServiceDto
-	GetServiceByName(name string) objects.ServiceDto
-	UpdateServiceByName(name string) bool
-	DeleteServiceByName(name string) bool
+type ServiceUseCase interface {
+	GetServices() ([]model.ServiceDto, error)
+	GetService(name string) (model.ServiceDto, error)
+	UpdateService(name string) error
+	DeleteService(name string) error
 }
 
-type serviceImpl struct {
-	object objects.IServiceObject
+type serviceUseCase struct {
+	client kubeclient.ServiceClient
 }
 
-func NewServiceUseCase(object objects.IServiceObject) IServiceUseCase {
-	return &serviceImpl{object: object}
+func NewServiceUseCase(client kubeclient.ServiceClient) ServiceUseCase {
+	return &serviceUseCase{client: client}
 }
 
-func (s *serviceImpl) GetServices() []objects.ServiceDto {
-	return s.object.GetServicesMock()
+func (s *serviceUseCase) GetServices() ([]model.ServiceDto, error) {
+	return s.client.GetServicesMock()
 }
 
-func (s *serviceImpl) GetServiceByName(name string) objects.ServiceDto {
-	return s.object.GetServiceByName(name)
+func (s *serviceUseCase) GetService(name string) (model.ServiceDto, error) {
+	return s.client.GetService(name)
 }
 
-func (s *serviceImpl) UpdateServiceByName(name string) bool {
-	return s.object.UpdateServiceByName(name)
+func (s *serviceUseCase) UpdateService(name string) error {
+	return s.client.UpdateService(name)
 }
 
-func (s *serviceImpl) DeleteServiceByName(name string) bool {
-	return s.object.DeleteServiceByName(name)
+func (s *serviceUseCase) DeleteService(name string) error {
+	return s.client.DeleteService(name)
 }

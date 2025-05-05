@@ -1,24 +1,27 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type IEnvironmentUseCase interface {
-	GetAllEnvironment() []objects.EnvironmentDto
-	GetCurrentEnvironment(env string, name string) objects.EnvironmentDto
+type EnvironmentUseCase interface {
+	GetAllEnvironment() ([]model.EnvironmentDto, error)
+	GetCurrentEnvironment(env string, name string) (model.EnvironmentDto, error)
 }
 
-type environmentImpl struct {
-	object objects.IEnvironmentObject
+type environmentUseCase struct {
+	client kubeclient.ClusterClient
 }
 
-func NewEnvironmentUseCase(object objects.IEnvironmentObject) IEnvironmentUseCase {
-	return &environmentImpl{object: object}
+func NewEnvironmentUseCase(client kubeclient.ClusterClient) EnvironmentUseCase {
+	return &environmentUseCase{client: client}
 }
 
-func (e *environmentImpl) GetCurrentEnvironment(env string, name string) objects.EnvironmentDto {
-	return e.object.GetCurrentEnvironment(env, name)
+func (e *environmentUseCase) GetCurrentEnvironment(env string, name string) (model.EnvironmentDto, error) {
+	return e.client.GetCurrentCluster()
 }
 
-func (e *environmentImpl) GetAllEnvironment() []objects.EnvironmentDto {
-	return e.object.GetAllEnvironment()
+func (e *environmentUseCase) GetAllEnvironment() ([]model.EnvironmentDto, error) {
+	return e.client.GetClusters()
 }

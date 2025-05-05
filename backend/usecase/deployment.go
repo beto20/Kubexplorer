@@ -6,7 +6,7 @@ import (
 )
 
 type DeploymentUseCase interface {
-	GetAllDeployments() ([]model.DeploymentDto, error)
+	GetDeployments() ([]model.DeploymentDto, error)
 	GetDeployment(name string) (model.DeploymentDto, error)
 	UpdateDeployment(name string) error
 	DeleteDeployment(name string) error
@@ -20,7 +20,7 @@ func NewDeploymentUseCase(client kubeclient.DeploymentClient) DeploymentUseCase 
 	return &deploymentUseCase{client: client}
 }
 
-func (d *deploymentUseCase) GetAllDeployments() ([]model.DeploymentDto, error) {
+func (d *deploymentUseCase) GetDeployments() ([]model.DeploymentDto, error) {
 	return d.client.GetDeploymentsMock()
 }
 

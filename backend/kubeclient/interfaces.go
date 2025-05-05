@@ -6,10 +6,22 @@ import (
 
 type ClusterClient interface {
 	ListAvailableClusters(profile model.ClusterProfile) ([]model.ClusterInfo, error)
+	GetCurrentCluster() (model.EnvironmentDto, error)
+	GetClusters() ([]model.EnvironmentDto, error)
+	GetNode() (model.NodeDto, error)
+	GetNodes() ([]model.NodeDto, error)
 }
 
 type MetricClient interface {
 	GetPodMetrics(namespace string, chMetricDto <-chan []model.PodMetricDto) []model.PodMetricDto
+}
+
+type PodClient interface {
+	GetPodsMock() ([]model.PodDto, error)
+	GetPods() ([]model.PodDto, error)
+	GetPod(name string) (model.PodDto, error)
+	UpdatePod(name string) error
+	DeletePod(name string) error
 }
 
 type DeploymentClient interface {
@@ -18,4 +30,33 @@ type DeploymentClient interface {
 	GetDeployment(name string) (model.DeploymentDto, error)
 	UpdateDeployment(name string) error
 	DeleteDeployment(name string) error
+}
+
+type StorageClient interface {
+	GetPersistentVolumes() ([]model.PersistentVolumeDto, error)
+	GetPersistentVolume(name string) (model.PersistentVolumeDto, error)
+	UpdatePersistentVolume(name string) error
+	DeletePersistentVolume(name string) error
+}
+
+type NamespaceClient interface {
+	GetNamespaces() ([]model.NamespaceDto, error)
+	GetNamespace(name string) (model.NamespaceDto, error)
+	UpdateNamespace(name string) error
+	DeleteNamespace(name string) error
+}
+
+type ServiceClient interface {
+	GetServices(namespace string) ([]model.ServiceDto, error)
+	GetServicesMock() ([]model.ServiceDto, error)
+	GetService(name string) (model.ServiceDto, error)
+	UpdateService(name string) error
+	DeleteService(name string) error
+}
+
+type IngressClient interface {
+	GetIngresses() ([]model.IngressDto, error)
+	GetIngress(name string) (model.IngressDto, error)
+	UpdateIngress(name string) error
+	DeleteIngress(name string) error
 }

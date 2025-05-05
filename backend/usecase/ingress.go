@@ -1,34 +1,37 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type IIngressUseCase interface {
-	GetIngresses() []objects.IngressDto
-	GetIngressByName(name string) objects.IngressDto
-	UpdateIngressByName(name string) bool
-	DeleteIngressByName(name string) bool
+type IngressUseCase interface {
+	GetIngresses() ([]model.IngressDto, error)
+	GetIngress(name string) (model.IngressDto, error)
+	UpdateIngress(name string) error
+	DeleteIngress(name string) error
 }
 
-type ingressImpl struct {
-	object objects.IIngressObject
+type ingressUseCase struct {
+	client kubeclient.IngressClient
 }
 
-func NewIngressUseCase(object objects.IIngressObject) IIngressUseCase {
-	return &ingressImpl{object: object}
+func NewIngressUseCase(client kubeclient.IngressClient) IngressUseCase {
+	return &ingressUseCase{client: client}
 }
 
-func (i *ingressImpl) GetIngresses() []objects.IngressDto {
-	return i.object.GetIngresses()
+func (i *ingressUseCase) GetIngresses() ([]model.IngressDto, error) {
+	return i.client.GetIngresses()
 }
 
-func (i *ingressImpl) GetIngressByName(name string) objects.IngressDto {
-	return i.object.GetIngressByName(name)
+func (i *ingressUseCase) GetIngress(name string) (model.IngressDto, error) {
+	return i.client.GetIngress(name)
 }
 
-func (i *ingressImpl) UpdateIngressByName(name string) bool {
-	return i.object.UpdateIngressByName(name)
+func (i *ingressUseCase) UpdateIngress(name string) error {
+	return i.client.UpdateIngress(name)
 }
 
-func (i *ingressImpl) DeleteIngressByName(name string) bool {
-	return i.object.DeleteIngressByName(name)
+func (i *ingressUseCase) DeleteIngress(name string) error {
+	return i.client.DeleteIngress(name)
 }

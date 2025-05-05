@@ -6,10 +6,10 @@ import (
 )
 
 type PodUseCase interface {
-	GetAllPods() ([]model.PodDto, error)
+	GetPods() ([]model.PodDto, error)
 	GetPod(name string) (model.PodDto, error)
 	UpdatePod(name string) error
-	DeletePod(name string) error
+	RestartPod(name string) error
 }
 
 type podUseCase struct {
@@ -20,7 +20,7 @@ func NewPodUseCase(client kubeclient.PodClient) PodUseCase {
 	return &podUseCase{client: client}
 }
 
-func (p *podUseCase) GetAllPods() ([]model.PodDto, error) {
+func (p *podUseCase) GetPods() ([]model.PodDto, error) {
 	return p.client.GetPodsMock()
 }
 
@@ -32,6 +32,6 @@ func (p *podUseCase) UpdatePod(name string) error {
 	return p.client.UpdatePod(name)
 }
 
-func (p *podUseCase) DeletePod(name string) error {
+func (p *podUseCase) RestartPod(name string) error {
 	return p.client.DeletePod(name)
 }

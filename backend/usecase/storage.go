@@ -1,34 +1,37 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type IStorageUseCase interface {
-	GetPersistentVolumes() []objects.PersistentVolumeDto
-	GetPersistentVolumeByName(name string) objects.PersistentVolumeDto
-	UpdatePersistentVolumeByName(name string) bool
-	DeletePersistentVolumeByName(name string) bool
+type StorageUseCase interface {
+	GetPersistentVolumes() ([]model.PersistentVolumeDto, error)
+	GetPersistentVolume(name string) (model.PersistentVolumeDto, error)
+	UpdatePersistentVolume(name string) error
+	DeletePersistentVolume(name string) error
 }
 
-type storageImpl struct {
-	object objects.IStorageObject
+type storageUseCase struct {
+	client kubeclient.StorageClient
 }
 
-func NewStorageUseCase(object objects.IStorageObject) IStorageUseCase {
-	return &storageImpl{object: object}
+func NewStorageUseCase(client kubeclient.StorageClient) StorageUseCase {
+	return &storageUseCase{client: client}
 }
 
-func (s *storageImpl) GetPersistentVolumes() []objects.PersistentVolumeDto {
-	return s.object.GetPersistentVolumes()
+func (s *storageUseCase) GetPersistentVolumes() ([]model.PersistentVolumeDto, error) {
+	return s.client.GetPersistentVolumes()
 }
 
-func (s *storageImpl) GetPersistentVolumeByName(name string) objects.PersistentVolumeDto {
-	return s.object.GetPersistentVolumeByName(name)
+func (s *storageUseCase) GetPersistentVolume(name string) (model.PersistentVolumeDto, error) {
+	return s.client.GetPersistentVolume(name)
 }
 
-func (s *storageImpl) UpdatePersistentVolumeByName(name string) bool {
-	return s.object.UpdatePersistentVolumeByName(name)
+func (s *storageUseCase) UpdatePersistentVolume(name string) error {
+	return s.client.UpdatePersistentVolume(name)
 }
 
-func (s *storageImpl) DeletePersistentVolumeByName(name string) bool {
-	return s.object.DeletePersistentVolumeByName(name)
+func (s *storageUseCase) DeletePersistentVolume(name string) error {
+	return s.client.DeletePersistentVolume(name)
 }

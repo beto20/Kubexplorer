@@ -1,24 +1,27 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+)
 
-type INodeUseCase interface {
-	GetNodes() []objects.NodeDto
-	GetNodeByName(name string) objects.NodeDto
+type NodeUseCase interface {
+	GetNodes() ([]model.NodeDto, error)
+	GetNode(name string) (model.NodeDto, error)
 }
 
-type nodeImpl struct {
-	object objects.INodeObject
+type nodeUseCase struct {
+	client kubeclient.ClusterClient
 }
 
-func NewNodeUseCase(object objects.INodeObject) INodeUseCase {
-	return &nodeImpl{object: object}
+func NewNodeUseCase(client kubeclient.ClusterClient) NodeUseCase {
+	return &nodeUseCase{client: client}
 }
 
-func (n *nodeImpl) GetNodes() []objects.NodeDto {
-	return n.object.GetNodes()
+func (n *nodeUseCase) GetNodes() ([]model.NodeDto, error) {
+	return n.client.GetNodes()
 }
 
-func (n *nodeImpl) GetNodeByName(name string) objects.NodeDto {
-	return n.object.GetNodeByName(name)
+func (n *nodeUseCase) GetNode(name string) (model.NodeDto, error) {
+	return n.client.GetNode()
 }
