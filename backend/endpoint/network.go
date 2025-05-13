@@ -1,58 +1,47 @@
 package endpoint
 
 import (
-	"Kubessistant/backend/objects"
+	"Kubessistant/backend/model"
 	"Kubessistant/backend/usecase"
 )
 
-type INetworkEndpoint interface {
-	GetServices() []objects.ServiceDto
-	GetServiceByName(name string) objects.ServiceDto
-	UpdateServiceByName(name string) bool
-	DeleteServiceByName(name string) bool
-	GetIngresses() []objects.IngressDto
-	GetIngressByName(name string) objects.IngressDto
-	UpdateIngressByName(name string) bool
-	DeleteIngressByName(name string) bool
+type NetworkEndpoint struct {
+	serviceUseCase usecase.ServiceUseCase
+	ingressUseCase usecase.IngressUseCase
 }
 
-type networkEndpoint struct {
-	serviceUseCase usecase.IServiceUseCase
-	ingressUseCase usecase.IIngressUseCase
+func NewNetworkEndpoint(serviceUseCase usecase.ServiceUseCase, ingressUseCase usecase.IngressUseCase) *NetworkEndpoint {
+	return &NetworkEndpoint{serviceUseCase: serviceUseCase, ingressUseCase: ingressUseCase}
 }
 
-func NewNetworkEndpoint(serviceUseCase usecase.IServiceUseCase, ingressUseCase usecase.IIngressUseCase) INetworkEndpoint {
-	return &networkEndpoint{serviceUseCase: serviceUseCase, ingressUseCase: ingressUseCase}
-}
-
-func (ne *networkEndpoint) GetServices() []objects.ServiceDto {
+func (ne *NetworkEndpoint) GetServices() ([]model.ServiceDto, error) {
 	return ne.serviceUseCase.GetServices()
 }
 
-func (ne *networkEndpoint) GetServiceByName(name string) objects.ServiceDto {
-	return ne.serviceUseCase.GetServiceByName(name)
+func (ne *NetworkEndpoint) GetServiceByName(name string) (model.ServiceDto, error) {
+	return ne.serviceUseCase.GetService(name)
 }
 
-func (ne *networkEndpoint) UpdateServiceByName(name string) bool {
-	return ne.serviceUseCase.UpdateServiceByName(name)
+func (ne *NetworkEndpoint) UpdateServiceByName(name string) error {
+	return ne.serviceUseCase.UpdateService(name)
 }
 
-func (ne *networkEndpoint) DeleteServiceByName(name string) bool {
-	return ne.serviceUseCase.DeleteServiceByName(name)
+func (ne *NetworkEndpoint) DeleteServiceByName(name string) error {
+	return ne.serviceUseCase.DeleteService(name)
 }
 
-func (ne *networkEndpoint) GetIngresses() []objects.IngressDto {
+func (ne *NetworkEndpoint) GetIngresses() ([]model.IngressDto, error) {
 	return ne.ingressUseCase.GetIngresses()
 }
 
-func (ne *networkEndpoint) GetIngressByName(name string) objects.IngressDto {
-	return ne.ingressUseCase.GetIngressByName(name)
+func (ne *NetworkEndpoint) GetIngressByName(name string) (model.IngressDto, error) {
+	return ne.ingressUseCase.GetIngress(name)
 }
 
-func (ne *networkEndpoint) UpdateIngressByName(name string) bool {
-	return ne.ingressUseCase.UpdateIngressByName(name)
+func (ne *NetworkEndpoint) UpdateIngressByName(name string) error {
+	return ne.ingressUseCase.UpdateIngress(name)
 }
 
-func (ne *networkEndpoint) DeleteIngressByName(name string) bool {
-	return ne.ingressUseCase.DeleteIngressByName(name)
+func (ne *NetworkEndpoint) DeleteIngressByName(name string) error {
+	return ne.ingressUseCase.DeleteIngress(name)
 }
