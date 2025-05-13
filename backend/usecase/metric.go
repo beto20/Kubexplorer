@@ -1,6 +1,6 @@
 package usecase
 
-type IMetricUseCase interface {
+type MetricUseCase interface {
 	GetPodMetric(namespace string)
 	GetNodeMetric(namespace string)
 }
@@ -8,7 +8,7 @@ type IMetricUseCase interface {
 type metricImpl struct {
 }
 
-func NewMetricUseCase() IMetricUseCase {
+func NewMetricUseCase() MetricUseCase {
 	return &metricImpl{}
 }
 

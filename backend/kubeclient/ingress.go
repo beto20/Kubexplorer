@@ -13,12 +13,12 @@ func NewIngressClient(client kubernetes.Interface) IngressClient {
 	return &ingressClient{client: client}
 }
 
-func (i ingressClient) GetIngresses() []model.IngressDto {
+func (i ingressClient) GetIngresses() ([]model.IngressDto, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (i ingressClient) GetIngress(name string) model.IngressDto {
+func (i ingressClient) GetIngress(name string) (model.IngressDto, error) {
 	//TODO implement me
 	panic("implement me")
 }

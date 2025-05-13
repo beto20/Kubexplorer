@@ -3,14 +3,16 @@ package middleware
 import (
 	"Kubessistant/backend/database"
 	"Kubessistant/backend/endpoint"
+	"Kubessistant/backend/usecase"
+	"k8s.io/client-go/kubernetes"
 )
 
 type ParameterMiddleware struct {
-	endpoint endpoint.IParameterEndpoint
+	endpoint endpoint.ParameterEndpoint
 }
 
-func NewParameterMiddleware(endpoint endpoint.IParameterEndpoint) *ParameterMiddleware {
-	return &ParameterMiddleware{endpoint}
+func NewParameterMiddleware(endpoint *endpoint.ParameterEndpoint) *ParameterMiddleware {
+	return &ParameterMiddleware{endpoint: *endpoint}
 }
 
 func (p *ParameterMiddleware) GetKubernetesParameters() []database.CommonParameterDto {
@@ -27,4 +29,12 @@ func (p *ParameterMiddleware) GetK8sObjects() []database.ObjectType {
 
 func (p *ParameterMiddleware) GetHeaderParams(k8sObject string) []database.HeadParamsDto {
 	return p.endpoint.GetHeadParams(k8sObject)
+}
+
+func BuildParameters(client kubernetes.Interface) *ParameterMiddleware {
+	parameterUseCase := usecase.NewParameterUseCase(nil)
+
+	parameterEndpoint := endpoint.NewParameterEndpoint(parameterUseCase)
+
+	return NewParameterMiddleware(parameterEndpoint)
 }

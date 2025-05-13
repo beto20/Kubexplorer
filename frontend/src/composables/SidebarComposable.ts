@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
 import { fetchCommonParameters, fetchKubernetesParameters, fetchAllEnvironments } from '../services/layout.service';
-import {database, objects} from "../../wailsjs/go/models";
-import EnvironmentDto = objects.EnvironmentDto;
+import {database, model} from "../../wailsjs/go/models";
+import EnvironmentDto = model.EnvironmentDto;
 import CommonParameterDto = database.CommonParameterDto;
 
 export function sidebarComposable() {

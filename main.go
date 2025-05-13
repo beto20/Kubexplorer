@@ -1,11 +1,14 @@
 package main
 
 import (
+	"Kubessistant/backend/kubeclient"
 	"Kubessistant/middleware"
 	"embed"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"os"
+	"path/filepath"
 )
 
 //go:embed all:frontend/dist
@@ -16,6 +19,13 @@ const (
 	WIDTH        = 1024
 	HEIGHT       = 768
 )
+
+func getPath() string {
+	home, _ := os.UserHomeDir()
+	kubeConfigPath := filepath.Join(home, ".kube/config")
+
+	return kubeConfigPath
+}
 
 func main() {
 	//clusterManager := kubeclient.NewClusterManager()
@@ -56,15 +66,25 @@ func main() {
 	//usecase2 := usecase2.NewDeploymentUseCase(client2)
 	//ep := endpoint.NewWorkloadEndpoint(usecase, usecase2)
 
+	// KubeClient
+	conf := kubeclient.NewClusterManager()
+	client, _ := conf.GetClient("minikube", getPath())
+
 	// Create an instance of the app structure
 	app := middleware.NewApp()
-	workloadMiddleware := middleware.NewWorkloadMiddleware(nil)
-	parameterMiddleware := middleware.NewParameterMiddleware(nil)
-	environmentMiddleware := middleware.NewEnvironmentMiddleware(nil)
-	networkMiddleware := middleware.NewNetworkMiddleware(nil)
-	generalMiddleware := middleware.NewGeneralMiddleware(nil)
-	storageMiddleware := middleware.NewStorageMiddleware(nil)
-	metricMiddleware := middleware.NewMetricMiddleware(nil)
+
+	// Build
+	//bw := middleware.BuildWorkload(client)
+	//bs := middleware.BuildStorage(client)
+
+	// Instance
+	//workloadMiddleware := middleware.NewWorkloadMiddleware(nil)
+	//parameterMiddleware := middleware.NewParameterMiddleware(nil)
+	//environmentMiddleware := middleware.NewEnvironmentMiddleware(nil)
+	//networkMiddleware := middleware.NewNetworkMiddleware(nil)
+	//generalMiddleware := middleware.NewGeneralMiddleware(nil)
+	//storageMiddleware := middleware.NewStorageMiddleware(nil)
+	//metricMiddleware := middleware.NewMetricMiddleware(nil)
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -79,13 +99,12 @@ func main() {
 		OnShutdown:       app.Shutdown,
 		Bind: []interface{}{
 			app,
-			workloadMiddleware,
-			parameterMiddleware,
-			environmentMiddleware,
-			networkMiddleware,
-			generalMiddleware,
-			storageMiddleware,
-			metricMiddleware,
+			middleware.BuildEnvironment(client),
+			middleware.BuildGeneral(client),
+			middleware.BuildNetwork(client),
+			middleware.BuildParameters(client),
+			middleware.BuildStorage(client),
+			middleware.BuildWorkload(client),
 		},
 	})
 

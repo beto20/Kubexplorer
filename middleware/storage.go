@@ -2,29 +2,42 @@ package middleware
 
 import (
 	"Kubessistant/backend/endpoint"
-	"Kubessistant/backend/objects"
+	"Kubessistant/backend/kubeclient"
+	"Kubessistant/backend/model"
+	"Kubessistant/backend/usecase"
+	"k8s.io/client-go/kubernetes"
 )
 
 type StorageMiddleware struct {
-	endpoint endpoint.IStorageEndpoint
+	endpoint endpoint.StorageEndpoint
 }
 
-func NewStorageMiddleware(endpoint endpoint.IStorageEndpoint) *StorageMiddleware {
-	return &StorageMiddleware{endpoint: endpoint}
+func NewStorageMiddleware(endpoint *endpoint.StorageEndpoint) *StorageMiddleware {
+	return &StorageMiddleware{endpoint: *endpoint}
 }
 
-func (s *StorageMiddleware) GetPersistentVolumes() []objects.PersistentVolumeDto {
+func (s *StorageMiddleware) GetPersistentVolumes() ([]model.PersistentVolumeDto, error) {
 	return s.endpoint.GetPersistentVolumes()
 }
 
-func (s *StorageMiddleware) GetPersistentVolumeByName(name string) objects.PersistentVolumeDto {
+func (s *StorageMiddleware) GetPersistentVolumeByName(name string) (model.PersistentVolumeDto, error) {
 	return s.endpoint.GetPersistentVolumeByName(name)
 }
 
-func (s *StorageMiddleware) UpdatePersistentVolumeByName(name string) bool {
+func (s *StorageMiddleware) UpdatePersistentVolumeByName(name string) error {
 	return s.endpoint.UpdatePersistentVolumeByName(name)
 }
 
-func (s *StorageMiddleware) DeletePersistentVolumeByName(name string) bool {
+func (s *StorageMiddleware) DeletePersistentVolumeByName(name string) error {
 	return s.endpoint.DeletePersistentVolumeByName(name)
+}
+
+func BuildStorage(client kubernetes.Interface) *StorageMiddleware {
+	storageClient := kubeclient.NewStorageClient(client)
+
+	storageUseCase := usecase.NewStorageUseCase(storageClient)
+
+	storageEndpoint := endpoint.NewStorageEndpoint(storageUseCase)
+
+	return NewStorageMiddleware(storageEndpoint)
 }

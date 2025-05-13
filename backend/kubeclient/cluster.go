@@ -5,7 +5,8 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-type cluster struct{}
+type cluster struct {
+}
 
 func NewCluster() ClusterClient {
 	return &cluster{}

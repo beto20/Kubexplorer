@@ -3,9 +3,9 @@ package middleware
 import "Kubessistant/backend/endpoint"
 
 type MetricMiddleware struct {
-	endpoint endpoint.IMetricEndpoint
+	endpoint endpoint.MetricEndpoint
 }
 
-func NewMetricMiddleware(endpoint endpoint.IMetricEndpoint) *MetricMiddleware {
+func NewMetricMiddleware(endpoint endpoint.MetricEndpoint) *MetricMiddleware {
 	return &MetricMiddleware{endpoint: endpoint}
 }

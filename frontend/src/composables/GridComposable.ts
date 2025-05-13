@@ -1,16 +1,16 @@
 import {onMounted, ref} from "vue";
-import {database, model, objects} from "../../wailsjs/go/models";
+import {database, model} from "../../wailsjs/go/models";
 import {fetchGetDeployments, fetchGetPods} from "../services/workload.service";
 import {fetchHeaderParams} from "../services/layout.service";
 import HeadParamsDto = database.HeadParamsDto;
 import {fetchGetNamespace, fetchGetNodes} from "../services/general.service";
-import NamespaceDto = objects.NamespaceDto;
+import NamespaceDto = model.NamespaceDto;
 import {fetchGetIngresses, fetchGetServices} from "../services/network.service";
-import ServiceDto = objects.ServiceDto;
-import IngressDto = objects.IngressDto;
+import ServiceDto = model.ServiceDto;
+import IngressDto = model.IngressDto;
 import {fetchGetPersistentVolumes} from "../services/storage.service";
-import PersistentVolumeDto = objects.PersistentVolumeDto;
-import NodeDto = objects.NodeDto;
+import PersistentVolumeDto = model.PersistentVolumeDto;
+import NodeDto = model.NodeDto;
 import PodDto = model.PodDto;
 import DeploymentDto = model.DeploymentDto;
 

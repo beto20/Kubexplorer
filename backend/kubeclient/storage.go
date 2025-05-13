@@ -18,17 +18,17 @@ func (s storageClient) GetPersistentVolumes() ([]model.PersistentVolumeDto, erro
 	panic("implement me")
 }
 
-func (s storageClient) GetPersistentVolumeByName(name string) (model.PersistentVolumeDto, error) {
+func (s storageClient) GetPersistentVolume(name string) (model.PersistentVolumeDto, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageClient) UpdatePersistentVolumeByName(name string) error {
+func (s storageClient) UpdatePersistentVolume(name string) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s storageClient) DeletePersistentVolumeByName(name string) error {
+func (s storageClient) DeletePersistentVolume(name string) error {
 	//TODO implement me
 	panic("implement me")
 }

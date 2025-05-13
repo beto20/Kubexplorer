@@ -2,24 +2,19 @@ package endpoint
 
 import "Kubessistant/backend/usecase"
 
-type IMetricEndpoint interface {
-	GetPodMetric(namespace string)
-	GetNodeMetric(namespace string)
+type MetricEndpoint struct {
+	metricUseCase usecase.MetricUseCase
 }
 
-type metricEndpoint struct {
-	metricUseCase usecase.IMetricUseCase
+func NewMetricEndpoint(metricUseCase usecase.MetricUseCase) *MetricEndpoint {
+	return &MetricEndpoint{metricUseCase: metricUseCase}
 }
 
-func NewMetricEndpoint(metricUseCase usecase.IMetricUseCase) IMetricEndpoint {
-	return &metricEndpoint{metricUseCase: metricUseCase}
-}
-
-func (m *metricEndpoint) GetPodMetric(namespace string) {
+func (m *MetricEndpoint) GetPodMetric(namespace string) {
 	//go async.PodMetricsThread(namespace)
 	//return m.metricUseCase.GetPodMetric(namespace)
 }
-func (m *metricEndpoint) GetNodeMetric(namespace string) {
+func (m *MetricEndpoint) GetNodeMetric(namespace string) {
 	//go async.PodMetricsThread(namespace)
 	//return m.metricUseCase.GetNodeMetric(namespace)
 }

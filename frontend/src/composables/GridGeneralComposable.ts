@@ -1,9 +1,9 @@
 import {onMounted, ref} from "vue";
-import {database, objects} from "../../wailsjs/go/models";
+import {database, model} from "../../wailsjs/go/models";
 import {fetchHeaderParams} from "../services/layout.service";
 import HeadParamsDto = database.HeadParamsDto;
-import NodeDto = objects.NodeDto;
-import NamespaceDto = objects.NamespaceDto;
+import NodeDto = model.NodeDto;
+import NamespaceDto = model.NamespaceDto;
 import {fetchGetNamespace, fetchGetNodes} from "../services/general.service";
 
 export function gridGeneralComposable(k8sObject: string) {

@@ -5,34 +5,27 @@ import (
 	"Kubessistant/backend/usecase"
 )
 
-type IParameterEndpoint interface {
-	GetKubernetesParameters() []database.CommonParameterDto
-	GetCommonParameters() []database.CommonParameterDto
-	GetK8sObjects() []database.ObjectType
-	GetHeadParams(k8sObject string) []database.HeadParamsDto
+type ParameterEndpoint struct {
+	useCase usecase.ParameterUseCase
 }
 
-type parameterEndpoint struct {
-	useCase usecase.IParameterUseCase
+func NewParameterEndpoint(useCase usecase.ParameterUseCase) *ParameterEndpoint {
+	return &ParameterEndpoint{useCase: useCase}
 }
 
-func NewParameterEndpoint(useCase usecase.IParameterUseCase) IParameterEndpoint {
-	return &parameterEndpoint{useCase: useCase}
-}
-
-func (pe *parameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
+func (pe *ParameterEndpoint) GetKubernetesParameters() []database.CommonParameterDto {
 	return pe.useCase.GetKubernetesParameters()
 }
 
-func (pe *parameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
+func (pe *ParameterEndpoint) GetCommonParameters() []database.CommonParameterDto {
 	return pe.useCase.GetCommonParameters()
 }
 
-func (pe *parameterEndpoint) GetK8sObjects() []database.ObjectType {
+func (pe *ParameterEndpoint) GetK8sObjects() []database.ObjectType {
 	return pe.useCase.GetK8sObjects()
 }
 
-func (pe *parameterEndpoint) GetHeadParams(k8sObject string) []database.HeadParamsDto {
+func (pe *ParameterEndpoint) GetHeadParams(k8sObject string) []database.HeadParamsDto {
 	if k8sObject == "pod" {
 		return []database.HeadParamsDto{
 			{Title: "Name", Key: "name", Align: "start", Sortable: true},

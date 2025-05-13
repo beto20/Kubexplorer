@@ -2,7 +2,7 @@ package usecase
 
 import "Kubessistant/backend/database"
 
-type IParameterUseCase interface {
+type ParameterUseCase interface {
 	GetKubernetesParameters() []database.CommonParameterDto
 	GetCommonParameters() []database.CommonParameterDto
 	GetK8sObjects() []database.ObjectType
@@ -12,7 +12,7 @@ type parameterImpl struct {
 	entity database.IParameterEntity
 }
 
-func NewParameterUseCase(entity database.IParameterEntity) IParameterUseCase {
+func NewParameterUseCase(entity database.IParameterEntity) ParameterUseCase {
 	return &parameterImpl{entity: entity}
 }
 

@@ -6,8 +6,8 @@ import {
     GetNodes,
     UpdateNamespaceByName
 } from "../../wailsjs/go/middleware/GeneralMiddleware";
-import {objects} from "../../wailsjs/go/models";
-import NamespaceDto = objects.NamespaceDto;
+import {model} from "../../wailsjs/go/models";
+import NamespaceDto = model.NamespaceDto;
 
 export const fetchGetNodes = async() => GetNodes();
 export const fetchGetNodeByName = async(name: string) => GetNodeByName(name)
