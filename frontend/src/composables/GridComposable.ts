@@ -128,13 +128,38 @@ export function gridBodyPods(k8sObject: string) {
 }
 
 export function gridBodyDeployments(k8sObject: string) {
-    const body = ref<DeploymentDto[]>([]);
-    const header = ref<HeadParamsDto[]>([]);
+    const head = ref<Array<any>>([]);
+    const body = ref<Array<{
+        name: string;
+        namespace: string;
+        status: string;
+        age: string;
+    }>>([]);
 
     const fetchData = async (): Promise<any> => {
         try {
-            body.value = await fetchGetDeployments();
+            const deployment = ref<DeploymentDto[]>([]);
+            const header = ref<HeadParamsDto[]>([]);
+
+            deployment.value = await fetchGetDeployments();
             header.value = await fetchHeaderParams(k8sObject);
+
+            console.log("DEPLOYMENTS", body.value);
+
+            body.value = deployment.value.map((d: any) => ({
+                name: d.Name,
+                namespace: d.Namespace,
+                status: d.Status,
+                age: d.Age,
+            }));
+
+            head.value = header.value.map((h: any) => ({
+                title: h.Title,
+                key: h.Key,
+                align: h.Align,
+                sortable: h.Sortable,
+            }));
+
         } catch (error) {
             console.log("Error fetching deployment data: ", error);
             throw error;
@@ -149,7 +174,7 @@ export function gridBodyDeployments(k8sObject: string) {
     const response: GridResponse = {
         fetchData: fetchData,
         content: {
-            head: header,
+            head: head,
             body: body
         }
     }

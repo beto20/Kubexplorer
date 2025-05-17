@@ -16,8 +16,9 @@ func NewWorkloadMiddleware(endpoint *endpoint.WorkloadEndpoint) *WorkloadMiddlew
 	return &WorkloadMiddleware{endpoint: *endpoint}
 }
 
-func (w *WorkloadMiddleware) GetPods() ([]model.PodDto, error) {
-	return w.endpoint.GetPods()
+func (w *WorkloadMiddleware) GetPods() []model.PodDto {
+	x, _ := w.endpoint.GetPods()
+	return x
 }
 
 func (w *WorkloadMiddleware) GetPod(name string) (model.PodDto, error) {
@@ -32,8 +33,9 @@ func (w *WorkloadMiddleware) RestartPod(name string) error {
 	return w.endpoint.RestartPod(name)
 }
 
-func (w *WorkloadMiddleware) GetDeployments() ([]model.DeploymentDto, error) {
-	return w.endpoint.GetDeployments()
+func (w *WorkloadMiddleware) GetDeployments() []model.DeploymentDto {
+	x, _ := w.endpoint.GetDeployments()
+	return x
 }
 
 func (w *WorkloadMiddleware) GetDeployment(name string) (model.DeploymentDto, error) {

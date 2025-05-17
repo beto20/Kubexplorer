@@ -21,7 +21,7 @@ func NewDeploymentUseCase(client kubeclient.DeploymentClient) DeploymentUseCase 
 }
 
 func (d *deploymentUseCase) GetDeployments() ([]model.DeploymentDto, error) {
-	return d.client.GetDeploymentsMock()
+	return d.client.GetDeployments()
 }
 
 func (d *deploymentUseCase) GetDeployment(name string) (model.DeploymentDto, error) {

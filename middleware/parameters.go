@@ -32,7 +32,8 @@ func (p *ParameterMiddleware) GetHeaderParams(k8sObject string) []database.HeadP
 }
 
 func BuildParameters(client kubernetes.Interface) *ParameterMiddleware {
-	parameterUseCase := usecase.NewParameterUseCase(nil)
+	paramDatabase := database.NewParameterEntity()
+	parameterUseCase := usecase.NewParameterUseCase(paramDatabase)
 
 	parameterEndpoint := endpoint.NewParameterEndpoint(parameterUseCase)
 

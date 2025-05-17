@@ -21,7 +21,7 @@ func NewPodUseCase(client kubeclient.PodClient) PodUseCase {
 }
 
 func (p *podUseCase) GetPods() ([]model.PodDto, error) {
-	return p.client.GetPodsMock()
+	return p.client.GetPods()
 }
 
 func (p *podUseCase) GetPod(name string) (model.PodDto, error) {

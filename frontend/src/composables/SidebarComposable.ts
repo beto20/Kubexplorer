@@ -14,6 +14,7 @@ export function sidebarComposable() {
             commonParameters.value = await fetchCommonParameters();
             kubernetesParameters.value = await fetchKubernetesParameters();
             environments.value = await fetchAllEnvironments();
+            console.log("environments.value: ", environments.value)
         } catch (error) {
             console.error('Error fetching environment data:', error);
             throw error;

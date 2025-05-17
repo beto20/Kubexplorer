@@ -7,10 +7,7 @@ import (
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
 	"math/rand"
-	"os"
-	"path/filepath"
 	"strconv"
 )
 
@@ -23,17 +20,9 @@ func NewDeployment(client kubernetes.Interface) DeploymentClient {
 }
 
 func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
-	home, _ := os.UserHomeDir()
-	kubeconfigPath := filepath.Join(home, ".kube", "config")
-	config, err := clientcmd.BuildConfigFromFlags("", kubeconfigPath)
-	if err != nil {
-		panic(err)
-	}
+	client := d.client.AppsV1().Deployments("")
 
-	client := kubernetes.NewForConfigOrDie(config)
-
-	deploymentClient := client.AppsV1().Deployments("TODO")
-	deploys, err := deploymentClient.List(context.TODO(), metav1.ListOptions{})
+	deploys, err := client.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		fmt.Println("Error when get deploys")
 	}

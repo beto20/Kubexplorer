@@ -45,6 +45,7 @@ export default defineComponent({
                 }
             })
 
+            console.log("commonParameters.value", commonParameters.value)
             const set: CommonParameterDto[] = commonParameters.value.map(c => {
                 return {
                     Name: c.Name,
