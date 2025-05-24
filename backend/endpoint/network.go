@@ -14,34 +14,34 @@ func NewNetworkEndpoint(serviceUseCase usecase.ServiceUseCase, ingressUseCase us
 	return &NetworkEndpoint{serviceUseCase: serviceUseCase, ingressUseCase: ingressUseCase}
 }
 
-func (ne *NetworkEndpoint) GetServices() ([]model.ServiceDto, error) {
-	return ne.serviceUseCase.GetServices()
+func (ne *NetworkEndpoint) GetServices(namespace string) ([]model.ServiceDto, error) {
+	return ne.serviceUseCase.GetServices(namespace)
 }
 
-func (ne *NetworkEndpoint) GetServiceByName(name string) (model.ServiceDto, error) {
-	return ne.serviceUseCase.GetService(name)
+func (ne *NetworkEndpoint) GetServiceByName(name string, namespace string) (model.ServiceDto, error) {
+	return ne.serviceUseCase.GetService(name, namespace)
 }
 
-func (ne *NetworkEndpoint) UpdateServiceByName(name string) error {
-	return ne.serviceUseCase.UpdateService(name)
+func (ne *NetworkEndpoint) UpdateServiceByName(name string, namespace string, dto model.ServiceDto) error {
+	return ne.serviceUseCase.UpdateService(name, namespace, dto)
 }
 
-func (ne *NetworkEndpoint) DeleteServiceByName(name string) error {
-	return ne.serviceUseCase.DeleteService(name)
+func (ne *NetworkEndpoint) DeleteServiceByName(name string, namespace string) error {
+	return ne.serviceUseCase.DeleteService(name, namespace)
 }
 
-func (ne *NetworkEndpoint) GetIngresses() ([]model.IngressDto, error) {
-	return ne.ingressUseCase.GetIngresses()
+func (ne *NetworkEndpoint) GetIngresses(namespace string) ([]model.IngressDto, error) {
+	return ne.ingressUseCase.GetIngresses(namespace)
 }
 
-func (ne *NetworkEndpoint) GetIngressByName(name string) (model.IngressDto, error) {
-	return ne.ingressUseCase.GetIngress(name)
+func (ne *NetworkEndpoint) GetIngressByName(name string, namespace string) (model.IngressDto, error) {
+	return ne.ingressUseCase.GetIngress(name, namespace)
 }
 
-func (ne *NetworkEndpoint) UpdateIngressByName(name string) error {
-	return ne.ingressUseCase.UpdateIngress(name)
+func (ne *NetworkEndpoint) UpdateIngressByName(name string, namespace string, dto model.IngressDto) error {
+	return ne.ingressUseCase.UpdateIngress(name, namespace, dto)
 }
 
-func (ne *NetworkEndpoint) DeleteIngressByName(name string) error {
-	return ne.ingressUseCase.DeleteIngress(name)
+func (ne *NetworkEndpoint) DeleteIngressByName(name string, namespace string) error {
+	return ne.ingressUseCase.DeleteIngress(name, namespace)
 }

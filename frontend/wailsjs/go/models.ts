@@ -179,8 +179,26 @@ export namespace model {
 	        this.Status = source["Status"];
 	    }
 	}
-	export class IngressDto {
+	export class RuleDto {
+	    Host: string;
+	    Path: string;
 	
+	    static createFrom(source: any = {}) {
+	        return new RuleDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Host = source["Host"];
+	        this.Path = source["Path"];
+	    }
+	}
+	export class IngressDto {
+	    Name: string;
+	    Namespace: string;
+	    Rules: RuleDto[];
+	    Creation: string;
+	    Labels: Record<string, string>;
 	
 	    static createFrom(source: any = {}) {
 	        return new IngressDto(source);
@@ -188,8 +206,30 @@ export namespace model {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	
+	        this.Name = source["Name"];
+	        this.Namespace = source["Namespace"];
+	        this.Rules = this.convertValues(source["Rules"], RuleDto);
+	        this.Creation = source["Creation"];
+	        this.Labels = source["Labels"];
 	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 	export class NamespaceDto {
 	    Name: string;
@@ -324,8 +364,14 @@ export namespace model {
 		}
 	}
 	
-	export class ServiceDto {
 	
+	export class ServiceDto {
+	    Name: string;
+	    Namespace: string;
+	    Labels: Record<string, string>;
+	    Status: string;
+	    CreationTimestamp: string;
+	    Spec: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new ServiceDto(source);
@@ -333,7 +379,12 @@ export namespace model {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	
+	        this.Name = source["Name"];
+	        this.Namespace = source["Namespace"];
+	        this.Labels = source["Labels"];
+	        this.Status = source["Status"];
+	        this.CreationTimestamp = source["CreationTimestamp"];
+	        this.Spec = source["Spec"];
 	    }
 	}
 

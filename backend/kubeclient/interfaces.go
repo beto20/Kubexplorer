@@ -48,15 +48,14 @@ type NamespaceClient interface {
 
 type ServiceClient interface {
 	GetServices(namespace string) ([]model.ServiceDto, error)
-	GetServicesMock() ([]model.ServiceDto, error)
-	GetService(name string) (model.ServiceDto, error)
-	UpdateService(name string) error
-	DeleteService(name string) error
+	GetService(name string, namespace string) (model.ServiceDto, error)
+	UpdateService(name string, namespace string, dto model.ServiceDto) error
+	DeleteService(name string, namespace string) error
 }
 
 type IngressClient interface {
 	GetIngresses() ([]model.IngressDto, error)
-	GetIngress(name string) (model.IngressDto, error)
-	UpdateIngress(name string) error
-	DeleteIngress(name string) error
+	GetIngress(name string, namespace string) (model.IngressDto, error)
+	UpdateIngress(name string, namespace string, dto model.IngressDto) error
+	DeleteIngress(name string, namespace string) error
 }

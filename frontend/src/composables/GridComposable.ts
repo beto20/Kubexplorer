@@ -188,7 +188,7 @@ export function gridBodyServices(k8sObject: string) {
 
     const fetchData = async () => {
         try {
-            body.value = await fetchGetServices();
+            body.value = await fetchGetServices("east"); // TODO: replace with a dynamic value
             header.value = await fetchHeaderParams(k8sObject);
         } catch (error) {
             console.log("Error fetching pod data: ", error);
@@ -218,7 +218,7 @@ export function gridBodyIngresses(k8sObject: string) {
 
     const fetchData = async () => {
         try {
-            body.value = await fetchGetIngresses();
+            body.value = await fetchGetIngresses("east"); // TODO: replace with a dynamic value
             header.value = await fetchHeaderParams(k8sObject);
         } catch (error) {
             console.log("Error fetching pod data: ", error);
