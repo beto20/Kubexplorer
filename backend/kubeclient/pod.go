@@ -95,16 +95,46 @@ func (p *podClient) GetPods() ([]model.PodDto, error) {
 	return podArray, errors.New("Not implemented")
 }
 
-func (p *podClient) GetPod(name string) (model.PodDto, error) {
-	return model.PodDto{}, errors.New("Not implemented")
+func (p *podClient) GetPod(name string, namespace string) (model.PodDto, error) {
+	pod, _ := p.client.CoreV1().Pods(namespace).Get(context.TODO(), name, metav1.GetOptions{})
+
+	return model.PodDto{
+		Name:      pod.Name,
+		Namespace: pod.Namespace,
+		Replicas:  1,
+		Container: model.Container{
+			Limit: model.Resource{
+				Cpu:    pod.Spec.Containers[0].Resources.Limits.Cpu().String(),
+				Memory: pod.Spec.Containers[0].Resources.Limits.Memory().String(),
+			},
+			Request: model.Resource{
+				Cpu:    pod.Spec.Containers[0].Resources.Requests.Cpu().String(),
+				Memory: pod.Spec.Containers[0].Resources.Requests.Memory().String(),
+			},
+		},
+		Status: string(pod.Status.Phase),
+		Age:    pod.Status.StartTime.String(),
+	}, errors.New("Error while listing ingresses")
 }
 
-func (p *podClient) UpdatePod(name string) error {
-	return errors.New("Not implemented")
+func (p *podClient) UpdatePod(name string, namespace string, dto model.PodDto) error {
+	client := p.client.CoreV1().Pods(namespace)
+	pod, err := client.Get(context.TODO(), name, metav1.GetOptions{})
+
+	if err != nil {
+		panic("Error while searching ingress")
+	}
+
+	pod.Name = dto.Name
+	pod.Namespace = dto.Namespace
+
+	_, err = client.Update(context.TODO(), pod, metav1.UpdateOptions{})
+
+	return err
 }
 
-func (p *podClient) DeletePod(name string) error {
-	return errors.New("Not implemented")
+func (p *podClient) DeletePod(name string, namespace string) error {
+	return p.client.CoreV1().Pods(namespace).Delete(context.TODO(), name, metav1.DeleteOptions{})
 }
 
 //func status(namespace string) {

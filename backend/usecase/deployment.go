@@ -7,9 +7,9 @@ import (
 
 type DeploymentUseCase interface {
 	GetDeployments() ([]model.DeploymentDto, error)
-	GetDeployment(name string) (model.DeploymentDto, error)
-	UpdateDeployment(name string) error
-	DeleteDeployment(name string) error
+	GetDeployment(name string, namespace string) (model.DeploymentDto, error)
+	UpdateDeployment(name string, namespace string, dto model.DeploymentDto) error
+	DeleteDeployment(name string, namespace string) error
 }
 
 type deploymentUseCase struct {
@@ -24,14 +24,14 @@ func (d *deploymentUseCase) GetDeployments() ([]model.DeploymentDto, error) {
 	return d.client.GetDeployments()
 }
 
-func (d *deploymentUseCase) GetDeployment(name string) (model.DeploymentDto, error) {
-	return d.client.GetDeployment(name)
+func (d *deploymentUseCase) GetDeployment(name string, namespace string) (model.DeploymentDto, error) {
+	return d.client.GetDeployment(name, namespace)
 }
 
-func (d *deploymentUseCase) UpdateDeployment(name string) error {
-	return d.client.UpdateDeployment(name)
+func (d *deploymentUseCase) UpdateDeployment(name string, namespace string, dto model.DeploymentDto) error {
+	return d.client.UpdateDeployment(name, namespace, dto)
 }
 
-func (d *deploymentUseCase) DeleteDeployment(name string) error {
-	return d.client.DeleteDeployment(name)
+func (d *deploymentUseCase) DeleteDeployment(name string, namespace string) error {
+	return d.client.DeleteDeployment(name, namespace)
 }

@@ -20,15 +20,14 @@ func NewDeployment(client kubernetes.Interface) DeploymentClient {
 }
 
 func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
-	client := d.client.AppsV1().Deployments("")
+	deployments, err := d.client.AppsV1().Deployments("").List(context.TODO(), metav1.ListOptions{})
 
-	deploys, err := client.List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
-		fmt.Println("Error when get deploys")
+		panic("Error when get deploys")
 	}
-	var deployments []model.DeploymentDto
+	var result []model.DeploymentDto
 
-	for _, deploy := range deploys.Items {
+	for _, deploy := range deployments.Items {
 		d := model.DeploymentDto{
 			Name:      deploy.Name,
 			Namespace: deploy.Namespace,
@@ -36,7 +35,7 @@ func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
 			Age:       deploy.CreationTimestamp.String(),
 		}
 
-		deployments = append(deployments, d)
+		result = append(result, d)
 
 		fmt.Printf("dep name: %s namespace: %s status: %s startTime: %s\n",
 			deploy.Name,
@@ -46,7 +45,7 @@ func (d deploymentClient) GetDeployments() ([]model.DeploymentDto, error) {
 		)
 	}
 
-	return deployments, errors.New("deployment list is empty")
+	return result, errors.New("deployment list is empty")
 }
 
 func (d deploymentClient) GetDeploymentsMock() ([]model.DeploymentDto, error) {
@@ -66,17 +65,33 @@ func (d deploymentClient) GetDeploymentsMock() ([]model.DeploymentDto, error) {
 	return deployments, errors.New("Deployment Not Found")
 }
 
-func (d deploymentClient) GetDeployment(name string) (model.DeploymentDto, error) {
-	//TODO implement me
-	panic("implement me")
+func (d deploymentClient) GetDeployment(name string, namespace string) (model.DeploymentDto, error) {
+	deployment, _ := d.client.AppsV1().Deployments(namespace).Get(context.TODO(), name, metav1.GetOptions{})
+
+	return model.DeploymentDto{
+		Name:      deployment.Name,
+		Namespace: deployment.Namespace,
+		Status:    string(deployment.Status.Conditions[0].Status),
+		Age:       deployment.CreationTimestamp.String(),
+	}, errors.New("Error while listing ingresses")
 }
 
-func (d deploymentClient) UpdateDeployment(name string) error {
-	//TODO implement me
-	panic("implement me")
+func (d deploymentClient) UpdateDeployment(name string, namespace string, dto model.DeploymentDto) error {
+	client := d.client.AppsV1().Deployments(namespace)
+	deployment, err := client.Get(context.TODO(), name, metav1.GetOptions{})
+
+	if err != nil {
+		panic("Error while searching ingress")
+	}
+
+	deployment.Name = dto.Name
+	deployment.Namespace = dto.Namespace
+
+	_, err = client.Update(context.TODO(), deployment, metav1.UpdateOptions{})
+
+	return err
 }
 
-func (d deploymentClient) DeleteDeployment(name string) error {
-	//TODO implement me
-	panic("implement me")
+func (d deploymentClient) DeleteDeployment(name string, namespace string) error {
+	return d.client.AppsV1().Deployments(namespace).Delete(context.TODO(), name, metav1.DeleteOptions{})
 }

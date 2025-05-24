@@ -17,7 +17,7 @@ export function restartPod(podName: string) {
 
     const fetchData = async () => {
         try {
-            isRestarted.value = await fetchRestartPod(podName)
+            isRestarted.value = await fetchRestartPod(podName, "east") // TODO: replace with a dynamic value
             console.log("VAL", isRestarted.value)
         } catch (error) {
             console.log("Error fetching pod data: ", error);

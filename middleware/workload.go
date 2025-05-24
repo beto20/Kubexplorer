@@ -21,16 +21,16 @@ func (w *WorkloadMiddleware) GetPods() []model.PodDto {
 	return x
 }
 
-func (w *WorkloadMiddleware) GetPod(name string) (model.PodDto, error) {
-	return w.endpoint.GetPod(name)
+func (w *WorkloadMiddleware) GetPod(name string, namespace string) (model.PodDto, error) {
+	return w.endpoint.GetPod(name, namespace)
 }
 
-func (w *WorkloadMiddleware) UpdatePod(name string) error {
-	return w.endpoint.UpdatePod(name)
+func (w *WorkloadMiddleware) UpdatePod(name string, namespace string, dto model.PodDto) error {
+	return w.endpoint.UpdatePod(name, namespace, dto)
 }
 
-func (w *WorkloadMiddleware) RestartPod(name string) error {
-	return w.endpoint.RestartPod(name)
+func (w *WorkloadMiddleware) RestartPod(name string, namespace string) error {
+	return w.endpoint.RestartPod(name, namespace)
 }
 
 func (w *WorkloadMiddleware) GetDeployments() []model.DeploymentDto {
@@ -38,16 +38,16 @@ func (w *WorkloadMiddleware) GetDeployments() []model.DeploymentDto {
 	return x
 }
 
-func (w *WorkloadMiddleware) GetDeployment(name string) (model.DeploymentDto, error) {
-	return w.endpoint.GetDeployment(name)
+func (w *WorkloadMiddleware) GetDeployment(name string, namespace string) (model.DeploymentDto, error) {
+	return w.endpoint.GetDeployment(name, namespace)
 }
 
-func (w *WorkloadMiddleware) UpdateDeployment(name string) error {
-	return w.endpoint.UpdateDeployment(name)
+func (w *WorkloadMiddleware) UpdateDeployment(name string, namespace string, dto model.DeploymentDto) error {
+	return w.endpoint.UpdateDeployment(name, namespace, dto)
 }
 
-func (w *WorkloadMiddleware) DeleteDeployment(name string) error {
-	return w.endpoint.DeleteDeployment(name)
+func (w *WorkloadMiddleware) DeleteDeployment(name string, namespace string) error {
+	return w.endpoint.DeleteDeployment(name, namespace)
 }
 
 func BuildWorkload(client kubernetes.Interface) *WorkloadMiddleware {
