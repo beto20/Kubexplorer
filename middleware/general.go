@@ -20,7 +20,7 @@ func (g *GeneralMiddleware) GetNodes() ([]model.NodeDto, error) {
 	return g.endpoint.GetNodes()
 }
 
-func (g *GeneralMiddleware) GetNodeByName(name string) (model.NodeDto, error) {
+func (g *GeneralMiddleware) GetNodeByName(name string) (model.NodeDtoV2, error) {
 	return g.endpoint.GetNodeByName(name)
 }
 
@@ -32,8 +32,8 @@ func (g *GeneralMiddleware) GetNamespaceByName(name string) (model.NamespaceDto,
 	return g.endpoint.GetNamespaceByName(name)
 }
 
-func (g *GeneralMiddleware) UpdateNamespaceByName(name string) error {
-	return g.endpoint.UpdateNamespaceByName(name)
+func (g *GeneralMiddleware) UpdateNamespaceByName(name string, dto model.NamespaceDto) error {
+	return g.endpoint.UpdateNamespaceByName(name, dto)
 }
 
 func (g *GeneralMiddleware) DeleteNamespaceByName(name string) error {

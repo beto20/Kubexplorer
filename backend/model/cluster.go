@@ -28,3 +28,12 @@ type NodeDto struct {
 	Age      string
 	Status   bool
 }
+
+type NodeDtoV2 struct {
+	Name              string
+	Namespace         string
+	Resource          Resource
+	Version           string
+	CreationTimestamp string
+	Labels            map[string]string
+}

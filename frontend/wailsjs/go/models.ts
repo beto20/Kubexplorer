@@ -233,6 +233,26 @@ export namespace model {
 	}
 	export class NamespaceDto {
 	    Name: string;
+	    Version: string;
+	    CreationTime: string;
+	    Labels: Record<string, string>;
+	    Status: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new NamespaceDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Name = source["Name"];
+	        this.Version = source["Version"];
+	        this.CreationTime = source["CreationTime"];
+	        this.Labels = source["Labels"];
+	        this.Status = source["Status"];
+	    }
+	}
+	export class NodeDto {
+	    Name: string;
 	    Resource: Resource;
 	    Roles: string[];
 	    Version: string;
@@ -240,7 +260,7 @@ export namespace model {
 	    Status: boolean;
 	
 	    static createFrom(source: any = {}) {
-	        return new NamespaceDto(source);
+	        return new NodeDto(source);
 	    }
 	
 	    constructor(source: any = {}) {
@@ -271,26 +291,26 @@ export namespace model {
 		    return a;
 		}
 	}
-	export class NodeDto {
+	export class NodeDtoV2 {
 	    Name: string;
+	    Namespace: string;
 	    Resource: Resource;
-	    Roles: string[];
 	    Version: string;
-	    Age: string;
-	    Status: boolean;
+	    CreationTimestamp: string;
+	    Labels: Record<string, string>;
 	
 	    static createFrom(source: any = {}) {
-	        return new NodeDto(source);
+	        return new NodeDtoV2(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.Name = source["Name"];
+	        this.Namespace = source["Namespace"];
 	        this.Resource = this.convertValues(source["Resource"], Resource);
-	        this.Roles = source["Roles"];
 	        this.Version = source["Version"];
-	        this.Age = source["Age"];
-	        this.Status = source["Status"];
+	        this.CreationTimestamp = source["CreationTimestamp"];
+	        this.Labels = source["Labels"];
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {

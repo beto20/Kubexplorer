@@ -8,8 +8,8 @@ export function GetNamespace():Promise<Array<model.NamespaceDto>>;
 
 export function GetNamespaceByName(arg1:string):Promise<model.NamespaceDto>;
 
-export function GetNodeByName(arg1:string):Promise<model.NodeDto>;
+export function GetNodeByName(arg1:string):Promise<model.NodeDtoV2>;
 
 export function GetNodes():Promise<Array<model.NodeDto>>;
 
-export function UpdateNamespaceByName(arg1:string):Promise<void>;
+export function UpdateNamespaceByName(arg1:string,arg2:model.NamespaceDto):Promise<void>;

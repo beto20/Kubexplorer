@@ -1,10 +1,9 @@
 package model
 
 type NamespaceDto struct {
-	Name     string
-	Resource Resource
-	Roles    []string
-	Version  string
-	Age      string
-	Status   bool
+	Name         string
+	Version      string
+	CreationTime string
+	Labels       map[string]string
+	Status       string
 }

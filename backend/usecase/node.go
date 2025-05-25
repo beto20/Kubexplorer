@@ -7,7 +7,7 @@ import (
 
 type NodeUseCase interface {
 	GetNodes() ([]model.NodeDto, error)
-	GetNode(name string) (model.NodeDto, error)
+	GetNode(name string) (model.NodeDtoV2, error)
 }
 
 type nodeUseCase struct {
@@ -22,6 +22,6 @@ func (n *nodeUseCase) GetNodes() ([]model.NodeDto, error) {
 	return n.client.GetNodes()
 }
 
-func (n *nodeUseCase) GetNode(name string) (model.NodeDto, error) {
-	return n.client.GetNode()
+func (n *nodeUseCase) GetNode(name string) (model.NodeDtoV2, error) {
+	return n.client.GetNode(name)
 }

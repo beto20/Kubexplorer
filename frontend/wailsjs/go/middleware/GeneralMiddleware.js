@@ -22,6 +22,6 @@ export function GetNodes() {
   return window['go']['middleware']['GeneralMiddleware']['GetNodes']();
 }
 
-export function UpdateNamespaceByName(arg1) {
-  return window['go']['middleware']['GeneralMiddleware']['UpdateNamespaceByName'](arg1);
+export function UpdateNamespaceByName(arg1, arg2) {
+  return window['go']['middleware']['GeneralMiddleware']['UpdateNamespaceByName'](arg1, arg2);
 }

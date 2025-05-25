@@ -2,10 +2,15 @@ package kubeclient
 
 import (
 	"Kubessistant/backend/model"
+	"context"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
 type cluster struct {
+	client kubernetes.Interface
 }
 
 func NewCluster() ClusterClient {
@@ -80,20 +85,32 @@ func (c *cluster) GetClusters() ([]model.EnvironmentDto, error) {
 	}, nil
 }
 
-func (c *cluster) GetNode() (model.NodeDto, error) {
-	return model.NodeDto{
-		Name: "node-1",
+func (c *cluster) GetNode(name string) (model.NodeDtoV2, error) {
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	node, err := clientset.CoreV1().Nodes().Get(context.TODO(), name, metav1.GetOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return model.NodeDtoV2{
+		Name:      node.Name,
+		Namespace: node.Namespace,
 		Resource: model.Resource{
-			Cpu:    "6Gi",
-			Memory: "20Gi",
+			Cpu:    node.Status.Capacity.Cpu().String(),
+			Memory: node.Status.Capacity.Memory().String(),
 		},
-		Roles: []string{
-			"ADMIN",
-			"GENERAL",
-		},
-		Version: "1.24.0",
-		Age:     "20 day",
-		Status:  true,
+		Version:           node.ResourceVersion,
+		CreationTimestamp: node.CreationTimestamp.String(),
+		Labels:            node.Labels,
 	}, nil
 }
 

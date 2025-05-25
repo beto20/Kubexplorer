@@ -21,7 +21,7 @@ func (ge *GeneralEndpoint) GetNodes() ([]model.NodeDto, error) {
 	return ge.nodeUseCase.GetNodes()
 }
 
-func (ge *GeneralEndpoint) GetNodeByName(name string) (model.NodeDto, error) {
+func (ge *GeneralEndpoint) GetNodeByName(name string) (model.NodeDtoV2, error) {
 	return ge.nodeUseCase.GetNode(name)
 }
 
@@ -33,8 +33,8 @@ func (ge *GeneralEndpoint) GetNamespaceByName(name string) (model.NamespaceDto, 
 	return ge.namespaceUseCase.GetNamespace(name)
 }
 
-func (ge *GeneralEndpoint) UpdateNamespaceByName(name string) error {
-	return ge.namespaceUseCase.UpdateNamespace(name)
+func (ge *GeneralEndpoint) UpdateNamespaceByName(name string, dto model.NamespaceDto) error {
+	return ge.namespaceUseCase.UpdateNamespace(name, dto)
 }
 
 func (ge *GeneralEndpoint) DeleteNamespaceByName(name string) error {

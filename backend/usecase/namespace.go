@@ -8,7 +8,7 @@ import (
 type NamespaceUseCase interface {
 	GetNamespaces() ([]model.NamespaceDto, error)
 	GetNamespace(name string) (model.NamespaceDto, error)
-	UpdateNamespace(name string) error
+	UpdateNamespace(name string, dto model.NamespaceDto) error
 	DeleteNamespace(name string) error
 }
 
@@ -27,8 +27,8 @@ func (n *namespaceUseCase) GetNamespace(name string) (model.NamespaceDto, error)
 	return n.client.GetNamespace(name)
 }
 
-func (n *namespaceUseCase) UpdateNamespace(name string) error {
-	return n.client.UpdateNamespace(name)
+func (n *namespaceUseCase) UpdateNamespace(name string, dto model.NamespaceDto) error {
+	return n.client.UpdateNamespace(name, dto)
 }
 
 func (n *namespaceUseCase) DeleteNamespace(name string) error {

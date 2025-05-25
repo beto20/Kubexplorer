@@ -8,7 +8,7 @@ type ClusterClient interface {
 	ListAvailableClusters(profile model.ClusterProfile) ([]model.ClusterInfo, error)
 	GetCurrentCluster() (model.EnvironmentDto, error)
 	GetClusters() ([]model.EnvironmentDto, error)
-	GetNode() (model.NodeDto, error)
+	GetNode(name string) (model.NodeDtoV2, error)
 	GetNodes() ([]model.NodeDto, error)
 }
 
@@ -42,7 +42,7 @@ type StorageClient interface {
 type NamespaceClient interface {
 	GetNamespaces() ([]model.NamespaceDto, error)
 	GetNamespace(name string) (model.NamespaceDto, error)
-	UpdateNamespace(name string) error
+	UpdateNamespace(name string, dto model.NamespaceDto) error
 	DeleteNamespace(name string) error
 }
 
