@@ -3,6 +3,7 @@ package usecase
 import (
 	"Kubessistant/backend/kubeclient"
 	"Kubessistant/backend/model"
+	"Kubessistant/backend/service"
 )
 
 type NamespaceUseCase interface {
@@ -10,10 +11,12 @@ type NamespaceUseCase interface {
 	GetNamespace(name string) (model.NamespaceDto, error)
 	UpdateNamespace(name string, dto model.NamespaceDto) error
 	DeleteNamespace(name string) error
+	ExportNamespaceObjects(namespace string, directory string) error
 }
 
 type namespaceUseCase struct {
-	client kubeclient.NamespaceClient
+	client  kubeclient.NamespaceClient
+	service service.NamespaceService
 }
 
 func NewNamespaceUseCase(client kubeclient.NamespaceClient) NamespaceUseCase {
@@ -33,4 +36,8 @@ func (n *namespaceUseCase) UpdateNamespace(name string, dto model.NamespaceDto) 
 
 func (n *namespaceUseCase) DeleteNamespace(name string) error {
 	return n.client.DeleteNamespace(name)
+}
+
+func (n *namespaceUseCase) ExportNamespaceObjects(namespace string, directory string) error {
+	return n.service.ExportObjects(namespace, directory)
 }

@@ -69,6 +69,7 @@ func main() {
 	// KubeClient
 	conf := kubeclient.NewClusterManager()
 	client, _ := conf.GetClient("minikube", getPath())
+	//dynamicClient, _ := conf.GetDynamicClient("minikube", getPath())
 
 	// Create an instance of the app structure
 	app := middleware.NewApp()

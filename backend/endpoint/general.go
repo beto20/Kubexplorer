@@ -40,3 +40,7 @@ func (ge *GeneralEndpoint) UpdateNamespaceByName(name string, dto model.Namespac
 func (ge *GeneralEndpoint) DeleteNamespaceByName(name string) error {
 	return ge.namespaceUseCase.DeleteNamespace(name)
 }
+
+func (ge *GeneralEndpoint) ExportNamespaceObjects(namespace string, directory string) error {
+	return ge.namespaceUseCase.ExportNamespaceObjects(namespace, directory)
+}
