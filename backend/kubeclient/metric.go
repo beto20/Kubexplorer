@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
 	metricsv "k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
@@ -15,13 +16,21 @@ type metric struct {
 func NewMetric() MetricClient {
 	return &metric{}
 }
+func (m *metric) GetPodMetricsV2(namespace string) *v1beta1.PodMetricsList {
+	metrics, err := m.client.MetricsV1beta1().PodMetricses(namespace).List(context.Background(), metav1.ListOptions{})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return metrics
+}
 
 func (m *metric) GetPodMetrics(namespace string, chMetricDto <-chan []model.PodMetricDto) []model.PodMetricDto {
 	//inClusterConfig, err := rest.InClusterConfig()
 	//if err != nil {
 	//	fmt.Printf("Error creating in-cluster config: %v", err)
 	//}
-
+	//
 	//metricsClient, err := metricsv.NewForConfig(inClusterConfig)
 	//if err != nil {
 	//	fmt.Print(err)

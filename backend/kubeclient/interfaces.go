@@ -2,6 +2,7 @@ package kubeclient
 
 import (
 	"Kubessistant/backend/model"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
 )
 
 type ClusterClient interface {
@@ -14,6 +15,7 @@ type ClusterClient interface {
 
 type MetricClient interface {
 	GetPodMetrics(namespace string, chMetricDto <-chan []model.PodMetricDto) []model.PodMetricDto
+	GetPodMetricsV2(namespace string) *v1beta1.PodMetricsList
 }
 
 type PodClient interface {

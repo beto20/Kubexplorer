@@ -19,3 +19,9 @@ type Container struct {
 	Limit   Resource
 	Request Resource
 }
+
+type CurrentResourcesDto struct {
+	Name      string
+	Namespace string
+	Container Container
+}

@@ -8,6 +8,7 @@ import (
 type WorkloadEndpoint struct {
 	podUseCase        usecase.PodUseCase
 	deploymentUseCase usecase.DeploymentUseCase
+	resourceUseCase   usecase.ResourceUseCase
 }
 
 func NewWorkloadEndpoint(podUseCase usecase.PodUseCase, deploymentUseCase usecase.DeploymentUseCase) *WorkloadEndpoint {
@@ -44,4 +45,8 @@ func (we *WorkloadEndpoint) UpdateDeployment(name string, namespace string, dto 
 
 func (we *WorkloadEndpoint) DeleteDeployment(name string, namespace string) error {
 	return we.deploymentUseCase.DeleteDeployment(name, namespace)
+}
+
+func (we *WorkloadEndpoint) ResourceTuning(namespace string) {
+	we.resourceUseCase.Invoke(namespace)
 }
