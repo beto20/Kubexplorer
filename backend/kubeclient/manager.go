@@ -2,6 +2,7 @@ package kubeclient
 
 import (
 	"fmt"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -9,8 +10,9 @@ import (
 )
 
 type ClusterManager struct {
-	mu      sync.RWMutex
-	clients map[string]*kubernetes.Clientset
+	mu             sync.RWMutex
+	clients        map[string]*kubernetes.Clientset
+	dynamicClients map[string]*dynamic.DynamicClient
 }
 
 func NewClusterManager() *ClusterManager {
@@ -47,6 +49,36 @@ func (cm *ClusterManager) GetClient(clusterName string, kubeConfigPath string) (
 	cm.clients[clusterName] = clientSet
 
 	return clientSet, nil
+}
+
+func (cm *ClusterManager) GetDynamicClient(clusterName string, kubeConfigPath string) (*dynamic.DynamicClient, error) {
+	cm.mu.RLock()
+	if dynamicClient, exists := cm.dynamicClients[clusterName]; exists {
+		cm.mu.RUnlock()
+		return dynamicClient, nil
+	}
+	cm.mu.RUnlock()
+
+	cm.mu.Lock()
+	defer cm.mu.Unlock()
+
+	if dynamicClient, exists := cm.dynamicClients[clusterName]; exists {
+		return dynamicClient, nil
+	}
+
+	config, err := buildRestConfig(kubeConfigPath, clusterName)
+	if err != nil {
+		return nil, fmt.Errorf("error building config: %s", err)
+	}
+
+	dynamicClient, err := dynamic.NewForConfig(config)
+	if err != nil {
+		return nil, fmt.Errorf("error building dynamicClient: %s", err)
+	}
+
+	cm.dynamicClients[clusterName] = dynamicClient
+
+	return dynamicClient, nil
 }
 
 func buildRestConfig(kubeConfigPath, context string) (*rest.Config, error) {
