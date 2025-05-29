@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"Kubessistant/backend/database"
-	"Kubessistant/backend/endpoint"
-	"Kubessistant/backend/usecase"
+	"Kubexplorer/backend/database"
+	"Kubexplorer/backend/endpoint"
+	"Kubexplorer/backend/usecase"
 	"k8s.io/client-go/kubernetes"
 )
 

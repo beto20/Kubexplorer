@@ -1,6 +1,6 @@
 package endpoint
 
-import "Kubessistant/backend/usecase"
+import "Kubexplorer/backend/usecase"
 
 type MetricEndpoint struct {
 	metricUseCase usecase.MetricUseCase

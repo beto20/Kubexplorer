@@ -1,6 +1,6 @@
 package middleware
 
-import "Kubessistant/backend/endpoint"
+import "Kubexplorer/backend/endpoint"
 
 type MetricMiddleware struct {
 	endpoint endpoint.MetricEndpoint

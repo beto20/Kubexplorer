@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Kubessistant/backend/kubeclient"
+	"Kubexplorer/backend/kubeclient"
 	"fmt"
 	"os"
 	"path/filepath"

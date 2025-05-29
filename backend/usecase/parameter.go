@@ -1,6 +1,6 @@
 package usecase
 
-import "Kubessistant/backend/database"
+import "Kubexplorer/backend/database"
 
 type ParameterUseCase interface {
 	GetKubernetesParameters() []database.CommonParameterDto

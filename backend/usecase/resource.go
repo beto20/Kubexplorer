@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"Kubessistant/backend/service"
+	"Kubexplorer/backend/service"
 )
 
 type ResourceUseCase interface {

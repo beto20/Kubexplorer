@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"Kubessistant/backend/kubeclient"
-	"Kubessistant/backend/model"
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/backend/model"
 )
 
 type ServiceUseCase interface {

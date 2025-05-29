@@ -1,7 +1,7 @@
 package kubeclient
 
 import (
-	"Kubessistant/backend/model"
+	"Kubexplorer/backend/model"
 	"context"
 	"errors"
 	"fmt"

@@ -1,7 +1,7 @@
 package kubeclient
 
 import (
-	"Kubessistant/backend/model"
+	"Kubexplorer/backend/model"
 	"context"
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

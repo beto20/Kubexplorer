@@ -1,8 +1,8 @@
 package endpoint
 
 import (
-	"Kubessistant/backend/model"
-	"Kubessistant/backend/usecase"
+	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/usecase"
 )
 
 type WorkloadEndpoint struct {

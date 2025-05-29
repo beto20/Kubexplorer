@@ -1,7 +1,7 @@
 package kubeclient
 
 import (
-	"Kubessistant/backend/model"
+	"Kubexplorer/backend/model"
 	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
 )
 

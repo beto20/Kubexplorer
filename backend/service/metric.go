@@ -1,8 +1,8 @@
 package service
 
 import (
-	"Kubessistant/backend/kubeclient"
-	"Kubessistant/backend/model"
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/backend/model"
 	"context"
 	"fmt"
 	"time"

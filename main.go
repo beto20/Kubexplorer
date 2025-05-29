@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Kubessistant/backend/kubeclient"
-	"Kubessistant/middleware"
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/middleware"
 	"embed"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -15,7 +15,7 @@ import (
 var assets embed.FS
 
 const (
-	PROGRAM_NAME = "Kubessistant"
+	PROGRAM_NAME = "Kubexplorer"
 	WIDTH        = 1024
 	HEIGHT       = 768
 )

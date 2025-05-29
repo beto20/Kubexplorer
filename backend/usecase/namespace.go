@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"Kubessistant/backend/kubeclient"
-	"Kubessistant/backend/model"
-	"Kubessistant/backend/service"
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/service"
 )
 
 type NamespaceUseCase interface {

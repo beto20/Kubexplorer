@@ -1,8 +1,8 @@
 package endpoint
 
 import (
-	"Kubessistant/backend/database"
-	"Kubessistant/backend/usecase"
+	"Kubexplorer/backend/database"
+	"Kubexplorer/backend/usecase"
 )
 
 type ParameterEndpoint struct {
