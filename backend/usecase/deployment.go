@@ -3,6 +3,7 @@ package usecase
 import (
 	"Kubexplorer/backend/kubeclient"
 	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/service"
 )
 
 type DeploymentUseCase interface {
@@ -10,14 +11,16 @@ type DeploymentUseCase interface {
 	GetDeployment(name string, namespace string) (model.DeploymentDto, error)
 	UpdateDeployment(name string, namespace string, dto model.DeploymentDto) error
 	DeleteDeployment(name string, namespace string) error
+	TroubleshootDeployment(name string, namespace string)
 }
 
 type deploymentUseCase struct {
-	client kubeclient.DeploymentClient
+	client  kubeclient.DeploymentClient
+	service service.Troubleshooting
 }
 
-func NewDeploymentUseCase(client kubeclient.DeploymentClient) DeploymentUseCase {
-	return &deploymentUseCase{client: client}
+func NewDeploymentUseCase(client kubeclient.DeploymentClient, service *service.Troubleshooting) DeploymentUseCase {
+	return &deploymentUseCase{client: client, service: *service}
 }
 
 func (d *deploymentUseCase) GetDeployments() ([]model.DeploymentDto, error) {
@@ -34,4 +37,8 @@ func (d *deploymentUseCase) UpdateDeployment(name string, namespace string, dto 
 
 func (d *deploymentUseCase) DeleteDeployment(name string, namespace string) error {
 	return d.client.DeleteDeployment(name, namespace)
+}
+
+func (d *deploymentUseCase) TroubleshootDeployment(name string, namespace string) {
+	d.service.Analyse(name, namespace, service.Deployment)
 }
