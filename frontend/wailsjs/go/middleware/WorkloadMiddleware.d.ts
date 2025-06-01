@@ -14,6 +14,10 @@ export function GetPods():Promise<Array<model.PodDto>>;
 
 export function RestartPod(arg1:string,arg2:string):Promise<void>;
 
+export function TroubleshootDeployment(arg1:string,arg2:string):Promise<void>;
+
+export function TroubleshootPod(arg1:string,arg2:string):Promise<void>;
+
 export function UpdateDeployment(arg1:string,arg2:string,arg3:model.DeploymentDto):Promise<void>;
 
 export function UpdatePod(arg1:string,arg2:string,arg3:model.PodDto):Promise<void>;

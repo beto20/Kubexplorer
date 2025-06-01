@@ -26,6 +26,14 @@ export function RestartPod(arg1, arg2) {
   return window['go']['middleware']['WorkloadMiddleware']['RestartPod'](arg1, arg2);
 }
 
+export function TroubleshootDeployment(arg1, arg2) {
+  return window['go']['middleware']['WorkloadMiddleware']['TroubleshootDeployment'](arg1, arg2);
+}
+
+export function TroubleshootPod(arg1, arg2) {
+  return window['go']['middleware']['WorkloadMiddleware']['TroubleshootPod'](arg1, arg2);
+}
+
 export function UpdateDeployment(arg1, arg2, arg3) {
   return window['go']['middleware']['WorkloadMiddleware']['UpdateDeployment'](arg1, arg2, arg3);
 }

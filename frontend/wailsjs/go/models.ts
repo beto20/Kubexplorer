@@ -179,6 +179,20 @@ export namespace model {
 	        this.Status = source["Status"];
 	    }
 	}
+	export class Host {
+	    Path: string;
+	    Type: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Host(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Path = source["Path"];
+	        this.Type = source["Type"];
+	    }
+	}
 	export class RuleDto {
 	    Host: string;
 	    Path: string;
@@ -230,6 +244,34 @@ export namespace model {
 		    }
 		    return a;
 		}
+	}
+	export class Local {
+	    Path: string;
+	    FSType: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Local(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Path = source["Path"];
+	        this.FSType = source["FSType"];
+	    }
+	}
+	export class NFS {
+	    Path: string;
+	    Server: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new NFS(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Path = source["Path"];
+	        this.Server = source["Server"];
+	    }
 	}
 	export class NamespaceDto {
 	    Name: string;
@@ -331,8 +373,142 @@ export namespace model {
 		    return a;
 		}
 	}
-	export class PersistentVolumeDto {
+	export class VolumeClaimSpec {
+	    VolumeName: string;
+	    VolumeMode: string;
+	    AccessModes: string[];
+	    DataSourceName: string;
+	    StorageClass: string;
+	    VolumeAttributesClassName: string;
+	    Limit: Resource;
+	    Request: Resource;
 	
+	    static createFrom(source: any = {}) {
+	        return new VolumeClaimSpec(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.VolumeName = source["VolumeName"];
+	        this.VolumeMode = source["VolumeMode"];
+	        this.AccessModes = source["AccessModes"];
+	        this.DataSourceName = source["DataSourceName"];
+	        this.StorageClass = source["StorageClass"];
+	        this.VolumeAttributesClassName = source["VolumeAttributesClassName"];
+	        this.Limit = this.convertValues(source["Limit"], Resource);
+	        this.Request = this.convertValues(source["Request"], Resource);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class PersistentVolumeClaimDto {
+	    Name: string;
+	    Namespace: string;
+	    CreationTimestamp: string;
+	    Labels: Record<string, string>;
+	    VolumeClaimSpec: VolumeClaimSpec;
+	
+	    static createFrom(source: any = {}) {
+	        return new PersistentVolumeClaimDto(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Name = source["Name"];
+	        this.Namespace = source["Namespace"];
+	        this.CreationTimestamp = source["CreationTimestamp"];
+	        this.Labels = source["Labels"];
+	        this.VolumeClaimSpec = this.convertValues(source["VolumeClaimSpec"], VolumeClaimSpec);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class VolumeSpec {
+	    Local: Local;
+	    VolumeMode: string;
+	    AccessModes: string[];
+	    StorageClass: string;
+	    VolumeAttributesClassName: string;
+	    PersistentVolumeReclaimPolicy: string;
+	    MountOptions: string[];
+	    Capacity: Resource;
+	    Host: Host;
+	    NFS: NFS;
+	
+	    static createFrom(source: any = {}) {
+	        return new VolumeSpec(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Local = this.convertValues(source["Local"], Local);
+	        this.VolumeMode = source["VolumeMode"];
+	        this.AccessModes = source["AccessModes"];
+	        this.StorageClass = source["StorageClass"];
+	        this.VolumeAttributesClassName = source["VolumeAttributesClassName"];
+	        this.PersistentVolumeReclaimPolicy = source["PersistentVolumeReclaimPolicy"];
+	        this.MountOptions = source["MountOptions"];
+	        this.Capacity = this.convertValues(source["Capacity"], Resource);
+	        this.Host = this.convertValues(source["Host"], Host);
+	        this.NFS = this.convertValues(source["NFS"], NFS);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class PersistentVolumeDto {
+	    Name: string;
+	    Namespace: string;
+	    CreationTimestamp: string;
+	    Labels: Record<string, string>;
+	    VolumeSpec: VolumeSpec;
 	
 	    static createFrom(source: any = {}) {
 	        return new PersistentVolumeDto(source);
@@ -340,8 +516,30 @@ export namespace model {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	
+	        this.Name = source["Name"];
+	        this.Namespace = source["Namespace"];
+	        this.CreationTimestamp = source["CreationTimestamp"];
+	        this.Labels = source["Labels"];
+	        this.VolumeSpec = this.convertValues(source["VolumeSpec"], VolumeSpec);
 	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 	export class PodDto {
 	    Name: string;
@@ -407,6 +605,7 @@ export namespace model {
 	        this.Spec = source["Spec"];
 	    }
 	}
+	
 
 }
 

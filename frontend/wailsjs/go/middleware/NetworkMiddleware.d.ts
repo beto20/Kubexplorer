@@ -14,6 +14,8 @@ export function GetServiceByName(arg1:string,arg2:string):Promise<model.ServiceD
 
 export function GetServices(arg1:string):Promise<Array<model.ServiceDto>>;
 
+export function Troubleshoot(arg1:string,arg2:string):Promise<void>;
+
 export function UpdateIngressByName(arg1:string,arg2:string,arg3:model.IngressDto):Promise<void>;
 
 export function UpdateServiceByName(arg1:string,arg2:string,arg3:model.ServiceDto):Promise<void>;

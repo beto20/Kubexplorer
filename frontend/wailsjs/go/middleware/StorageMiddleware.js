@@ -6,14 +6,30 @@ export function DeletePersistentVolumeByName(arg1) {
   return window['go']['middleware']['StorageMiddleware']['DeletePersistentVolumeByName'](arg1);
 }
 
+export function DeletePersistentVolumeClaim(arg1, arg2) {
+  return window['go']['middleware']['StorageMiddleware']['DeletePersistentVolumeClaim'](arg1, arg2);
+}
+
 export function GetPersistentVolumeByName(arg1) {
   return window['go']['middleware']['StorageMiddleware']['GetPersistentVolumeByName'](arg1);
+}
+
+export function GetPersistentVolumeClaim(arg1, arg2) {
+  return window['go']['middleware']['StorageMiddleware']['GetPersistentVolumeClaim'](arg1, arg2);
 }
 
 export function GetPersistentVolumes() {
   return window['go']['middleware']['StorageMiddleware']['GetPersistentVolumes']();
 }
 
-export function UpdatePersistentVolumeByName(arg1) {
-  return window['go']['middleware']['StorageMiddleware']['UpdatePersistentVolumeByName'](arg1);
+export function GetPersistentVolumesClaim(arg1) {
+  return window['go']['middleware']['StorageMiddleware']['GetPersistentVolumesClaim'](arg1);
+}
+
+export function UpdatePersistentVolumeByName(arg1, arg2) {
+  return window['go']['middleware']['StorageMiddleware']['UpdatePersistentVolumeByName'](arg1, arg2);
+}
+
+export function UpdatePersistentVolumeClaim(arg1, arg2, arg3) {
+  return window['go']['middleware']['StorageMiddleware']['UpdatePersistentVolumeClaim'](arg1, arg2, arg3);
 }
