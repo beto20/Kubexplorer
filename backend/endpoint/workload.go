@@ -50,3 +50,11 @@ func (we *WorkloadEndpoint) DeleteDeployment(name string, namespace string) erro
 func (we *WorkloadEndpoint) ResourceTuning(namespace string) {
 	we.resourceUseCase.Invoke(namespace)
 }
+
+func (we *WorkloadEndpoint) TroubleshootPod(name string, namespace string) {
+	we.podUseCase.TroubleshootPod(name, namespace)
+}
+
+func (we *WorkloadEndpoint) TroubleshootDeployment(name string, namespace string) {
+	we.deploymentUseCase.TroubleshootDeployment(name, namespace)
+}

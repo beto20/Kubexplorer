@@ -37,8 +37,12 @@ type DeploymentClient interface {
 type StorageClient interface {
 	GetPersistentVolumes() ([]model.PersistentVolumeDto, error)
 	GetPersistentVolume(name string) (model.PersistentVolumeDto, error)
-	UpdatePersistentVolume(name string) error
+	UpdatePersistentVolume(name string, dto model.PersistentVolumeDto) error
 	DeletePersistentVolume(name string) error
+	GetPersistentVolumesClaim(namespace string) ([]model.PersistentVolumeClaimDto, error)
+	GetPersistentVolumeClaim(name string, namespace string) (model.PersistentVolumeClaimDto, error)
+	UpdatePersistentVolumeClaim(name string, namespace string, dto model.PersistentVolumeClaimDto) error
+	DeletePersistentVolumeClaim(name string, namespace string) error
 }
 
 type NamespaceClient interface {

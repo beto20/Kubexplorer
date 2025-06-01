@@ -24,12 +24,28 @@ func (s *StorageMiddleware) GetPersistentVolumeByName(name string) (model.Persis
 	return s.endpoint.GetPersistentVolumeByName(name)
 }
 
-func (s *StorageMiddleware) UpdatePersistentVolumeByName(name string) error {
-	return s.endpoint.UpdatePersistentVolumeByName(name)
+func (s *StorageMiddleware) UpdatePersistentVolumeByName(name string, dto model.PersistentVolumeDto) error {
+	return s.endpoint.UpdatePersistentVolumeByName(name, dto)
 }
 
 func (s *StorageMiddleware) DeletePersistentVolumeByName(name string) error {
 	return s.endpoint.DeletePersistentVolumeByName(name)
+}
+
+func (s *StorageMiddleware) GetPersistentVolumesClaim(namespace string) ([]model.PersistentVolumeClaimDto, error) {
+	return s.endpoint.GetPersistentVolumesClaim(namespace)
+}
+
+func (s *StorageMiddleware) GetPersistentVolumeClaim(name string, namespace string) (model.PersistentVolumeClaimDto, error) {
+	return s.endpoint.GetPersistentVolumeClaim(name, namespace)
+}
+
+func (s *StorageMiddleware) UpdatePersistentVolumeClaim(name string, namespace string, dto model.PersistentVolumeClaimDto) error {
+	return s.endpoint.UpdatePersistentVolumeClaim(name, namespace, dto)
+}
+
+func (s *StorageMiddleware) DeletePersistentVolumeClaim(name string, namespace string) error {
+	return s.endpoint.DeletePersistentVolumeClaim(name, namespace)
 }
 
 func BuildStorage(client kubernetes.Interface) *StorageMiddleware {

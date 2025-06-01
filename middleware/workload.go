@@ -4,6 +4,7 @@ import (
 	"Kubexplorer/backend/endpoint"
 	"Kubexplorer/backend/kubeclient"
 	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/service"
 	"Kubexplorer/backend/usecase"
 	"k8s.io/client-go/kubernetes"
 )
@@ -50,12 +51,21 @@ func (w *WorkloadMiddleware) DeleteDeployment(name string, namespace string) err
 	return w.endpoint.DeleteDeployment(name, namespace)
 }
 
+func (w *WorkloadMiddleware) TroubleshootPod(name string, namespace string) {
+	w.endpoint.TroubleshootPod(name, namespace)
+}
+
+func (w *WorkloadMiddleware) TroubleshootDeployment(name string, namespace string) {
+	w.endpoint.TroubleshootDeployment(name, namespace)
+}
+
 func BuildWorkload(client kubernetes.Interface) *WorkloadMiddleware {
 	deploymentClient := kubeclient.NewDeployment(client)
 	podClient := kubeclient.NewPod(client)
+	troubleshootingService := service.NewTroubleshooting(client)
 
-	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentClient)
-	podUseCase := usecase.NewPodUseCase(podClient)
+	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentClient, troubleshootingService)
+	podUseCase := usecase.NewPodUseCase(podClient, troubleshootingService)
 
 	workloadEndpoint := endpoint.NewWorkloadEndpoint(podUseCase, deploymentUseCase)
 

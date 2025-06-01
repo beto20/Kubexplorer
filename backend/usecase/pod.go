@@ -3,6 +3,7 @@ package usecase
 import (
 	"Kubexplorer/backend/kubeclient"
 	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/service"
 )
 
 type PodUseCase interface {
@@ -10,14 +11,16 @@ type PodUseCase interface {
 	GetPod(name string, namespace string) (model.PodDto, error)
 	UpdatePod(name string, namespace string, dto model.PodDto) error
 	RestartPod(name string, namespace string) error
+	TroubleshootPod(name string, namespace string)
 }
 
 type podUseCase struct {
-	client kubeclient.PodClient
+	client  kubeclient.PodClient
+	service service.Troubleshooting
 }
 
-func NewPodUseCase(client kubeclient.PodClient) PodUseCase {
-	return &podUseCase{client: client}
+func NewPodUseCase(client kubeclient.PodClient, service *service.Troubleshooting) PodUseCase {
+	return &podUseCase{client: client, service: *service}
 }
 
 func (p *podUseCase) GetPods() ([]model.PodDto, error) {
@@ -34,4 +37,8 @@ func (p *podUseCase) UpdatePod(name string, namespace string, dto model.PodDto) 
 
 func (p *podUseCase) RestartPod(name string, namespace string) error {
 	return p.client.DeletePod(name, namespace)
+}
+
+func (p *podUseCase) TroubleshootPod(name string, namespace string) {
+	p.service.Analyse(name, namespace, service.Pod)
 }
