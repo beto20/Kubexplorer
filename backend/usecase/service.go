@@ -3,7 +3,6 @@ package usecase
 import (
 	"Kubexplorer/backend/kubeclient"
 	"Kubexplorer/backend/model"
-	"Kubexplorer/backend/service"
 )
 
 type ServiceUseCase interface {
@@ -11,16 +10,14 @@ type ServiceUseCase interface {
 	GetService(name string, namespace string) (model.ServiceDto, error)
 	UpdateService(name string, namespace string, dto model.ServiceDto) error
 	DeleteService(name string, namespace string) error
-	TroubleshootService(name string, namespace string)
 }
 
 type serviceUseCase struct {
-	client  kubeclient.ServiceClient
-	service service.Troubleshooting
+	client kubeclient.ServiceClient
 }
 
-func NewServiceUseCase(client kubeclient.ServiceClient, service *service.Troubleshooting) ServiceUseCase {
-	return &serviceUseCase{client: client, service: *service}
+func NewServiceUseCase(client kubeclient.ServiceClient) ServiceUseCase {
+	return &serviceUseCase{client: client}
 }
 
 func (s *serviceUseCase) GetServices(namespace string) ([]model.ServiceDto, error) {
@@ -37,8 +34,4 @@ func (s *serviceUseCase) UpdateService(name string, namespace string, dto model.
 
 func (s *serviceUseCase) DeleteService(name string, namespace string) error {
 	return s.client.DeleteService(name, namespace)
-}
-
-func (s *serviceUseCase) TroubleshootService(name string, namespace string) {
-	s.service.Analyse(name, namespace, service.Service)
 }

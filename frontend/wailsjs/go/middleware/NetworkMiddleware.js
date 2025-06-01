@@ -26,10 +26,6 @@ export function GetServices(arg1) {
   return window['go']['middleware']['NetworkMiddleware']['GetServices'](arg1);
 }
 
-export function Troubleshoot(arg1, arg2) {
-  return window['go']['middleware']['NetworkMiddleware']['Troubleshoot'](arg1, arg2);
-}
-
 export function UpdateIngressByName(arg1, arg2, arg3) {
   return window['go']['middleware']['NetworkMiddleware']['UpdateIngressByName'](arg1, arg2, arg3);
 }

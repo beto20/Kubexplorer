@@ -4,7 +4,6 @@ import (
 	"Kubexplorer/backend/endpoint"
 	"Kubexplorer/backend/kubeclient"
 	"Kubexplorer/backend/model"
-	"Kubexplorer/backend/service"
 	"Kubexplorer/backend/usecase"
 	"k8s.io/client-go/kubernetes"
 )
@@ -49,16 +48,11 @@ func (n *NetworkMiddleware) DeleteIngressByName(name string, namespace string) e
 	return n.endpoint.DeleteIngressByName(name, namespace)
 }
 
-func (n *NetworkMiddleware) Troubleshoot(name string, namespace string) {
-	n.endpoint.Troubleshoot(name, namespace)
-}
-
 func BuildNetwork(client kubernetes.Interface) *NetworkMiddleware {
 	serviceClient := kubeclient.NewServiceClient(client)
 	ingressClient := kubeclient.NewIngressClient(client)
-	troubleshootingService := service.NewTroubleshooting(client)
 
-	serviceUseCase := usecase.NewServiceUseCase(serviceClient, troubleshootingService)
+	serviceUseCase := usecase.NewServiceUseCase(serviceClient)
 	ingressUseCase := usecase.NewIngressUseCase(ingressClient)
 
 	networkEndpoint := endpoint.NewNetworkEndpoint(serviceUseCase, ingressUseCase)

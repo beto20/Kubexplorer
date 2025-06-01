@@ -45,7 +45,3 @@ func (ne *NetworkEndpoint) UpdateIngressByName(name string, namespace string, dt
 func (ne *NetworkEndpoint) DeleteIngressByName(name string, namespace string) error {
 	return ne.ingressUseCase.DeleteIngress(name, namespace)
 }
-
-func (ne *NetworkEndpoint) Troubleshoot(name string, namespace string) {
-	ne.serviceUseCase.TroubleshootService(name, namespace)
-}

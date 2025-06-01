@@ -62,10 +62,10 @@ func (w *WorkloadMiddleware) TroubleshootDeployment(name string, namespace strin
 func BuildWorkload(client kubernetes.Interface) *WorkloadMiddleware {
 	deploymentClient := kubeclient.NewDeployment(client)
 	podClient := kubeclient.NewPod(client)
-	troubleshootingService := service.NewTroubleshooting(client)
+	diagnosticService := service.NewDiagnosticService(client)
 
-	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentClient, troubleshootingService)
-	podUseCase := usecase.NewPodUseCase(podClient, troubleshootingService)
+	deploymentUseCase := usecase.NewDeploymentUseCase(deploymentClient, diagnosticService)
+	podUseCase := usecase.NewPodUseCase(podClient, diagnosticService)
 
 	workloadEndpoint := endpoint.NewWorkloadEndpoint(podUseCase, deploymentUseCase)
 

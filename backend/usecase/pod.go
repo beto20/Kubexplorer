@@ -16,10 +16,10 @@ type PodUseCase interface {
 
 type podUseCase struct {
 	client  kubeclient.PodClient
-	service service.Troubleshooting
+	service service.Diagnostic
 }
 
-func NewPodUseCase(client kubeclient.PodClient, service *service.Troubleshooting) PodUseCase {
+func NewPodUseCase(client kubeclient.PodClient, service *service.Diagnostic) PodUseCase {
 	return &podUseCase{client: client, service: *service}
 }
 

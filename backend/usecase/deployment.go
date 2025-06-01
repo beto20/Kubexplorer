@@ -16,10 +16,10 @@ type DeploymentUseCase interface {
 
 type deploymentUseCase struct {
 	client  kubeclient.DeploymentClient
-	service service.Troubleshooting
+	service service.Diagnostic
 }
 
-func NewDeploymentUseCase(client kubeclient.DeploymentClient, service *service.Troubleshooting) DeploymentUseCase {
+func NewDeploymentUseCase(client kubeclient.DeploymentClient, service *service.Diagnostic) DeploymentUseCase {
 	return &deploymentUseCase{client: client, service: *service}
 }
 
