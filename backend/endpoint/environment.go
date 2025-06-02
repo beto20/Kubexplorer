@@ -23,3 +23,7 @@ func (ee *EnvironmentEndpoint) GetAllEnvironment() ([]model.EnvironmentDto, erro
 	fmt.Print("ENV NAME: ", x[2].Name)
 	return ee.useCase.GetAllEnvironment()
 }
+
+func (ee *EnvironmentEndpoint) GetObjectsView() (model.ObjectMapDto, error) {
+	return ee.useCase.GetObjectsView()
+}

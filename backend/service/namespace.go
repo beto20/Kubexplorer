@@ -15,11 +15,11 @@ type NamespaceService interface {
 }
 
 type namespaceService struct {
-	dynamicClient dynamic.Interface
+	client dynamic.Interface
 }
 
-func NewNamespaceService(dynamicClient dynamic.Interface) NamespaceService {
-	return &namespaceService{dynamicClient: dynamicClient}
+func NewNamespaceService(client dynamic.Interface) NamespaceService {
+	return &namespaceService{client: client}
 }
 
 func (ns *namespaceService) ExportObjects(namespace string, directory string) error {
@@ -33,7 +33,7 @@ func (ns *namespaceService) ExportObjects(namespace string, directory string) er
 	}
 
 	for _, r := range resourceTypes {
-		resList, _ := ns.dynamicClient.Resource(r).Namespace(namespace).List(context.TODO(), metav1.ListOptions{})
+		resList, _ := ns.client.Resource(r).Namespace(namespace).List(context.TODO(), metav1.ListOptions{})
 		for _, item := range resList.Items {
 			yamlBytes, _ := yaml.Marshal(item.Object)
 			filePath := fmt.Sprintf("snapshots/%s/%s-%s.yaml", namespace, r.Resource, item.GetName())

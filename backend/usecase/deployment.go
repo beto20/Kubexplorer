@@ -16,11 +16,11 @@ type DeploymentUseCase interface {
 
 type deploymentUseCase struct {
 	client  kubeclient.DeploymentClient
-	service service.Diagnostic
+	service service.DiagnosticService
 }
 
-func NewDeploymentUseCase(client kubeclient.DeploymentClient, service *service.Diagnostic) DeploymentUseCase {
-	return &deploymentUseCase{client: client, service: *service}
+func NewDeploymentUseCase(client kubeclient.DeploymentClient, service service.DiagnosticService) DeploymentUseCase {
+	return &deploymentUseCase{client: client, service: service}
 }
 
 func (d *deploymentUseCase) GetDeployments() ([]model.DeploymentDto, error) {

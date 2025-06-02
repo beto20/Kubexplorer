@@ -46,15 +46,19 @@ const (
 	BackoffLimitExceeded WellKnownJobError = "BackoffLimitExceeded"
 )
 
-type Diagnostic struct {
+type DiagnosticService interface {
+	Analyse(name string, namespace string, object SourceObject)
+}
+
+type diagnosticService struct {
 	client kubernetes.Interface
 }
 
-func NewDiagnosticService(client kubernetes.Interface) *Diagnostic {
-	return &Diagnostic{client: client}
+func NewDiagnosticService(client kubernetes.Interface) DiagnosticService {
+	return &diagnosticService{client: client}
 }
 
-func (d *Diagnostic) Analyse(name string, namespace string, object SourceObject) {
+func (d *diagnosticService) Analyse(name string, namespace string, object SourceObject) {
 
 	switch object {
 	case Pod:
