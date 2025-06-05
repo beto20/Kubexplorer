@@ -10,22 +10,45 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
+  set-up:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.24'        
+        go-version: '1.24'
+    - name: Set up VueJs
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.13.0'
 
+  dependency-go:
+    needs: set-up
+    steps:
     - name: Download Dependencies
       run: go mod download
 
     - name: Verify Dependencies
       run: go mod verify
 
-    - name: Test
-      run: go test ./... -v
+  dependency-npm:
+    needs: set-up
+    steps:
+    - name: Download Dependencies
+      run: npm install
+
+  testing:
+    needs: [dependency-go, dependency-npm]
+    steps:
+      - name: Vue Test
+        run: cd frontend | npm run test:unit
+
+      - name: Go Test
+        run: go test ./... -v
+

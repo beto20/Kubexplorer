@@ -11,3 +11,4 @@ backend/backend
 frontend/tsconfig.tsbuildinfo
 frontend/test-results/*
 frontend/playwright-report/*
+Kubexplorer
