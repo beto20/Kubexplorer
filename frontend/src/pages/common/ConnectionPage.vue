@@ -1,15 +1,12 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: "ConnectionPage"
+  name: 'ConnectionPage',
 })
 </script>
 <template>
-    <h2>Connection page</h2>
-
+  <h2>Connection page</h2>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

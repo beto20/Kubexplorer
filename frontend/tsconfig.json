@@ -10,6 +10,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "composite": true,
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
     "lib": [
       "ESNext",
       "DOM"
@@ -25,6 +29,12 @@
   "references": [
     {
       "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
     }
   ]
 }

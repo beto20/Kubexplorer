@@ -1,16 +1,14 @@
 <script lang="ts">
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: "NamespacePage"
+  name: 'NamespacePage',
 })
-console.log("EVENTS PAGE")
+console.log('EVENTS PAGE')
 </script>
 
 <template>
-    <h2>EVENTS PAGE</h2>
+  <h2>EVENTS PAGE</h2>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
