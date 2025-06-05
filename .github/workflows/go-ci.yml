@@ -30,6 +30,7 @@ jobs:
 
   dependency-go:
     needs: set-up
+    runs-on: ubuntu-latest
     steps:
     - name: Download Dependencies
       run: go mod download
@@ -39,12 +40,14 @@ jobs:
 
   dependency-npm:
     needs: set-up
+    runs-on: ubuntu-latest
     steps:
     - name: Download Dependencies
       run: npm install
 
   testing:
     needs: [dependency-go, dependency-npm]
+    runs-on: ubuntu-latest
     steps:
       - name: Vue Test
         run: cd frontend | npm run test:unit
