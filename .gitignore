@@ -7,3 +7,5 @@ frontend/package-lock.json
 .idea/*
 .idea
 .env
+backend/backend
+
