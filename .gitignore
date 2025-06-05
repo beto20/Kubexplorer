@@ -8,4 +8,6 @@ frontend/package-lock.json
 .idea
 .env
 backend/backend
-
+frontend/tsconfig.tsbuildinfo
+frontend/test-results/*
+frontend/playwright-report/*
