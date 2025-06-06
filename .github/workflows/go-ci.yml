@@ -66,6 +66,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set directory
         run: cd frontend
 
       - name: Set up VueJs
@@ -76,7 +78,7 @@ jobs:
 
       - name: Install NPM dependencies
 #        working-directory: frontend
-        run: ls -la | npm install
+        run: npm install
 
       - name: Execute unit tests
 #        working-directory: frontend
