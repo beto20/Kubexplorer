@@ -73,7 +73,7 @@ jobs:
 
       - name: Install NPM dependencies
         working-directory: frontend
-        run: npm install
+        run: ls -la | npm install
 
       - name: Execute unit tests
         working-directory: frontend
