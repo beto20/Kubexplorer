@@ -66,6 +66,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up VueJs
+        working-directory: frontend
         uses: actions/setup-node@v3
         with:
           node-version: '18.13.0'
