@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest run --environment jsdom",
     "test:e2e": "playwright test",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
