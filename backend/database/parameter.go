@@ -1,20 +1,15 @@
 package database
 
-import (
-	"database/sql"
-	"fmt"
-	"log"
-	"strconv"
-)
+import "strconv"
 
 type parameter struct {
-	name    string
+	Name    string
 	objects []object
 }
 
 type object struct {
-	name         string
-	descripction string
+	Name        string
+	description string
 }
 
 func (p *parameter) get() []parameter {
@@ -25,13 +20,13 @@ func (p *parameter) get() []parameter {
 
 		for j := 0; j < 3; j++ {
 			o := object{
-				name:         "test" + strconv.Itoa(i),
-				descripction: "description" + strconv.Itoa(i),
+				Name:        "test" + strconv.Itoa(i),
+				description: "description" + strconv.Itoa(i),
 			}
 			objs = append(objs, o)
 		}
 		pa := parameter{
-			name:    "name test" + strconv.Itoa(i),
+			Name:    "Name test" + strconv.Itoa(i),
 			objects: objs,
 		}
 		params = append(params, pa)
@@ -39,40 +34,157 @@ func (p *parameter) get() []parameter {
 
 	return params
 }
-func SqlExe(db *sql.DB) {
-	query := `SELECT id, name, age FROM users`
-	rows, err := db.Query(query)
-	if err != nil {
-		log.Fatalf("Could not query data: %v", err)
-	}
-	defer rows.Close()
 
-	fmt.Println("Users:")
-	for rows.Next() {
-		var id int
-		var name string
-		var age int
-		if err := rows.Scan(&id, &name, &age); err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("ID: %d, Name: %s, Age: %d\n", id, name, age)
+type IParameterEntity interface {
+	GetKubernetesParameters() []CommonParameterDto
+	GetCommonParameters() []CommonParameterDto
+	GetK8sObjects() []ObjectType
+}
+
+type parameterImpl struct{}
+
+func NewParameterEntity() IParameterEntity {
+	return &parameterImpl{}
+}
+
+type CommonParameterDto struct {
+	Name string
+	Link string
+	Icon string
+}
+
+type ObjectType struct {
+	Name       string
+	IsVisible  bool
+	IsEditable bool
+	K8sObject  []K8sObject
+}
+
+type K8sObject struct {
+	Name       string
+	Link       string
+	IsVisible  bool
+	IsEditable bool
+}
+
+type HeadParamsDto struct {
+	Title    string
+	Key      string
+	Align    string
+	Sortable bool
+}
+
+func (p *parameterImpl) GetKubernetesParameters() []CommonParameterDto {
+	return []CommonParameterDto{
+		{Name: "Overview", Link: "overview", Icon: "📊"},
+		{Name: "General", Link: "general", Icon: "📊"},
+		{Name: "Workload", Link: "workload", Icon: "📊"},
+		{Name: "Network", Link: "network", Icon: "📊"},
+		{Name: "Storage", Link: "storage", Icon: "📊"},
 	}
 }
 
-// TODO: build first param table with data
-func setParams(db sql.DB) {
-	createTable := `
-	CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		name TEXT,
-		age INTEGER
-	);`
-	if _, err := db.Exec(createTable); err != nil {
-		log.Fatalf("Could not create table: %v", err)
+func (p *parameterImpl) GetCommonParameters() []CommonParameterDto {
+	return []CommonParameterDto{
+		{
+			Name: "Connections",
+			Link: "connections",
+			Icon: "⚙️",
+		},
+		{
+			Name: "Settings",
+			Link: "settings",
+			Icon: "⚙️",
+		},
+		{
+			Name: "Documentation",
+			Link: "documentation",
+			Icon: "⚙️",
+		},
 	}
+}
 
-	insertUser := `INSERT INTO users (name, age) VALUES (?, ?)`
-	if _, err := db.Exec(insertUser, "Alice", 30); err != nil {
-		log.Fatalf("Could not insert data: %v", err)
+func (p *parameterImpl) GetK8sObjects() []ObjectType {
+	return []ObjectType{
+		{
+			Name:       "Overview",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject:  []K8sObject{},
+		},
+		{
+			Name:       "General",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Node",
+					Link:       "node",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Namespace",
+					Link:       "namespace",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Event",
+					Link:       "event",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{
+			Name:       "Workload",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Pod",
+					Link:       "pod",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Deployment",
+					Link:       "deployment",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{Name: "Network",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "Ingress",
+					Link:       "ingress",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+				{
+					Name:       "Service",
+					Link:       "service",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
+		{Name: "Storage",
+			IsEditable: true,
+			IsVisible:  true,
+			K8sObject: []K8sObject{
+				{
+					Name:       "PersistentVolume",
+					Link:       "persistentVolumes",
+					IsEditable: true,
+					IsVisible:  true,
+				},
+			},
+		},
 	}
 }

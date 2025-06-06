@@ -1,0 +1,81 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: CI-CD
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      go-cache-key: ${{ steps.go-cache.outputs.cache-key }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Go modules
+        id: go-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+  test-backend:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.24'
+
+      - name: Restore Go modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Verify dependencies
+        run: go mod verify
+
+      - name: Execute unit tests
+        run: |
+          go test ./backend/... -v
+          go test ./middleware/... -v
+
+  test-frontend:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up VueJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.13.0'
+          cache: 'npm'
+          cache-dependency-path: frontend/package.json
+
+      - name: Install NPM dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Execute unit tests
+        working-directory: frontend
+        run: npm run test:unit

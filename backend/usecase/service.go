@@ -1,31 +1,37 @@
 package usecase
 
-import "Kubessistant/backend/objects"
+import (
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/backend/model"
+)
 
-type IServiceUseCase interface {
-	GetAll(namespace string)
-	GetDetailsById()
-	DeleteOneById()
-	EditOneById()
+type ServiceUseCase interface {
+	GetServices(namespace string) ([]model.ServiceDto, error)
+	GetService(name string, namespace string) (model.ServiceDto, error)
+	UpdateService(name string, namespace string, dto model.ServiceDto) error
+	DeleteService(name string, namespace string) error
 }
 
-type serviceImpl struct {
-	object objects.IServiceObject
+type serviceUseCase struct {
+	client kubeclient.ServiceClient
 }
 
-func NewServiceUseCase(object objects.IServiceObject) IServiceUseCase {
-	return &serviceImpl{object: object}
+func NewServiceUseCase(client kubeclient.ServiceClient) ServiceUseCase {
+	return &serviceUseCase{client: client}
 }
 
-func (s *serviceImpl) GetAll(namespace string) {
-	s.object.GetServicesMock(namespace)
+func (s *serviceUseCase) GetServices(namespace string) ([]model.ServiceDto, error) {
+	return s.client.GetServices(namespace)
 }
 
-func (s *serviceImpl) GetDetailsById() {
+func (s *serviceUseCase) GetService(name string, namespace string) (model.ServiceDto, error) {
+	return s.client.GetService(name, namespace)
 }
 
-func (s *serviceImpl) DeleteOneById() {
+func (s *serviceUseCase) UpdateService(name string, namespace string, dto model.ServiceDto) error {
+	return s.client.UpdateService(name, namespace, dto)
 }
 
-func (s *serviceImpl) EditOneById() {
+func (s *serviceUseCase) DeleteService(name string, namespace string) error {
+	return s.client.DeleteService(name, namespace)
 }

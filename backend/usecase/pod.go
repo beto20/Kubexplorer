@@ -1,34 +1,44 @@
 package usecase
 
 import (
-	"Kubessistant/backend/objects"
+	"Kubexplorer/backend/kubeclient"
+	"Kubexplorer/backend/model"
+	"Kubexplorer/backend/service"
 )
 
-type IPodUseCase interface {
-	GetAllPods(namespace string) []objects.PodDto
+type PodUseCase interface {
+	GetPods() ([]model.PodDto, error)
+	GetPod(name string, namespace string) (model.PodDto, error)
+	UpdatePod(name string, namespace string, dto model.PodDto) error
+	RestartPod(name string, namespace string) error
+	TroubleshootPod(name string, namespace string)
 }
 
-type podImpl struct {
-	object objects.IPodObject
+type podUseCase struct {
+	client  kubeclient.PodClient
+	service service.DiagnosticService
 }
 
-func NewPodUseCase(object objects.IPodObject) IPodUseCase {
-	return &podImpl{object: object}
+func NewPodUseCase(client kubeclient.PodClient, service service.DiagnosticService) PodUseCase {
+	return &podUseCase{client: client, service: service}
 }
 
-func (p *podImpl) GetAllPods(namespace string) []objects.PodDto {
-	return p.object.GetPodsMock(namespace)
+func (p *podUseCase) GetPods() ([]model.PodDto, error) {
+	return p.client.GetPods()
 }
 
-//func (p *pod) GetAll() []objects.Pod {
-//	return objects.GetPods("assi")
-//}
-
-func (p *podImpl) GetDetailsById() {
+func (p *podUseCase) GetPod(name string, namespace string) (model.PodDto, error) {
+	return p.client.GetPod(name, namespace)
 }
 
-func (p *podImpl) DeleteOneById() {
+func (p *podUseCase) UpdatePod(name string, namespace string, dto model.PodDto) error {
+	return p.client.UpdatePod(name, namespace, dto)
 }
 
-func (p *podImpl) EditOneById() {
+func (p *podUseCase) RestartPod(name string, namespace string) error {
+	return p.client.DeletePod(name, namespace)
+}
+
+func (p *podUseCase) TroubleshootPod(name string, namespace string) {
+	p.service.Analyse(name, namespace, service.Pod)
 }
