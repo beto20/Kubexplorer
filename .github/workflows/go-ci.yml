@@ -67,21 +67,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set directory
-        run: cd frontend
-
       - name: Set up VueJs
         uses: actions/setup-node@v3
         with:
           node-version: '18.13.0'
           cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install NPM dependencies
-#        working-directory: frontend
+        working-directory: frontend
         run: npm install
 
       - name: Execute unit tests
-#        working-directory: frontend
+        working-directory: frontend
         run: npm run test:unit
 
   deploy:
