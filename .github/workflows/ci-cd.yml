@@ -82,9 +82,21 @@ jobs:
 
   deploy:
     needs: [test-backend, test-frontend]
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build: [
+          {name: Kubexplorer, platform: linux/amd64, os: ubuntu-latest},
+          {name: Kubexplorer, platform: windows/amd64, os: windows-latest}
+#          {name: Kubexplorer, platform: darwin/universal, os: macos-latest}
+        ]
+    runs-on: ${{ matrix.build.os }}
     steps:
-      - name: Wails Build
-        run: echo build...
-      - name: Deploy S3
-        run: echo deploy...
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: dAppServer/wails-build-action@v3
+        with:
+          build-name: ${{ matrix.build.name }}
+          build-platform: ${{ matrix.build.platform }}
+          build-obfuscate: true
